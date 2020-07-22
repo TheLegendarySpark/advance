@@ -36,7 +36,7 @@ local BannedPlayers = {
 	{User = 'NotJevil', Id = 1028704404};{User = 'SuperJaelen123', Id = 220155371};{User = "UDT_Ghost", Id = 157262045},{User = "qjbnbalivemobile", Id = 349438770},{User = "Liam857595", Id = 366945951},
 	{User = "jordan678492", Id = 876214709},{User = "gaiuscat_00", Id = 986482956},{User = 'onett294', Id = 1154330585},{User = 'Xandra090', Id = 305503684},{User = 'JakeTheMan0126', Id = 721909796};
 	{User = "Loganisonfire2", Id = 655685283};{User = "Trogdorrrr", Id = 127278665},{User = 'cheesymichael', Id = 123376835},{User = 'AriTheeAri', Id = 1397442680},{User = 'juniordj2013', Id = 1093187242};
-	{User = 'DDA527', Id = 1286257258};{User = 'knightbeastyy', Id = 670683251},{User = 'purpleshepkill', Id = 187904315}
+	{User = 'DDA527', Id = 1286257258};{User = 'knightbeastyy', Id = 670683251},{User = 'purpleshepkill', Id = 187904315},{User = "Mad_Asriel", Id = 317816948, Reason = "Associate Icy reported you for suspicious activity. If you wish to be authorized in our highly-secure system, please contact Mr. Triz."}
 }
 
 local BannedAccessories = {
@@ -765,8 +765,16 @@ end
 local function RemoveUser(name)
 	local user = game:GetService'Players'[name] if not user then return end
 
+	local contactinfo = {}
+	for i,v in next, BannedPlayers do
+		if v.Name == name or v.UserId == user.UserId then
+			contactinfo = v
+			break
+		end
+	end
+	
 	addvlog("User "..(user and user.Name or '<UNKNOWN>')..' is unauthorized. User have been removed.')
-	user:Kick("[Error]\n The server you're trying to join is a highly restricted area. Please find a new server.")
+	user:Kick(contactinfo.Reason or "[Error]\n The server you're trying to join is a highly restricted area. Please find a new server.")
 	
 --	if user and (user:FindFirstChildOfClass("PlayerGui") or user:WaitForChild("PlayerGui", 120)) then
 --		local gui = user:FindFirstChildOfClass("PlayerGui")
