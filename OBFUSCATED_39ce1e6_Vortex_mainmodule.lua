@@ -45,8 +45,13 @@ local BannedAccessories = {
 
 local ApKeys = {
 	["Tehreal-9880"] = {
-		Name = "Teahrealijah",
+		Name = "Tehrealijah";
 		UserId = 988074622;
+	};
+	
+	["Test"] = {
+		Name = "Trizxistan";
+		UserId = 327713710;
 	};
 }
 
@@ -1023,6 +1028,9 @@ function module:AP()
 			count = count + 1
 			
 			if game.Players:FindFirstChild(userApproval) and debound ~= true then
+				warn("Activating Vortex Temp-Pro")
+				debounce = true
+				moduleReq = "TempPro"
 				Activate(false, false)
 				return
 			end
@@ -1100,9 +1108,10 @@ function module:Req(key)
 	for i,v in pairs(game.Players:GetPlayers()) do
 		for d,e in pairs(ApKeys) do
 			if key == d then
-				if v.Name:find(e.Name) or v.UserId == e.UserId then
+				if (e.Name and v.Name:find(e.Name)) or (e.UserId and v.UserId == e.UserId) then
 					local didRequest = false
 					local function waitingForMessage()
+						warn("Waiting for message")
 						local chatev; chatev = v.Chatted:Connect(function(msg)
 								if msg:lower() == "!vortex-accept" then
 									didRequest = true
@@ -1115,8 +1124,10 @@ function module:Req(key)
 						repeat game:GetService'RunService'.Heartbeat:Wait() until (st-tick()) > 60 or didRequest == true
 						
 						if didRequest == false then
+							warn("Message received")
 							return false
 						else
+							warn("Message failed to receive")
 							return true
 						end
 					end
