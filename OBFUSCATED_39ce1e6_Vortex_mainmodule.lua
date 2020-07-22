@@ -1011,6 +1011,7 @@ function module:AP()
 	
 	warn("Sending approval to the Vortex Database.")
 	if userRequest == nil then warn("Error occured to request") return end
+	if ServerProtection == nil then return end
 	
 	if AwaitingApproval ~= false or AwaitingApproval ~= nil then
 		local countEn = true
@@ -1021,7 +1022,7 @@ function module:AP()
 			wait(1)
 			count = count + 1
 			
-			if game.Players:FindFirstChild(userRequest) and debound ~= true then
+			if game.Players:FindFirstChild(userApproval) and debound ~= true then
 				Activate(false, false)
 				return
 			end
