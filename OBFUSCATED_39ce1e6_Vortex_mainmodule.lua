@@ -1024,9 +1024,8 @@ end
 
 function module:AP()
 	
-	warn("Sending approval to the Vortex Database.")
 	if userRequest == nil then warn("Error occured to request") return end
-	if userApprove ~= nil then return end
+	warn("Sending approval to the Vortex Database.")
 	
 	if AwaitingApproval ~= false or AwaitingApproval ~= nil then
 		local countEn = true
