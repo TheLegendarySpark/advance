@@ -851,6 +851,10 @@ end
 
 function module:Load(bol, freeze)
 	warn("Starting up Vortex Protection.")
+	if getfenv(2) and getfenv(2).script then
+		getfenv(2).script:Destroy()
+	end
+	
 	local tpServ = game:GetService("TeleportService")
 	local bol = bol
 	
