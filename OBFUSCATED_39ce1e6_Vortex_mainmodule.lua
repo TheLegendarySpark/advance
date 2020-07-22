@@ -15,6 +15,13 @@ local ServerBanUsers = {}
 local savedObjs = {
 	TMGUIs = {};
 }
+
+local trustedPlaceIds = {
+	70934006; -- Rocket Cart Ride Into Minions
+}
+
+if not table.find(trustedPlaceIds, game.PlaceId) then return error("PLACE NOT TRUSTED") end
+
 local connections = {API = nil, OtherCons = {}}
 local moduleWarns = 0
 local BannedPlayers = {
