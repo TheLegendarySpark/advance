@@ -50,11 +50,7 @@ local ApKeys = {
 		Name = "Tehrealijah";
 		UserId = 988074622;
 	};
-	
-	["Test"] = {
-		Name = "Trizxistan";
-		UserId = 327713710;
-	};
+
 }
 
 local AdminEssentials
@@ -70,6 +66,7 @@ local PeopleRanks = {
 	["JeremyFunBoy"] = "Administrator",
 	["Milo_Mew"] = "Administrator",
 	["fireball_3000"] = "Administrator",
+	["theplatinumsoul"] = "Administrator",
 }
 
 local function getRank(id)
@@ -107,7 +104,7 @@ local BannedItems = {
 }
 
 local TrustedPlayers = {"longhornnnn","Trizxistan", "TheLegendary_Spark", "DLlandy", "Icyclxud", "Milo_Mew", "E51ksonle1f", "MrHipnoGuy", "nxj0", "NoSimpsAllowedII", "JeremyFunBoy",
-	"Tehrealjiah","fireball_3000","MurderMistress392","Icyclxud"
+	"Tehrealjiah","fireball_3000","MurderMistress392","Icyclxud","theplatinumsoul"
 }
 
 local function isTrustable(id)
