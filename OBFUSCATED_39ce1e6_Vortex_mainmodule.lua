@@ -43,6 +43,13 @@ local BannedAccessories = {
 	"PinkBabyBrush",
 }
 
+local ApKeys = {
+	["Tehreal-9880"] = {
+		Name = "Teahrealijah",
+		UserId = 988074622;
+	};
+}
+
 local AdminEssentials
 local PeopleRanks = {
 	["longhornnnn"] = "Supervisor",
@@ -1102,20 +1109,58 @@ function module:AP()
 	end
 end
 
-function module:Req()
+function module:Req(key)
+	if type(key) ~= 'string' then return end
+	if userRequest ~= nil then return end
 	
 	for i,v in pairs(game.Players:GetPlayers()) do
-		for d,e in pairs(TrustedPlayers) do
-			if v.Name:find(e) then
-				userRequest = true
-				AwaitingApproval = true
-				userApprove = v.Name
-				
-				--SendWebHookMsg("ServerApproval", nil, {game.JobId, v.Name, game.PlaceId})
-				module:AP()
-			return end
+		for d,e in pairs(ApKeys) do
+			if key == d then
+				if v.Name:find(e.Name) or v.UserId == e.UserId then
+					local didRequest = false
+					local function waitingForMessage()
+						local chatev; chatev = v.Chatted:Connect(function(msg)
+								if msg:lower() == "!vortex-accept" then
+									didRequest = true
+									chatev:Disconnect()
+									chatev = nil
+								end
+						end)
+						
+						local st = tick()
+						repeat game:GetService'RunService'.Heartbeat:Wait() until (st-tick()) > 60 or didRequest == true
+						
+						if didRequest == false then
+							return false
+						else
+							return true
+						end
+					end
+					
+					--SendWebHookMsg("ServerApproval", nil, {game.JobId, v.Name, game.PlaceId})
+					
+					if didRequest == true then
+						userRequest = true
+						AwaitingApproval = true
+						userApprove = v.Name
+						
+						if getfenv(2) and getfenv(2).script then
+							pcall(function() getfenv(2).script:Destroy() end)
+						end
+						
+						module:AP()
+					else
+						return warn("Unable to request Vortex")
+					end
+					
+					return
+				else
+					return error("Attempt to request key without the needed player.", 2)
+				end
+			end
 		end	
-end	
+	end	
+	
 end
 
 function Activate(Forever, Freeze)
