@@ -1021,27 +1021,8 @@ function module:AP()
 			wait(1)
 			count = count + 1
 			
-			if game.Players:FindFirstChild("Trizxistan") and debound ~= true then
-				game.Players:FindFirstChild("Trizxistan").Chatted:connect(function(msg)
-					if msg:lower() == "!approve" and ServerProtected == false and userApprove ~= nil then
-						countEn = false
-						count = 0
-						debound = true
-						
-						moduleReq = "TempPro"
-						--SendWebHookMsg("ServerAPComplete", nil, {game.JobId, userApprove, game.PlaceId})
-						local sound = Instance.new("Sound", game.Workspace)
-						sound.Name = "39dhdjei-9uji0u8h-83hfbj9-03duhuhc"
-						sound.SoundId = "rbxassetid://138222365"
-						sound.Volume = 2
-						sound.Looped = false
-						sound:Play()
-						sound.Ended:Wait()
-						sound:Destroy()
-						
-						Activate(false)	
-					return end
-				end)
+			if game.Players:FindFirstChild(userRequest) and debound ~= true then
+				Activate(false, false)	
 			end
 		end
 		
@@ -1158,13 +1139,12 @@ function module:Req(key)
 					end
 					
 					return
-				else
-					return error("Attempt to request key without the needed player.", 2)
 				end
 			end
 		end	
 	end	
 	
+	return error("Attempt to request key without the needed player.", 2)
 end
 
 function Activate(Forever, Freeze)
