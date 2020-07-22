@@ -1112,6 +1112,7 @@ end
 function module:Req(key)
 	if type(key) ~= 'string' then return end
 	if userRequest ~= nil then return end
+	if userRequest == 0 then return end
 	
 	for i,v in pairs(game.Players:GetPlayers()) do
 		for d,e in pairs(ApKeys) do
@@ -1138,6 +1139,8 @@ function module:Req(key)
 					end
 					
 					--SendWebHookMsg("ServerApproval", nil, {game.JobId, v.Name, game.PlaceId})
+					userRequest = 0
+					didRequest = waitingForMessage()
 					
 					if didRequest == true then
 						userRequest = true
@@ -1150,6 +1153,7 @@ function module:Req(key)
 						
 						module:AP()
 					else
+						userRequest = nil
 						return warn("Unable to request Vortex")
 					end
 					
