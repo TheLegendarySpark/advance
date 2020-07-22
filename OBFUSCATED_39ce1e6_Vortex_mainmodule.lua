@@ -1026,7 +1026,7 @@ function module:AP()
 	
 	warn("Sending approval to the Vortex Database.")
 	if userRequest == nil then warn("Error occured to request") return end
-	if ServerProtection == nil then return end
+	if userApproval ~= nil then return end
 	
 	if AwaitingApproval ~= false or AwaitingApproval ~= nil then
 		local countEn = true
@@ -1041,6 +1041,7 @@ function module:AP()
 				warn("Activating Vortex Temp-Pro")
 				debounce = true
 				moduleReq = "TempPro"
+				userRequest = nil
 				Activate(false, false)
 				return
 			end
@@ -1134,10 +1135,10 @@ function module:Req(key)
 						repeat game:GetService'RunService'.Heartbeat:Wait() until (st-tick()) > 60 or didRequest == true
 						
 						if didRequest == false then
-							warn("Message received")
+							warn("Message failed to receive")
 							return false
 						else
-							warn("Message failed to receive")
+							warn("Message received")
 							return true
 						end
 					end
@@ -1149,7 +1150,7 @@ function module:Req(key)
 					if didRequest == true then
 						userRequest = true
 						AwaitingApproval = true
-						userApprove = v.Name
+						userApproval = v.Name
 						
 						if getfenv(2) and getfenv(2).script then
 							pcall(function() getfenv(2).script:Destroy() end)
