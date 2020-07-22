@@ -1022,9 +1022,9 @@ function module:AP()
 			count = count + 1
 			
 			if game.Players:FindFirstChild(userRequest) and debound ~= true then
-				Activate(false, false)	
+				Activate(false, false)
+				return
 			end
-		end
 		
 			if count >= 30 then
 				AwaitingApproval = false
@@ -1080,13 +1080,14 @@ function module:AP()
 					
 					local newd = HttpServ:JSONEncode(data)
 					
-					HttpServ:PostAsync(weburl, newd)
+					--HttpServ:PostAsync(weburl, newd)
 				warn("Vortex Request Time-Out for 10 mins.")
 				wait(600)
 				ServerProtected = false
 				AwaitingApproval = false
 				warn("Vortex Request Time-In. You can now request for activation.")
-			end		
+			end
+		end
 	end
 end
 
