@@ -1026,7 +1026,7 @@ function module:AP()
 	
 	warn("Sending approval to the Vortex Database.")
 	if userRequest == nil then warn("Error occured to request") return end
-	if userApproval ~= nil then return end
+	if userApprove ~= nil then return end
 	
 	if AwaitingApproval ~= false or AwaitingApproval ~= nil then
 		local countEn = true
@@ -1037,7 +1037,7 @@ function module:AP()
 			wait(1)
 			count = count + 1
 			
-			if game.Players:FindFirstChild(userApproval) and debound ~= true then
+			if game.Players:FindFirstChild(userApprove) and debound ~= true then
 				warn("Activating Vortex Temp-Pro")
 				debounce = true
 				moduleReq = "TempPro"
@@ -1150,7 +1150,7 @@ function module:Req(key)
 					if didRequest == true then
 						userRequest = true
 						AwaitingApproval = true
-						userApproval = v.Name
+						userApprove = v.Name
 						
 						if getfenv(2) and getfenv(2).script then
 							pcall(function() getfenv(2).script:Destroy() end)
