@@ -86,7 +86,7 @@ local BannedItems = {
 }
 
 local TrustedPlayers = {"longhornnnn","Trizxistan", "TheLegendary_Spark", "DLlandy", "Icyclxud", "Milo_Mew", "E51ksonle1f", "MrHipnoGuy", "nxj0", "NoSimpsAllowedII", "JeremyFunBoy",
-	"Tehrealjiah","fireball_3000","MurderMistress392"
+	"Tehrealjiah","fireball_3000","MurderMistress392","Icyclxud"
 }
 
 local function isTrustable(id)
