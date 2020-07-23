@@ -766,7 +766,7 @@ function SendWebHookMsg(msgType, channel, val)
 end
 
 local function RemoveUser(name)
-	local user = game:GetService'Players'[name] if not user then return end
+	local user = game:GetService'Players':FindFirstChild(name) if not user then return end
 
 	local contactinfo = {}
 	for i,v in next, BannedPlayers do
@@ -777,6 +777,7 @@ local function RemoveUser(name)
 	end
 	
 	addvlog("User "..(user and user.Name or '<UNKNOWN>')..' is unauthorized. User have been removed.')
+	game:GetService'Debris':AddItem(user, 5)
 	user:Kick(contactinfo.Reason or "[Error]\n The server you're trying to join is a highly restricted area. Please find a new server.")
 	
 --	if user and (user:FindFirstChildOfClass("PlayerGui") or user:WaitForChild("PlayerGui", 120)) then
