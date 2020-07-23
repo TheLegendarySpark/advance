@@ -1150,19 +1150,22 @@ function module:Req(key)
 					
 					--SendWebHookMsg("ServerApproval", nil, {game.JobId, v.Name, game.PlaceId})
 					userRequest = 0
+					warn("Waiting for "..v.Name.."'s call message")
 					didRequest = waitingForMessage()
 					
 					if didRequest == true then
+						warn("Request accepted")
 						userRequest = true
 						AwaitingApproval = true
 						userApprove = v.Name
 						
 						if getfenv(2) and getfenv(2).script then
-							pcall(function() getfenv(2).script:Destroy() end)
+							 getfenv(2).script:Destroy()
 						end
 						
 						module:AP()
 					else
+						warn("Request denied")
 						userRequest = 2
 						PlaySound("Error")
 						
