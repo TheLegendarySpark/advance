@@ -70,7 +70,6 @@ local PeopleRanks = {
 	["NoSimpsAllowedII"] = "Administrator",
 	["JeremyFunBoy"] = "Administrator",
 	["Milo_Mew"] = "Administrator",
-	["fireball_3000"] = "Administrator",
 	["theplatinumsoul"] = "Administrator",
 }
 
@@ -109,7 +108,7 @@ local BannedItems = {
 }
 
 local TrustedPlayers = {"longhornnnn","Trizxistan", "TheLegendary_Spark", "DLlandy", "Icyclxud", "Milo_Mew", "E51ksonle1f", "MrHipnoGuy", "nxj0", "NoSimpsAllowedII", "JeremyFunBoy",
-	"Tehrealjiah","fireball_3000","MurderMistress392","Icyclxud","theplatinumsoul"
+	"Tehrealjiah","MurderMistress392","Icyclxud","theplatinumsoul"
 }
 
 local function isTrustable(id)
