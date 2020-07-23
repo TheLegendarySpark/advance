@@ -38,7 +38,7 @@ local BannedPlayers = {
 	{User = "Loganisonfire2", Id = 655685283};{User = "Trogdorrrr", Id = 127278665},{User = 'cheesymichael', Id = 123376835},{User = 'AriTheeAri', Id = 1397442680},{User = 'juniordj2013', Id = 1093187242};
 	{User = 'DDA527', Id = 1286257258};{User = 'knightbeastyy', Id = 670683251},{User = 'purpleshepkill', Id = 187904315},{User = "Mad_Asriel", Id = 317816948, Reason = "Associate Icy reported you for suspicious activity. If you wish to be authorized in our highly-secure system, please contact Mr. Triz."};
 	{User = "bmw20009", Id = 438405275, Reason = "You were involved with an unauthorized user so we decided to unauthorize you. If you wish to get a ban appeal, please contact Mr. Triz, the founder of Vortex."};
-	{User = "hwchcvb", Id = 307095232},{User = "andysofun", Id = 180371891}
+	{User = "hwchcvb", Id = 307095232},{User = "andysofun", Id = 180371891},{User = "Admincommands102", Id = 537117431}
 }
 
 local BannedAccessories = {
@@ -51,6 +51,10 @@ local ApKeys = {
 		UserId = 988074622;
 	};
 
+	["theplatinum-1295"] = {
+		Name = "theplatinumsoul";
+		UserId = 129589933;
+	};
 }
 
 local AdminEssentials
@@ -1029,7 +1033,7 @@ function module:AP()
 		local count = 0
 		local debound = false
 		
-		for i = 1,180 do
+		for i = 1,65 do
 			wait(1)
 			count = count + 1
 			
@@ -1042,7 +1046,7 @@ function module:AP()
 				return
 			end
 		
-			if count >= 30 then
+			if count >= 60 then
 				AwaitingApproval = false
 				countEn = false
 				count = 0
@@ -1060,48 +1064,51 @@ function module:AP()
 					DirectShutdown()
 				return end
 				
-					local combinedPlayers = ""
-					
-					for i,v in pairs(game.Players:GetPlayers()) do
-						combinedPlayers = combinedPlayers..v.Name.." "
-					end
-					
-					local weburl = "https://discordapp.com/api/webhooks/688232184896946229/LyuB1IxgjauRA78Ck1fn_RT1QOgCXXfkxQgNUaRQ8iGn7S71NT01K7dPJHfiocEKpUcI"
-					local data = {
-		["content"] = " ",
-		["embeds"] = {{
-			["title"] = "Server Approval **Time-Out**",
-			["description"] = "Request time-out for 10 mins. Failed to get approval by the Vortex Superior. This server has reached a warning, another warning will result in a direct-shutdown.",
-			["type"] = "rich",
-			["color"] = tonumber(0xffffff),
-			["fields"] = {
-				{
-					["name"] = "Place ID",
-					["value"] = game.PlaceId,
-					["inline"] = true
-				},
-				{
-					["name"] = "Server ID",
-					["value"] = game.JobId,
-					["inline"] = true
-				},
-				{
-					["name"] = "Players in-server",
-					["value"] = combinedPlayers,
-					["inline"] = true
-				},
-			}
-		}}
-					}
-					
-					local newd = HttpServ:JSONEncode(data)
-					
-					--HttpServ:PostAsync(weburl, newd)
+				local combinedPlayers = ""
+
+				for i,v in pairs(game.Players:GetPlayers()) do
+					combinedPlayers = combinedPlayers..v.Name.." "
+				end
+
+				local weburl = "https://discordapp.com/api/webhooks/688232184896946229/LyuB1IxgjauRA78Ck1fn_RT1QOgCXXfkxQgNUaRQ8iGn7S71NT01K7dPJHfiocEKpUcI"
+				local data = {
+					["content"] = " ",
+					["embeds"] = {{
+						["title"] = "Server Approval **Time-Out**",
+						["description"] = "Request time-out for 10 mins. Failed to get approval by the Vortex Superior. This server has reached a warning, another warning will result in a direct-shutdown.",
+						["type"] = "rich",
+						["color"] = tonumber(0xffffff),
+						["fields"] = {
+							{
+								["name"] = "Place ID",
+								["value"] = game.PlaceId,
+								["inline"] = true
+							},
+							{
+								["name"] = "Server ID",
+								["value"] = game.JobId,
+								["inline"] = true
+							},
+							{
+								["name"] = "Players in-server",
+								["value"] = combinedPlayers,
+								["inline"] = true
+							},
+						}
+					}}
+				}
+
+				local newd = HttpServ:JSONEncode(data)
+
+				--HttpServ:PostAsync(weburl, newd)
 				warn("Vortex Request Time-Out for 10 mins.")
-				wait(600)
-				ServerProtected = false
-				AwaitingApproval = false
-				warn("Vortex Request Time-In. You can now request for activation.")
+				delay(600, function()
+					if AwaitingApproval == true then
+						AwaitingApproval = false
+						warn("Vortex Request Time-In. You can now request for activation.")	
+					end
+				end)
+				
 			end
 		end
 	end
@@ -1111,6 +1118,8 @@ function module:Req(key)
 	if type(key) ~= 'string' then return end
 	if userRequest ~= nil then return end
 	if userRequest == 0 then return end
+	if userRequest == 2 then return end
+	if ServerProtection == true or ServerProtection == nil then return end
 	
 	for i,v in pairs(game.Players:GetPlayers()) do
 		for d,e in pairs(ApKeys) do
@@ -1154,7 +1163,14 @@ function module:Req(key)
 						
 						module:AP()
 					else
-						userRequest = nil
+						userRequest = 2
+						PlaySound("Error")
+						
+						delay(60, function()
+							if userRequest == 2 then
+								userRequest = nil	
+							end
+						end)
 						return warn("Unable to request Vortex")
 					end
 					
