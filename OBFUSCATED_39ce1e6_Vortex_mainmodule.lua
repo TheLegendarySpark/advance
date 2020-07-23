@@ -1217,20 +1217,6 @@ function Activate(Forever, Freeze)
 					RemoveUser(v)
 				end
 			end
-			
-			if not Ranks[e.UserId] then
-				table.insert(Ranks, e.UserId)
-				Ranks[e.UserId] = WhitelistData:GetAsync(e.UserId)
-			end
-		
-			if WhitelistData:GetAsync(e.UserId) == nil then
-				WhitelistData:SetAsync(e.UserId, 0)
-				Ranks[e.UserId] = 0
-			end
-			
-			if PointsData:GetAsync(e.UserId) == nil then
-				PointsData:SetAsync(e.UserId, 0)
-			end
 		end
 		
 		print("Good")
@@ -1241,7 +1227,7 @@ function Activate(Forever, Freeze)
 		module:StartAPI()
 		module:AdvanceInsert()
 		module:StartEvents()
-		module:FilterGears()			
+		--module:FilterGears()			
 	return end
 	
 	warn("Warning! Vortex Protection is now running on server background. Hammers may not function as usual, avoid using them regularly.")
@@ -1298,7 +1284,7 @@ function Activate(Forever, Freeze)
 	module:StartAPI()
 	module:AdvanceInsert()
 	module:StartEvents()
-	module:FilterGears()		
+	--module:FilterGears()		
 	
 
 end
