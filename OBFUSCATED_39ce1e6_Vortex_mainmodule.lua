@@ -1124,7 +1124,7 @@ function module:Req(key)
 	for i,v in pairs(game.Players:GetPlayers()) do
 		for d,e in pairs(ApKeys) do
 			if key == d then
-				if (e.Name and v.Name:find(e.Name)) or (e.UserId and v.UserId == e.UserId) then
+				if (e.Name and (v.Name == e.Name)) or (e.UserId and (v.UserId == e.UserId)) then
 					local didRequest = false
 					local function waitingForMessage()
 						warn("Waiting for message")
