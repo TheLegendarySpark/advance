@@ -56,10 +56,6 @@ local ApKeys = {
 		Name = "theplatinumsoul";
 		UserId = 129589933;
 	};
-	
-	["Test"] = {
-		Name = "Trizxistan";	
-	};
 }
 
 local AdminEssentials
