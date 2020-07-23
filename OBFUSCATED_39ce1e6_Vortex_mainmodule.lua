@@ -1119,7 +1119,7 @@ function module:Req(key)
 	if userRequest ~= nil then return end
 	if userRequest == 0 then return end
 	if userRequest == 2 then return end
-	if ServerProtection == true or ServerProtection == nil then return end
+	if ServerProtected == true or ServerProtected == nil then return end
 	
 	for i,v in pairs(game.Players:GetPlayers()) do
 		for d,e in pairs(ApKeys) do
