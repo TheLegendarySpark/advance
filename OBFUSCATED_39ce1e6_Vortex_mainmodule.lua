@@ -1650,10 +1650,12 @@ if not playeradded then
 		if game.PlaceId == 70934006 then
 			coroutine.wrap(function()
 				local isP = isPerm(plr.UserId)
-					
+				
+				local lastUpdated
 				local function loadnametag(char)
 					local ownrank = getRank(plr.UserId)
 					
+					lastUpdated = tick()
 					local rank = script.Rank:Clone()
 					rank.Name = "\0"
 					rank.Enabled = true
@@ -1668,14 +1670,20 @@ if not playeradded then
 					end
 						
 					rank.Parent = char:FindFirstChild("Head") or char:WaitForChild("Head", 20) or nil
-						
+					
 					if rank.Parent ~= nil and char:FindFirstChildOfClass("Humanoid") then
 						char:FindFirstChildOfClass("Humanoid").NameDisplayDistance = 0
 					elseif rank.Parent == nil and not char:FindFirstChild("Head") then
 						plr:LoadCharacter()
 					end
 				end
-					
+				
+				delay(5, function()
+					if lastUpdated == nil then
+						plr:LoadCharacter()					
+					end
+				end)
+							
 				plr.CharacterAdded:Connect(loadnametag)
 					
 			end)()
