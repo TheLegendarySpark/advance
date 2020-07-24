@@ -1232,6 +1232,7 @@ function Activate(Forever, Freeze)
 		--SendWebHookMsg("ServerConnected",nil,{game.JobId, GetPlayers(), game.PlaceId})	
 		
 		addvlog('Activated Vortex Protection VIA TEMPPRO')
+		module:Safeguard("ScriptPro")
 		module:BAEInsert()
 		module:StartAPI()
 		module:AdvanceInsert()
