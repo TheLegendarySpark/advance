@@ -1506,7 +1506,14 @@ if ServerProtected == false then warn("Failed to load this module 'Vortex Protec
 					return module:Safeguard(sval)
 				end
 				
-				if val == "
+				if val == "ServerEndpoint" then
+					if type(sval) ~= "number" then return end
+					
+					if sval > 0 and sval <= os.time() or sval <= 0 then return end
+					
+					serverEndpoint = sval
+					return true
+				end
 				
 				if val == "DisableMode" then
 					if type(sval) ~= 'string' then return end
