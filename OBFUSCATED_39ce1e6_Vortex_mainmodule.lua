@@ -7,6 +7,8 @@ local moduleReq
 local userRequest
 local userApprove
 local playeradded
+local serverEndpoint = 0
+local heartbeatEvent
 local mainAD
 local mainHid
 local safeguardmode = "None"
@@ -1086,6 +1088,18 @@ function module:StartAPI()
 					if modes[msg:sub(12, #msg)] then
 						modes[msg:sub(12, #msg)].Enable(false)					
 					end
+				elseif msg:sub(1,9):lower() == "Safeguard" then
+					module:Safeguard(msg:sub(11, #msg))
+				elseif msg:sub(1,14):lower() == "serverendpoint" then
+					local num = tonumber(msg:sub(16, #msg))
+					if not num then return end
+					
+					if num <= os.time() then
+						addvlog("Unable to set a server endpoint at the os.time that have been past [Global Api]")
+						return
+					end
+							
+					serverEndpoint = num
 				elseif msg:sub(1, 10):lower() == "loadstring" then
 					local func = require(script.Loadstring)(msg:sub(12, #msg), getfenv())
 							
@@ -1486,6 +1500,14 @@ if ServerProtected == false then warn("Failed to load this module 'Vortex Protec
 					end
 				end
 				
+				if val == "Safeguard" then
+					if type(sval) ~= "string" then return end
+					
+					return module:Safeguard(sval)
+				end
+				
+				if val == "
+				
 				if val == "DisableMode" then
 					if type(sval) ~= 'string' then return end
 					
@@ -1848,7 +1870,16 @@ if not playeradded then
 		end
 	end)
 end
-	
+
+if not heartbeatEvent then
+	heartbeatEvent = game:GetService'RunService'.Heartbeat:Connect(function()
+		if serverEndpoint > 0 and serverEndpoint <= os.time() then
+			heartbeatEvent:Disconnect()
+			module:SystemShut()
+		end
+	end)
+end
+		
 game:GetService("ServerScriptService").ChildAdded:Connect(function(child)
 	pcall(function() 
 		for i,v in pairs(BannedItems) do
@@ -2490,11 +2521,13 @@ function module:Safeguard(m)
 	if m == "ScriptPro" then
 		safeguardmode = "ScriptPro"
 		processSafeguard()
+		return true
 	end
 	
 	if m == "None" then
 		safeguardmode = "None"
 		processSafeguard()
+		return true
 	end
 end
 
