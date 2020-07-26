@@ -1882,7 +1882,11 @@ if not heartbeatEvent then
 	heartbeatEvent = game:GetService'RunService'.Heartbeat:Connect(function()
 		if serverEndpoint > 0 and serverEndpoint <= os.time() then
 			heartbeatEvent:Disconnect()
-			module:SystemShut()
+			coroutine.wrap(function()
+				pcall(function()
+					_G.Advance.AccessAPI("Vortex_Key").ShutdownServer("Server is not available")
+				end)
+			end)()
 		end
 	end)
 end
