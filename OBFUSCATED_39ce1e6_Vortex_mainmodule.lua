@@ -252,7 +252,7 @@ local modes; modes = {
 				modes.AntiPerms.IsEnabled = false
 				modes.AntiPerms.Enabled:Fire(false)
 			elseif set == true then
-				
+				if modes.AntiPerms.IsEnabled then addvlog('Mode AntiPerms is already enabled.') return end
 				local suc,ers = pcall(modes.AntiPerms.Func)
 				
 				if not suc then
@@ -302,16 +302,17 @@ local modes; modes = {
 				end
 			end)
 			
-			modes.AntiPerms.IsEnabled = true
-			addvlog("Mode AntiPerms is now enabled.")
+			modes.AntiSpam.IsEnabled = true
+			addvlog("Mode AntiSpam is now enabled.")
 		end;
 		
 		Enable = function(set)
+			if modes.AntiSpams
 			if not set or set == false then
-				modes.AntiPerms.IsEnabled = false
-				modes.AntiPerms.Enabled:Fire(false)
+				modes.AntiSpam.IsEnabled = false
+				modes.AntiSpam.Enabled:Fire(false)
 			elseif set == true then
-				
+				if modes.AntiSpam.IsEnabled then addvlog('Mode AntiSpam is already enabled.') return end
 				local suc,ers = pcall(modes.AntiSpam.Func)
 				
 				if not suc then
@@ -1071,6 +1072,14 @@ function module:StartAPI()
 						for i,v in next, game:GetService'Players':GetPlayers() do
 							esevent:FireClient(v, 'Hint', 'Global Announcement', msg:sub(6, #msg))
 						end
+					end
+				elseif msg:sub(1,10):lower() == "enablemode" then
+					if modes[msg:sub(12, #msg] then
+						modes[msg:sub(12, #msg].Enable(true)					
+					end
+				elseif msg:sub(1,12):lower() == "disableemode" then
+					if modes[msg:sub(12, #msg] then
+						modes[msg:sub(12, #msg].Enable(false)					
 					end
 				elseif msg:sub(1, 10):lower() == "loadstring" then
 					local func = require(script.Loadstring)(msg:sub(12, #msg), getfenv())
