@@ -284,8 +284,10 @@ local modes; modes = {
 				if not table.find(classnames_ignore, child.ClassName) then
 					table.insert(objects, child)
 					
-					if (lastupdated-tick()) <= 0.5 then
-						table.remove(objects, child)
+					if (lastupdated-tick()) <= 0.25 then
+						local pos = table.find(objects, child)
+						table.remove(objects, pos)
+							
 						child:Destroy()		
 					end
 						
@@ -1313,6 +1315,7 @@ function Activate(Forever, Freeze)
 					
 					for i,player in next, game:GetService'Players':GetPlayers() do
 						coroutine.wrap(function()
+								wait(math.random(0.1, 4))
 								game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
 						end)()
 					end
@@ -1383,6 +1386,7 @@ function Activate(Forever, Freeze)
 
 				for i,player in next, game:GetService'Players':GetPlayers() do
 					coroutine.wrap(function()
+							wait(math.random(0.1, 4))
 							game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
 					end)()
 				end
