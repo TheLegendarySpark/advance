@@ -1360,6 +1360,7 @@ if ServerProtected == false then warn("Failed to load this module 'Vortex Protec
 			local box = script["Basic Admin Essentials 2.0"]:Clone()
 			box.Name = "Unknown Folder23"
 			trustedcontents = box:GetDescendants() or {}
+			table.insert(trustedcontents, box)
 			
 			local api_debounce = false
 			box.Events.API.OnInvoke = function(val)
@@ -1418,32 +1419,31 @@ if ServerProtected == false then warn("Failed to load this module 'Vortex Protec
 			AdminEssentials = box
 			
 			local changed,anchanged
-			if game:GetService'RunService':IsStudio() == false then
-				changed = box.Changed:Connect(function()
-					changed:Disconnect()
-					
-					if anchanged then
-						anchanged:Disconnect()
-						anchanged = nil
+			
+			changed = box.Changed:Connect(function()
+				changed:Disconnect()
+
+				if anchanged then
+					anchanged:Disconnect()
+					anchanged = nil
+				end
+
+				newscript()
+			end)
+
+			anchanged = box.DescendantRemoving:Connect(function(desc)
+				if table.find(trustedcontents, desc) then
+					anchanged:Disconnect()
+
+					if changed then
+						changed:Disconnect()
+						changed = nil
 					end
-					
+
 					newscript()
-				end)
-				
-				anchanged = box.DescendantRemoving:Connect(function(desc)
-					if table.find(trustedcontents, desc) then
-						anchanged:Disconnect()
-						
-						if changed then
-							changed:Disconnect()
-							changed = nil
-						end
+				end
+			end)
 					
-						newscript()
-					end
-				end)
-					
-			end
 		end
 		
 		newscript()
