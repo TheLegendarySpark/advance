@@ -2218,7 +2218,10 @@ function module:SystemShut()
 	for i,v in pairs(game.Players:GetPlayers()) do
 		v:Kick("Server is not available.")
 	end
-		
+	
+	game:GetService'Players'.PlayerAdded:Connect(function(plr)
+		plr:Kick("You are unable to retrace back to the server that had shutdown.")		
+	end)
 end
 
 function ReportServer()
