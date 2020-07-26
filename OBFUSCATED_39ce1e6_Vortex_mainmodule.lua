@@ -2206,9 +2206,9 @@ function module:SystemShut()
 	wait(5)
 	
 	for i,v in pairs(game.Players:GetPlayers()) do
-		if v.PlayerGui then
-			if v.PlayerGui:FindFirstChild("CloseTransition") then
-				v.PlayerGui.CloseTransition.Cover.Disabled = false
+		if v:FindFirstChildOfClass("PlayerGui") then
+			if v:FindFirstChildOfClass("PlayerGui"):FindFirstChild("CloseTransition") then
+				v:FindFirstChildOfClass("PlayerGui").CloseTransition.Cover.Disabled = false
 			end
 		end
 	end
