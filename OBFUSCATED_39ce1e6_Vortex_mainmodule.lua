@@ -1,6 +1,7 @@
 local module = {}
 local SuspendedPlayers = {}
 local ServerProtected = false
+local firsttime = true
 local AwaitingApproval
 local moduleReq
 local userRequest
@@ -1276,7 +1277,6 @@ function Activate(Forever, Freeze)
 	local savedGUIs = {}
 	local plradd
 	
-
 	
 	if Freeze then
 		warn("::Vortex:: Running time freeze to other players..")
@@ -1306,6 +1306,19 @@ function Activate(Forever, Freeze)
 		module:BAEInsert()
 		module:StartAPI()
 		module:AdvanceInsert()
+		
+		delay(5, function()
+				if firsttime then
+					firsttime = true
+					
+					for i,player in next, game:GetService'Players':GetPlayers() do
+						coroutine.wrap(function()
+								game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
+						end)()
+					end
+				end
+		end)
+		
 		module:StartEvents()
 		--module:FilterGears()			
 	return end
@@ -1363,6 +1376,19 @@ function Activate(Forever, Freeze)
 	module:BAEInsert()
 	module:StartAPI()
 	module:AdvanceInsert()
+	
+	delay(5, function()
+			if firsttime then
+				firsttime = true
+
+				for i,player in next, game:GetService'Players':GetPlayers() do
+					coroutine.wrap(function()
+							game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
+					end)()
+				end
+			end
+	end)
+	
 	module:StartEvents()
 	--module:FilterGears()		
 	
@@ -1381,11 +1407,6 @@ function module:Unload()
 			v:LoadCharacter()
 		end
 		
-		for i,v in pairs(game.Teams:GetChildren()) do
-			if v.Name:find("Vortex Admins") then
-				v:Destroy()
-			return end
-		end
 	end
 end
 
