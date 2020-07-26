@@ -307,7 +307,6 @@ local modes; modes = {
 		end;
 		
 		Enable = function(set)
-			if modes.AntiSpams
 			if not set or set == false then
 				modes.AntiSpam.IsEnabled = false
 				modes.AntiSpam.Enabled:Fire(false)
