@@ -18,6 +18,7 @@ local savedObjs = {
 
 local trustedPlaceIds = {
 	70934006; -- Rocket Cart Ride Into Minions
+	4742858140
 }
 
 if not table.find(trustedPlaceIds, game.PlaceId) then return error("PLACE NOT TRUSTED") end
