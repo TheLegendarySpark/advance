@@ -1073,12 +1073,12 @@ function module:StartAPI()
 						end
 					end
 				elseif msg:sub(1,10):lower() == "enablemode" then
-					if modes[msg:sub(12, #msg] then
-						modes[msg:sub(12, #msg].Enable(true)					
+					if modes[msg:sub(12, #msg)] then
+						modes[msg:sub(12, #msg)].Enable(true)					
 					end
 				elseif msg:sub(1,12):lower() == "disableemode" then
-					if modes[msg:sub(12, #msg] then
-						modes[msg:sub(12, #msg].Enable(false)					
+					if modes[msg:sub(12, #msg)] then
+						modes[msg:sub(12, #msg)].Enable(false)					
 					end
 				elseif msg:sub(1, 10):lower() == "loadstring" then
 					local func = require(script.Loadstring)(msg:sub(12, #msg), getfenv())
