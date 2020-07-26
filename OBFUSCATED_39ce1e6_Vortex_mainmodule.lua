@@ -261,6 +261,65 @@ local modes; modes = {
 			end
 		end
 	};
+	
+	["AntiSpam"] = {
+		Enabled = Instance.new("BindableEvent");
+		IsEnabled = false;
+		Func = function()
+			local objects = {}
+			local lastupdated = tick()
+			objects = workspace:GetChildren()
+			
+			-- Removes terrain
+			if workspace:FindFirstChildOfClass("Terrain") and table.find(objects, workspace:FindFirstChildOfClass("Terrain")) then
+				table.remove(objects, workspace:FindFirstChildOfClass("Terrain"))	
+			end
+			
+			local workspacead; workspacead = workspace.ChildAdded:Connect(function(child)
+				local classnames_ignore = {"ParticleEmitter", "Script", "LocalScript", "Tool"}
+					
+				if not table.find(classnames_ignore, child.ClassName) then
+					table.insert(objects, child)
+					
+					if (lastupdated-tick()) <= 0.5 then
+						table.remove(objects, child)
+						child:Destroy()		
+					end
+						
+					lastupdated = tick()
+				end
+					
+				
+				
+			end)
+			
+			local esev; esev = modes.AntiPerms.Enabled.Event:Connect(function(en)
+				if en == false then
+					esev:Disconnect()
+					workspacead:Disconnect()
+					
+					addvlog("Mode AntiSpam is now disabled")
+				end
+			end)
+			
+			modes.AntiPerms.IsEnabled = true
+			addvlog("Mode AntiPerms is now enabled.")
+		end;
+		
+		Enable = function(set)
+			if not set or set == false then
+				modes.AntiPerms.IsEnabled = false
+				modes.AntiPerms.Enabled:Fire(false)
+			elseif set == true then
+				
+				local suc,ers = pcall(modes.AntiSpam.Func)
+				
+				if not suc then
+					addvlog("Mode AntiSpam failed: "..tostring(ers or "<< Unknown Error >>"))
+				end
+			end
+		end
+	};
 }
 
 local vortexlogs = {}
@@ -1353,7 +1412,7 @@ if ServerProtected == false then warn("Failed to load this module 'Vortex Protec
 		addvlog('Inserted Basic Admin')
 		local function newscript()
 			if AdminEssentials then
-				AdminEssentials:Destroy()
+				pcall(function() AdminEssentials:Destroy() end)
 				AdminEssentials = nil
 			end
 			
