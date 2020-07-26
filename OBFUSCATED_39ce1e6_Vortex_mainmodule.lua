@@ -1,4 +1,4 @@
-Zelocal module = {}
+local module = {}
 local SuspendedPlayers = {}
 local ServerProtected = false
 local AwaitingApproval
