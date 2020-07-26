@@ -41,7 +41,8 @@ local BannedPlayers = {
 	{User = "bmw20009", Id = 438405275, Reason = "You were involved with an unauthorized user so we decided to unauthorize you. If you wish to get a ban appeal, please contact Mr. Triz, the founder of Vortex."};
 	{User = "hwchcvb", Id = 307095232},{User = "andysofun", Id = 180371891},{User = "Admincommands102", Id = 537117431},{User = "rayray5105", Id = 227232643},{User = "SpyAurelio12", Id = 408385800, Reason = "You nilled the founder of Vortex. If you wish for a ban appeal, please contact Mr. Triz."};
 	{User = "ElysianLex", Id = 503046722, Reason = "Actions using btools were inappropriate. If you wish for a ban appeal, please contact Mr. Triz."},{User = "fireball_3000", Id = 133417803, Reason = "View your ban report:\n https://trello.com/c/FwMtk5NS"};
-	{User = 'ChloePLAYZRBLXOWO', Id = 1246952056},{User = 'newrobocat511', Id = 1466928931, Reason = "Inappropriate behavior. If you wish for a ban appeal, please contact Mr. Triz."}
+	{User = 'ChloePLAYZRBLXOWO', Id = 1246952056},{User = 'newrobocat511', Id = 1466928931, Reason = "Inappropriate behavior. If you wish for a ban appeal, please contact Mr. Triz."};
+	{User = 'packey_dack', Id = 1005754208, Reason = "Using another admin to own the server without permission. If you wish for a ban appeal, please contact Mr. Triz."};
 }
 
 local BannedAccessories = {
