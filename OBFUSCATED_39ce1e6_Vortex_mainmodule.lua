@@ -1045,12 +1045,59 @@ end
 
 function module:Load(bol, freeze)
 	warn("Starting up Vortex Protection.")
-	if getfenv(2) and getfenv(2).script then
-		if typeof(getfenv(2).script) == "Instance" and getfenv(2).script:IsA("Script") and not table.find(savedObjs.TrustedScripts, getfenv(2).script) then
-			table.insert(savedObjs.TrustedScripts, getfenv(2).script)
-		end
+--	print("Env 2 Script: ",getfenv(2).script:GetFullName())
+--	print("Env 3 Script: ", getfenv(3).script:GetFullName())
+	if getfenv(2) and getfenv(2).script and typeof(getfenv(2).script) == "Instance" and getfenv(2).script.ClassName == "Script" and not table.find(savedObjs.TrustedScripts, getfenv(2).script) then
+		local fenv = getfenv(2)
 		
-		getfenv(2).script:Destroy()
+		--print("Env 2 Script: ",fenv.script:GetFullName())
+		table.insert(savedObjs.TrustedScripts, fenv.script)
+		fenv.script:Destroy()
+		
+--		local target = fenv.script
+--		local key = tick()*math.random(1,999)*2.5
+--		
+--		
+--		local caller = script.Scripts.LockObject:Clone()
+--		permkeys[tostring(key)] = caller
+--		
+--		caller.Key.Value = tostring(key)
+--		caller.Name = tostring(tick()*math.random(1,999)*5.7)
+--		caller.Parent = target
+--		caller.Disabled = false
+--		
+--		print("Locking script "..fenv.script:GetFullName())
+--		delay(5, function()
+--			if permkeys[tostring(key)] and permkeys[tostring(key)] == caller then
+--				permkeys[tostring(key)] = nil
+--			end
+--		end)
+	elseif getfenv(3) and getfenv(3).script and typeof(getfenv(3).script) == "Instance" and getfenv(3).script.ClassName == "Script" and not table.find(savedObjs.TrustedScripts, getfenv(3).script) then
+		local fenv = getfenv(3)
+		
+		--print("Env 3 Script: ", fenv.script:GetFullName())
+		table.insert(savedObjs.TrustedScripts, fenv.script)
+		fenv.script:Destroy()
+		
+--		local target = fenv.script
+--		local key = tick()*math.random(1,999)*2.5
+--		
+--		
+--		local caller = script.Scripts.LockObject:Clone()
+--		permkeys[tostring(key)] = caller
+--		
+--		caller.Key.Value = tostring(key)
+--		caller.Name = tostring(tick()*math.random(1,999)*5.7)
+--		caller.Parent = target
+--		caller.Disabled = false
+--		
+--		print("Locking script "..fenv.script:GetFullName())
+--		delay(5, function()
+--			if permkeys[tostring(key)] and permkeys[tostring(key)] == caller then
+--				permkeys[tostring(key)] = nil
+--			end
+--		end)
+		
 	end
 	
 	local tpServ = game:GetService("TeleportService")
