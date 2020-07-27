@@ -283,7 +283,8 @@ local modes; modes = {
 			
 			-- Removes terrain
 			if workspace:FindFirstChildOfClass("Terrain") and table.find(objects, workspace:FindFirstChildOfClass("Terrain")) then
-				table.remove(objects, workspace:FindFirstChildOfClass("Terrain"))	
+				local pos = table.find(objects, workspace:FindFirstChildOfClass("Terrain"))
+				table.remove(objects, pos)	
 			end
 			
 			local workspacead; workspacead = workspace.ChildAdded:Connect(function(child)
