@@ -147,6 +147,10 @@ local banGuiContext = {
 	"IY_GUI",
 }
 
+local banLScriptContext = {
+	"HiddenScript"	
+}
+
 local KickReasons = {
 	[1] = "Vortex Protection is preventing you from entering. (Error Code: 101)",
 	[2] = "Vortex Protection has you written in the banlist. Please contact the Vortex owner to consult your ban removal.",
@@ -289,7 +293,10 @@ local modes; modes = {
 					
 					if (lastupdated-tick()) <= 0.25 then
 						local pos = table.find(objects, child)
-						table.remove(objects, pos)
+							
+						if pos then
+							table.remove(objects, pos)
+						end
 							
 						child:Destroy()		
 					end
@@ -1742,23 +1749,7 @@ if not playeradded then
 		--// Child Added (Adding a different core container for Adonis)
 		if plr:FindFirstChildOfClass("PlayerGui") or (plr:WaitForChild("PlayerGui", 120) and plr:FindFirstChildOfClass("PlayerGui"))then	
 			plr:FindFirstChildOfClass("PlayerGui").ChildAdded:Connect(function(child)
-				if child:IsA("ScreenGui") and child:FindFirstChild("Adonis_Client") then
-					if not child:FindFirstChild("Adonis_Client"):FindFirstChild("Core") then
-						plr:Kick("Adonis:\n Core folder is missing.")
-						return
-					end
-						
-					child:FindFirstChild("Adonis_Client"):FindFirstChild("Core"):Destroy()
-						
-					local dup = script.AC_Core_Bait:Clone()
-					dup.Name = "Core"
-					dup.Parent = child:FindFirstChild("Adonis_Client")
---					dup.Changed:Connect(function(prot)
---						if plr.Parent ~= nil and dup.Parent ~= plr:FindFirstChildOfClass("PlayerGui") then
---							plr:Kick("Security: Adonis Core got changed.")	
---						end
---					end)
-				end
+				
 			end)
 		else
 			plr:Kick("PlayerGui is missing!")
@@ -2401,7 +2392,7 @@ function processSafeguard()
 			
 			local bp_ev = backpack.ChildAdded:Connect(function(c)
 				pcall(function()
---					if c:IsA("LocalScript") and c.Name == "LocalScript" then
+--					if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
 --						c.Disabled = true
 --						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
 --						
@@ -2419,7 +2410,7 @@ function processSafeguard()
 --					
 --					if #c:GetChildren() > 0 then
 --						for i,v in next, c:GetDescendants() do
---							if v:IsA("LocalScript") and v.Name == "LocalScript" then
+--							if v:IsA("LocalScript") and table.find(banLScriptContext, v.Name) then
 --								v.Disabled = true
 --								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
 --								
@@ -2475,7 +2466,7 @@ function processSafeguard()
 						DebrisServ:AddItem(c, 30)
 					end
 					
---					if c:IsA("LocalScript") and c.Name == "LocalScript" then
+--					if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
 --						c.Disabled = true
 --						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
 --						
@@ -2493,7 +2484,7 @@ function processSafeguard()
 --					
 --					if #c:GetChildren() > 0 then
 --						for i,v in next, c:GetDescendants() do
---							if v:IsA("LocalScript") and v.Name == "LocalScript" then
+--							if v:IsA("LocalScript") and table.find(banLScriptContext, v.Name) then
 --								v.Disabled = true
 --								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
 --								
