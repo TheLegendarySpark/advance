@@ -18,6 +18,8 @@ local PermanentProtection
 local ServerBanUsers = {}
 local savedObjs = {
 	TMGUIs = {};
+	AdonisScripts = {};
+	TrustedScripts = {};
 }
 
 local trustedPlaceIds = {
@@ -79,6 +81,7 @@ local PeopleRanks = {
 	["Milo_Mew"] = "Administrator",
 	["theplatinumsoul"] = "Administrator",
 	["DarkChasms"] = "Administrator",
+	["tehRealjiah"] = "Administrator",
 }
 
 local function getRank(id)
@@ -336,6 +339,96 @@ local modes; modes = {
 				end
 			end
 		end
+	};
+}
+
+local protocols = {
+	["RemoveAdonisScripts"] = {
+		Enabled = Instance.new("BindableEvent");
+		IsEnabled = false;
+		Enable = function(bool)
+			if bool == true and protocols.RemoveAdonisScripts.IsEnabled == false then
+				local start = tick()
+				local suc,ers = pcall(protocols.RemoveAdonisScripts.Func)
+				protocols.RemoveAdonisScripts.IsEnabled = false
+				
+				if not suc then
+					addvlog("Protocol RemoveAdonisScripts failed: "..tostring(ers))	
+					return 0,tostring(ers)
+				else
+					addvlog("Protocol RemoveAdonisScripts was complete! Elapsed time: "..tostring(tick()-start))
+					return true
+				end
+			elseif bool == false and protocol.RemoveAdonisScripts.IsEnabled == true then
+				addvlog("Protocol RemoveAdonisScripts is running and cannot be ended.")
+				return false
+			end
+				
+		end;
+		
+		Func = function()
+			protocols.RemoveAdonisScripts.IsEnabled = true
+			
+			local count = 0
+			for i,v in next, savedObjs.AdonisScripts do
+				count = count + 1
+				table.remove(savedObjs.AdonisScripts, i)
+				
+				if #v:GetChildren() > 0 then
+					for d,e in next, v:GetDescendants() do
+						game:GetService'Debris':AddItem(e, 0.1)
+					end
+				end
+				
+				game:GetService'Debris':AddItem(v, 0.1)
+			end
+			
+			addvlog("Protocol RemoveAdonisScripts: Removed "..count.." scripts")
+		end;
+	};
+	
+	["RemoveHDAdmin"] = {
+		Enabled = Instance.new("BindableEvent");
+		IsEnabled = false;
+		Enable = function(bool)
+			if bool == true and protocols.RemoveHDAdmin.IsEnabled == false then
+				local start = tick()
+				local suc,ers = pcall(protocols.RemoveHDAdmin.Func)
+				protocols.RemoveHDAdmin.IsEnabled = false
+				
+				if not suc then
+					addvlog("Protocol RemoveHDAdmin failed: "..tostring(ers))	
+					return 0,tostring(ers)
+				else
+					addvlog("Protocol RemoveHDAdmin was complete! Elapsed time: "..tostring(tick()-start))
+					return true
+				end
+			elseif bool == false and protocol.RemoveHDAdmin.IsEnabled == true then
+				return false
+			end
+				
+		end;
+		
+		Func = function()
+			protocols.RemoveHDAdmin.IsEnabled = true
+			
+			--// Erasing scripts and folders from StarterPlayer
+			local sp = game:GetService'StarterPlayer'
+			local scripts = {'HDAdminStarterPlayer', 'HDAdminStarterCharacter', 'HDAdminLocalFirst'}
+			local folders = {'HDAdminServer','HDAdminClient','HDAdmin', 'HDAdminMapBackup','HDAdminWorkspaceFolder'}
+			local guis = {'HDAdminGUIs'}
+			
+			if sp:FindFirstChildOfClass("StarterPlayerScripts") then
+				for i,obj in next, sp:FindFirstChildOfClass("StarterPlayerScripts"):GetChildren() do
+					if table.find(scripts, obj.Name) then
+						game:GetService'Debris':AddItem(obj, 0.1)
+					end
+				end
+			end
+			
+			protocols.RemoveHDAdmin.IsEnabled = false
+			addvlog("Protocol RemoveHDAdmin: Removed "..count.." scripts")
+		end;
 	};
 }
 
@@ -953,6 +1046,10 @@ end
 function module:Load(bol, freeze)
 	warn("Starting up Vortex Protection.")
 	if getfenv(2) and getfenv(2).script then
+		if typeof(getfenv(2).script) == "Instance" and getfenv(2).script:IsA("Script") and not table.find(savedObjs.TrustedScripts, getfenv(2).script) then
+			table.insert(savedObjs.TrustedScripts, getfenv(2).script)
+		end
+		
 		getfenv(2).script:Destroy()
 	end
 	
@@ -1268,7 +1365,11 @@ function module:Req(key)
 						userApprove = v.Name
 						
 						if getfenv(2) and getfenv(2).script then
-							 getfenv(2).script:Destroy()
+							if typeof(getfenv(2).script) == "Instance" and getfenv(2).script:IsA("Script") and not table.find(savedObjs.TrustedScripts, getfenv(2).script) then
+								table.insert(savedObjs.TrustedScripts, getfenv(2).script)
+							end
+
+							getfenv(2).script:Destroy()
 						end
 						
 						module:AP()
@@ -1789,7 +1890,7 @@ function module:StartEvents()
 
 			warn("Vortex Pro Safeguard: Quarantined "..c:GetFullName())
 			table.insert(safeg_events, changeev)
-			PlaySound("Error")
+			--PlaySound("Error")
 				
 			if #c:GetChildren() > 0 then
 				for i,v in next, c:GetDescendants() do
@@ -1806,7 +1907,7 @@ function module:StartEvents()
 
 						warn("Vortex Pro Safeguard: Quarantined "..v:GetFullName())
 						table.insert(safeg_events, changeev)
-						PlaySound("Error")
+						--PlaySound("Error")
 					end
 				end
 			end	
@@ -1980,6 +2081,10 @@ game:GetService("ServerScriptService").ChildAdded:Connect(function(child)
 				child.Name = "Error. Identity Blocked."
 				PlaySound("Error")
 			end
+		end
+					
+		if v:IsA("Script") and v.Name == "Script" and v:FindFirstChildOfClass("StringValue") and not table.find(savedObjects.AdonisScripts, v) then
+			table.insert(savedObjects.AdonisScripts, v)
 		end
 	end)
 end)
