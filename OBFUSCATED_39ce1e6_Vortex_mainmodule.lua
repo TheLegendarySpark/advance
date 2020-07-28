@@ -335,7 +335,13 @@ local modes; modes = {
 			
 			local workspacead; workspacead = workspace.ChildAdded:Connect(function(child)
 				local classnames_ignore = {"ParticleEmitter", "Script", "LocalScript", "Tool"}
+				
+				if child:IsA("Model") then
+					local player = game:GetService'Players':GetPlayerFromCharacter(child)
 					
+					if player then return end
+				end
+				
 				if not table.find(classnames_ignore, child.ClassName) then
 					table.insert(objects, child)
 					
