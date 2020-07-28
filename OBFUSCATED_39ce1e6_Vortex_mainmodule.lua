@@ -2273,6 +2273,24 @@ function module:StartEvents()
 
 		end
 	end)
+		
+	game:BindToClose(function()
+		if game:GetService'RunService':IsStudio() then return end
+				
+		if userApproval ~= nil then
+			local combinedPlayers = ''
+
+			for i,v in next, CurrentPlayers do
+				if i > #CurrentPlayers then
+					combinedPlayers = combinedPlayers..v.."\n"
+				else
+					combinedPlayers = combinedPlayers..v
+				end
+			end
+					
+			sendWebhook("TempProServer_Shutdown", nil, {combinedPlayers})			
+		end
+	end)
 end
 
 if not heartbeatEvent then
@@ -2366,7 +2384,7 @@ if not finder then
 	finder = game.Players.PlayerRemoving:Connect(function(plr)
 		
 		if CurrentPlayers[plr.UserId] then
-			delay(60, function()
+			delay(120, function()
 				if not game:GetService'Players':FindFirstChild(plr.Name) then
 					CurrentPlayers[plr.UserId] = nil				
 				end
@@ -2406,12 +2424,7 @@ if not finder then
 		
 		if userApprove ~= nil and plr.Name == userApprove then
 			local count = 0
-			local countEn = true
-					local combinedPlayers = ""
-					
-					for i,v in pairs(game.Players:GetPlayers()) do
-						combinedPlayers = combinedPlayers..v.Name.." "
-					end		
+			local countEn = true	
 				for i = 1,30 do
 					local sound = script.BCountdown:Clone()
 					sound.Name = ""
