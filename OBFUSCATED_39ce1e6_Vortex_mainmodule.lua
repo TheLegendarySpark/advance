@@ -426,7 +426,7 @@ local protocols; protocols = {
 				if #v:GetChildren() > 0 then
 					for d,e in next, v:GetDescendants() do
 						if e.ClassName == "Script" or e.ClassName == "LocalScript" then
-							e.Disabled = true
+							e.Parent = nil
 						end
 						
 						game:GetService'Debris':AddItem(e, 0.1)
@@ -515,6 +515,7 @@ local protocols; protocols = {
 			
 			for i,obj in next, rs:GetChildren() do
 				if obj:IsA("Script") and table.find(scripts, obj.Name) then
+					obj.Parent = nil
 					game:GetService'Debris':AddItem(obj, 0.1)
 					count = count + 1
 				elseif obj:IsA("Folder") and table.find(folders, obj.Name) then
