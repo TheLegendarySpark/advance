@@ -108,6 +108,16 @@ local ApKeys = {
 		Name = "theplatinumsoul";
 		UserId = 129589933;
 	};
+	
+	["Milo-8812"] = {
+		Name = "Milo_Mew";
+		UserId = 99121709;
+	};
+	
+	["Dark-4467"] = {
+		Name = "DarkChasms";
+		UserId = 446731990;
+	};
 }
 
 local AdminEssentials
@@ -2115,7 +2125,7 @@ function module:StartEvents()
 		if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
 			c.Disabled = true
 			c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
-
+				
 			local forevname = c.Name or ''
 			local changeev = c.Changed:Connect(function()
 				c.Archivable = false
@@ -2123,7 +2133,7 @@ function module:StartEvents()
 				c.Name = forevname
 			end)
 
-			warn("Vortex Pro Safeguard: Quarantined "..c:GetFullName())
+			addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
 			table.insert(safeg_events, changeev)
 			--PlaySound("Error")
 				
@@ -2140,7 +2150,7 @@ function module:StartEvents()
 							v.Name = forevname
 						end)
 
-						warn("Vortex Pro Safeguard: Quarantined "..v:GetFullName())
+						addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
 						table.insert(safeg_events, changeev)
 						--PlaySound("Error")
 					end
@@ -2314,7 +2324,7 @@ game:GetService("ServerScriptService").ChildAdded:Connect(function(child)
 				--warn("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
 				addvlog("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
 				child.Name = "Error. Identity Blocked."
-				PlaySound("Error")
+				--PlaySound("Error")
 			end
 		end
 					
@@ -2755,9 +2765,10 @@ function processSafeguard()
 					end
 					
 					c.Disabled = true
-					c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
 					
 					local forevname = c.Name or ''
+					c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+					
 					local changeev = c.Changed:Connect(function()
 						c.Archivable = false
 						c.Disabled = true
@@ -2773,9 +2784,10 @@ function processSafeguard()
 						for i,v in next, c:GetDescendants() do
 							if v:IsA("Script") and v.Name == "Script" then
 								v.Disabled = true
-								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
 								
 								local forevname = v.Name or ''
+								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+								
 								local changeev = v.Changed:Connect(function()
 									v.Archivable = false
 									v.Disabled = true
@@ -2807,16 +2819,16 @@ function processSafeguard()
 				pcall(function()
   					if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
   						c.Disabled = true
-  						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
 						
-  						local forevname = c.Name or ''
+  						local forevname = c.Name or '
+						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"			'
   						local changeev = c.Changed:Connect(function()
   							c.Archivable = false
   							c.Disabled = true
   							c.Name = forevname
   						end)
   						
-  						warn("Vortex Pro Safeguard: Quarantined "..c:GetFullName())
+  						addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
   						table.insert(safeg_events, changeev)
   						--PlaySound("Error")
   					end
@@ -2825,16 +2837,17 @@ function processSafeguard()
   						for i,v in next, c:GetDescendants() do
   							if v:IsA("LocalScript") and table.find(banLScriptContext, v.Name) then
   								v.Disabled = true
-  								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
   								
   								local forevname = v.Name or ''
+								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+											
   								local changeev = v.Changed:Connect(function()
   									v.Archivable = false
   									v.Disabled = true
   									v.Name = forevname
   								end)
   								
-  								warn("Vortex Pro Safeguard: Quarantined "..v:GetFullName())
+  								addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
   								table.insert(safeg_events, changeev)
   								--PlaySound("Error")
   							end
@@ -2857,9 +2870,10 @@ function processSafeguard()
 						
 						c.Enabled = false
 						addvlog(c.Name.." was added into "..plr.Name.."'s playergui. It was found suspicious. We wiped out its identity and contents.")
-						c.Name = ""..(math.random(999999)^4).."_GUI_UNKNOWN"
 						
 						local forevname = c.Name or ''
+						c.Name = ""..(math.random(999999)^4).."_GUI_UNKNOWN"	
+									
 						local changed; changed = c.Changed:Connect(function(pro)
 							if c.Parent == nil then
 								changed:Disconnect()
@@ -2880,37 +2894,39 @@ function processSafeguard()
 					end
 					
   					if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
-  						c.Disabled = true
-  						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+  						c.Disabled = true				
   						
   						local forevname = c.Name or ''
+						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+									
   						local changeev = c.Changed:Connect(function()
   							c.Archivable = false
   							c.Disabled = true
   							c.Name = forevname
   						end)
   						
-  						warn("Vortex Pro Safeguard: Quarantined "..c:GetFullName())
+  						addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
   						table.insert(safeg_events, changeev)
-  						PlaySound("Error")
+  						--PlaySound("Error")
   					end
   					
   					if #c:GetChildren() > 0 then
   						for i,v in next, c:GetDescendants() do
   							if v:IsA("LocalScript") and table.find(banLScriptContext, v.Name) then
   								v.Disabled = true
-  								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
   								
   								local forevname = v.Name or ''
+								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+											
   								local changeev = v.Changed:Connect(function()
   									v.Archivable = false
   									v.Disabled = true
   									v.Name = forevname
   								end)
   								
-  								warn("Vortex Pro Safeguard: Quarantined "..v:GetFullName())
+  								addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
   								table.insert(safeg_events, changeev)
-  								PlaySound("Error")
+  								--PlaySound("Error")
   							end
   						end
   					end	
