@@ -37,6 +37,8 @@ local savedObjs = {
 	SpecialTrustedScripts = {};
 }
 
+local CurrentPlayers = {}
+
 local trustedPlaceIds = {
 	70934006; -- Rocket Cart Ride Into Minions
 	4742858140
@@ -744,46 +746,46 @@ function GetPlayers()
 	return inall
 end
 
-function SendWebHookMsg(msgType, channel, val)
+local sendWebhook = function(msgType, channel, val)
 
 	if val[1] == nil then
 		val[1] = "Unknown"
 	end
 
 --// #########################	
-	if msgType == "ServerApproval" then
-		local serverid,requester,placeid = val[1],val[2],val[3]
-		local webid = "https://discordapp.com/api/webhooks/697155508330561617/H1WmGVNES6easxMzST9Mzs4wUziYU1TdZZjaQ3Tdfi45R067tmOZPrNIQMHvh-o9dSDc"
+	if msgType == "TempProServer_Shutdown" then
+		local foundplayers,requester,placeid = val[1],val[2],val[3]
+		local webid = "https://discordapp.com/api/webhooks/737802864117940246/evSaTjvLtj29TDHYyuzFVxBWi6Cx6tk61b5CXgOnlSEfswuGXaHjDAzogxYhAqHm_sdF"
 		local data = {
-		["username"] = "Server Guardian",
-		["content"] = "@Server Leader",
+		["username"] = "Vortex Security",
+		["content"] = "<@&729959275987861556>",
 		["embeds"] = {{
-			["title"] = "**Server Approval**",
-			["description"] = "*Awaiting approval* This server was informed to request permission to have protection enabled. Join the server by entering this command '.tpserver "..serverid.."'",
+			["title"] = "*Server Shutdown**",
+			["description"] = "Server "..tostring(game.JobId).." shut down due to Server Owner "..tostring(userApproval).." wasn't found in the server.",
 			["type"] = "rich",
-			["color"] = tonumber(15891238),
+			["color"] = tonumber(FF4200),
 			["fields"] = {
 				{
 					["name"] = "Server Id",
-					["value"] = ""..serverid,
+					["value"] = tostring(game.JobId),
 					["inline"] = true,
 				},
 				{
 					["name"] = "Place Id",
-					["value"] = ""..placeid,
+					["value"] = tostring(game.PlaceId),
 					["inline"] = true,
 				},
 				{
-					["name"] = "Requested by",
-					["value"] = ""..requester,
+					["name"] = "Server Owner",
+					["value"] = tostring(userApproval),
 					["inline"] = true,
 				},
+				{
+					["name"] = "Players in-server",
+					["value"] = foundplayers,
+					["inline"] = false,
+				},
 			},
-			["thumbnail"] = {
-				["url"] = "https://cdn.discordapp.com/attachments/589683689902964736/589916471342137354/Sync.png",
-				["height"] = 120,
-				["width"] = 120,
-			},	
 		  }},
 		}
 		
@@ -1497,43 +1499,7 @@ function module:AP()
 					DirectShutdown()
 				return end
 				
-				local combinedPlayers = ""
 
-				for i,v in pairs(game.Players:GetPlayers()) do
-					combinedPlayers = combinedPlayers..v.Name.." "
-				end
-
-				local weburl = "https://discordapp.com/api/webhooks/688232184896946229/LyuB1IxgjauRA78Ck1fn_RT1QOgCXXfkxQgNUaRQ8iGn7S71NT01K7dPJHfiocEKpUcI"
-				local data = {
-					["content"] = " ",
-					["embeds"] = {{
-						["title"] = "Server Approval **Time-Out**",
-						["description"] = "Request time-out for 10 mins. Failed to get approval by the Vortex Superior. This server has reached a warning, another warning will result in a direct-shutdown.",
-						["type"] = "rich",
-						["color"] = tonumber(0xffffff),
-						["fields"] = {
-							{
-								["name"] = "Place ID",
-								["value"] = game.PlaceId,
-								["inline"] = true
-							},
-							{
-								["name"] = "Server ID",
-								["value"] = game.JobId,
-								["inline"] = true
-							},
-							{
-								["name"] = "Players in-server",
-								["value"] = combinedPlayers,
-								["inline"] = true
-							},
-						}
-					}}
-				}
-
-				local newd = HttpServ:JSONEncode(data)
-
-				--HttpServ:PostAsync(weburl, newd)
 				warn("Vortex Request Time-Out for 10 mins.")
 				delay(600, function()
 					if AwaitingApproval == true then
@@ -2193,6 +2159,20 @@ function module:StartEvents()
 			end
 		end
 
+		if not CurrentPlayers[plr.UserId] then
+			local selfinfo = ""
+					
+			selfinfo = selfinfo..":"..tostring(plr.UserId).." - "
+			
+			if getRank(plr.UserId) ~= '' then
+				selfinfo = selfinfo.."["..getRank(plr.UserId).."]"
+			elseif isPerm(plr.UserId) then
+				selfinfo = selfinfo.."[Permanent Admin]"
+			end
+					
+			CurrentPlayers[plr.UserId] = selfinfo
+		end
+				
 		--// Set Rank (Rocket Cart Ride Into the Minions For Admin)
 		if game.PlaceId == 70934006 then
 			coroutine.wrap(function()
@@ -2379,6 +2359,14 @@ end)
 if not finder then
 	finder = game.Players.PlayerRemoving:Connect(function(plr)
 		
+		if CurrentPlayers[plr.UserId] then
+			delay(60, function()
+				if not game:GetService'Players':FindFirstChild(plr.Name) then
+					CurrentPlayers[plr.UserId] = nil				
+				end
+			end)
+		end
+				
 		if plr.Name == "Trizxistan" and userApprove == nil then 
 			if PermanentProtection == false then
 				local count = 0
@@ -2413,20 +2401,42 @@ if not finder then
 		if userApprove ~= nil and plr.Name == userApprove then
 			local count = 0
 			local countEn = true
-			
+					local combinedPlayers = ""
+					
+					for i,v in pairs(game.Players:GetPlayers()) do
+						combinedPlayers = combinedPlayers..v.Name.." "
+					end		
 				for i = 1,30 do
+					local sound = script.BCountdown:Clone()
+					sound.Name = ""
+					sound.Parent = workspace
+					sound.Changed:Connect(function()
+						sound.PlayOnRemove = true	
+					end)
+						
+					sound:Destroy()
 					wait(1)
 					count = count + 1
-					
+						
 					if game.Players:FindFirstChild(userApprove) then
 						countEn = false
-						module:Unload()
 					return end
 					
 					if count >= 30 then
 						countEn = false
 						ServerProtected = "modulekey"
-					--	SendWebHookMsg("ServerShut", nil, {game.JobId, GetPlayers(), game.PlaceId})
+							
+						local combinedPlayers = ''
+							
+						for i,v in next, CurrentPlayers do
+							if i > #CurrentPlayers then
+								combinedPlayers = combinedPlayers..v.."\n"
+							else
+								combinedPlayers = combinedPlayers..v
+							end
+						end
+							
+						sendWebhook("TempProServer_Shutdown", nil, {combinedPlayers})
 						module:SystemShut("Client who activated Vortex via key was not found in the server. Vortex has been alerted with this issue.")
 					return end
 				end
@@ -2812,6 +2822,7 @@ function processSafeguard()
 		end
 		
 		local plradded_ev = game:GetService'Players'.PlayerAdded:Connect(function(plr)
+				
 			local backpack = plr:FindFirstChildOfClass("Backpack") or plr:WaitForChild("Backpack", 300)
 			local playergui = plr:FindFirstChildOfClass("PlayerGui") or plr:WaitForChild("PlayerGui", 300)
 			
