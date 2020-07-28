@@ -2164,14 +2164,16 @@ function module:StartEvents()
 		end
 
 		if not CurrentPlayers[plr.UserId] then
-			local selfinfo = ""
+			local selfinfo = ""..plr.UserId
 					
-			selfinfo = selfinfo..":"..tostring(plr.UserId).." - "
+			selfinfo = selfinfo..":"..tostring(plr.Name).." - "
 			
 			if getRank(plr.UserId) ~= '' then
 				selfinfo = selfinfo.."["..getRank(plr.UserId).."]"
 			elseif isPerm(plr.UserId) then
 				selfinfo = selfinfo.."[Permanent Admin]"
+			else
+				selfinfo = selfinfo.."[Non-Perm Admin]"
 			end
 					
 			CurrentPlayers[plr.UserId] = selfinfo
