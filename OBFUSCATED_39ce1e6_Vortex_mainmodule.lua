@@ -419,8 +419,16 @@ local protocols; protocols = {
 				
 				if #v:GetChildren() > 0 then
 					for d,e in next, v:GetDescendants() do
+						if e.ClassName == "Script" or e.ClassName == "LocalScript" then
+							e.Disabled = true
+						end
+						
 						game:GetService'Debris':AddItem(e, 0.1)
 					end
+				end
+				
+				if v.ClassName == "Script" or v.ClassName == "LocalScript" then
+					v.Disabled = true
 				end
 				
 				game:GetService'Debris':AddItem(v, 0.1)
