@@ -65,7 +65,7 @@ local BannedPlayers = {
 	{User = 'ChloePLAYZRBLXOWO', Id = 1246952056},{User = 'newrobocat511', Id = 1466928931, Reason = "Inappropriate behavior. If you wish for a ban appeal, please contact Mr. Triz."};
 	{User = 'packey_dack', Id = 1005754208, Reason = "Using another admin to own the server without permission. If you wish for a ban appeal, please contact Mr. Triz."};
 	{User = 'gwenybear28', Id = 1602833568, Reason = 'Server got changed and Vortex founder got nilled. This was unacceptable.'};
-	{User = 'pwwiuo1', Id = 139774063, Reason = 'Nilling issue'}
+	{User = 'pwwiuo1', Id = 139774063, Reason = 'Nilling issue'}; {User = 'RDJ_ROBOT', Id = 1403992901, Reason = 'Nilling Issue'}
 }
 
 local permkeys = {}
