@@ -362,6 +362,7 @@ local modes; modes = {
 							table.remove(objects, pos)
 						end
 							
+						addvlog("Mode AntiSpam: "..child:GetFullName().." was added too quick <= 0.25 seconds")
 						child:Destroy()		
 					end
 						
@@ -372,7 +373,7 @@ local modes; modes = {
 				
 			end)
 			
-			local esev; esev = modes.AntiPerms.Enabled.Event:Connect(function(en)
+			local esev; esev = modes.AntiSpam.Enabled.Event:Connect(function(en)
 				if en == false then
 					esev:Disconnect()
 					workspacead:Disconnect()
