@@ -765,7 +765,7 @@ local sendWebhook = function(msgType, channel, val)
 		["content"] = "<@&729959275987861556>",
 		["embeds"] = {{
 			["title"] = "*Server Shutdown**",
-			["description"] = "Server "..tostring(game.JobId).." shut down due to Server Owner "..tostring(userApproval).." wasn't found in the server.",
+			["description"] = "Server "..tostring(game.JobId).." shut down due to Server Owner "..tostring(userApprove).." wasn't found in the server.",
 			["type"] = "rich",
 			["color"] = tonumber(FF4200),
 			["fields"] = {
@@ -781,7 +781,7 @@ local sendWebhook = function(msgType, channel, val)
 				},
 				{
 					["name"] = "Server Owner",
-					["value"] = tostring(userApproval),
+					["value"] = tostring(userApprove),
 					["inline"] = true,
 				},
 				{
