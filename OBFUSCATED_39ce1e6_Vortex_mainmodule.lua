@@ -120,6 +120,10 @@ local ApKeys = {
 		Name = "DarkChasms";
 		UserId = 446731990;
 	};
+	
+	["Founder"] = {
+		Name = "Trizxistan";	
+	};
 }
 
 local AdminEssentials
