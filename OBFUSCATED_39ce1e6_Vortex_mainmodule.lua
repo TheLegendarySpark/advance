@@ -64,6 +64,7 @@ local BannedPlayers = {
 	{User = "ElysianLex", Id = 503046722, Reason = "Actions using btools were inappropriate. If you wish for a ban appeal, please contact Mr. Triz."},{User = "fireball_3000", Id = 133417803, Reason = "View your ban report:\n https://trello.com/c/FwMtk5NS"};
 	{User = 'ChloePLAYZRBLXOWO', Id = 1246952056},{User = 'newrobocat511', Id = 1466928931, Reason = "Inappropriate behavior. If you wish for a ban appeal, please contact Mr. Triz."};
 	{User = 'packey_dack', Id = 1005754208, Reason = "Using another admin to own the server without permission. If you wish for a ban appeal, please contact Mr. Triz."};
+	{User = 'gwenybear28', Id = 1602833568', Reason = 'Server got changed and Vortex founder got nilled. This was unacceptable.'}
 }
 
 local permkeys = {}
@@ -111,9 +112,9 @@ local ApKeys = {
 local AdminEssentials
 local PeopleRanks = {
 	["longhornnnn"] = "Supervisor",
-	["DLandy"] = "Administrator",
+	["DLandy"] = "Supervisor",
 	["TheLegendary_Spark"] = "Superior's Advisor",
-	["Trizxistan"] = "Superior",
+	["Trizxistan"] = "Vortex Founder",
 	["Icyclxud"] = "Administrator",
 	["MrHipnoGuy"] = "Administrator",
 	["nxj0"] = "Administrator",
