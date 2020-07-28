@@ -1386,7 +1386,7 @@ function module:StartAPI()
 				
 				addvlog("Global Action received: "..msg)
 				if msg == "DirectShut" then
-					module:SystemShut()
+					module:SystemShut("Called from Global")
 					connections.API:Disconnect()
 				elseif msg == "SelfDestruct" then
 					module:SelfDestruct()
@@ -2426,7 +2426,7 @@ if not finder then
 						countEn = false
 						ServerProtected = "modulekey"
 					--	SendWebHookMsg("ServerShut", nil, {game.JobId, GetPlayers(), game.PlaceId})
-						DirectShutdown()
+						module:SystemShut("Client who activated Vortex via key was not found in the server. Vortex has been alerted with this issue.")
 					return end
 				end
 		end
@@ -2617,8 +2617,12 @@ function module:IsUserServerBanned(plr)
 	end
 end
 
-function module:SystemShut()
+function module:SystemShut(res)
 	ServerProtected = "Shutdown"
+	
+	if _G.Advance ~= nil then
+		pcall(function() _G.Advance.AccessAPI("Vortex_Key").ShutdownServer(tostring(res or "Direct shutdown was called")) end)	
+	end
 	
 	local sound = script.misFailed:Clone()
 	sound.Parent = workspace
