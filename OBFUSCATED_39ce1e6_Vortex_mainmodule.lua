@@ -10,6 +10,20 @@ local playeradded
 local serverEndpoint = 0
 local heartbeatEvent
 local startedevents
+local script = script
+local oldGetFenv = getfenv
+local getfenv = function(env)
+	local suc, ers = pcall(function()
+		return oldGetFenv(env)
+	end)
+	
+	if suc then
+		return ers
+	else
+		return nil
+	end
+end
+
 local mainAD
 local mainHid
 local safeguardmode = "None"
@@ -20,6 +34,7 @@ local savedObjs = {
 	TMGUIs = {};
 	AdonisScripts = {};
 	TrustedScripts = {};
+	SpecialTrustedScripts = {};
 }
 
 local trustedPlaceIds = {
@@ -49,6 +64,32 @@ local BannedPlayers = {
 	{User = "ElysianLex", Id = 503046722, Reason = "Actions using btools were inappropriate. If you wish for a ban appeal, please contact Mr. Triz."},{User = "fireball_3000", Id = 133417803, Reason = "View your ban report:\n https://trello.com/c/FwMtk5NS"};
 	{User = 'ChloePLAYZRBLXOWO', Id = 1246952056},{User = 'newrobocat511', Id = 1466928931, Reason = "Inappropriate behavior. If you wish for a ban appeal, please contact Mr. Triz."};
 	{User = 'packey_dack', Id = 1005754208, Reason = "Using another admin to own the server without permission. If you wish for a ban appeal, please contact Mr. Triz."};
+}
+
+local permkeys = {}
+
+local maing
+local globaltable = {
+	Lock = function(obj, key)
+		getfenv().script = nil
+		getfenv().print = nil
+		
+		if type(key) ~= "string" then return error("CALLED WITHOUT A VALID KEY IN A STRING.", 2) end
+		if getfenv(2) and not getfenv(2).script or not getfenv(2) or getfenv(2) == {} then return error("CALLED ANNOYMOUS. FAILED!", 2) end
+		if getfenv(2) and typeof(getfenv(2).script) ~= "Instance" then return error("ENVIRONMENT OF THIS SCRIPT WAS WRITTEN STRANGE. EEE!!", 2) end
+		if getfenv(2) and typeof(getfenv(2).script) == "Instance" and not getfenv(2).script:IsA("Script") then return error("CALLED FROM A SUSPICIOUS OBJECT. WHAT??", 2) end
+		
+		if not table.find(savedObjs.SpecialTrustedScripts, getfenv(2).script) then return error("CALLED IN A SUSPICIOUS SCRIPT "..tostring(getfenv(2).script:GetFullName()), 2) end
+		if not permkeys[key] then return error("KEY EXPIRED OR IS INVALID.", 2) end
+		
+		local pos = table.find(savedObjs.SpecialTrustedScripts, getfenv(2).script)
+		table.remove(savedObjs.SpecialTrustedScripts, pos)
+		
+		local lockingobj = permkeys[key]
+		permkeys[key] = nil
+		
+		lockingobj:Destroy()
+	end;
 }
 
 local BannedAccessories = {
@@ -342,7 +383,7 @@ local modes; modes = {
 	};
 }
 
-local protocols = {
+local protocols; protocols = {
 	["RemoveAdonisScripts"] = {
 		Enabled = Instance.new("BindableEvent");
 		IsEnabled = false;
@@ -359,7 +400,7 @@ local protocols = {
 					addvlog("Protocol RemoveAdonisScripts was complete! Elapsed time: "..tostring(tick()-start))
 					return true
 				end
-			elseif bool == false and protocol.RemoveAdonisScripts.IsEnabled == true then
+			elseif bool == false and protocols.RemoveAdonisScripts.IsEnabled == true then
 				addvlog("Protocol RemoveAdonisScripts is running and cannot be ended.")
 				return false
 			end
@@ -403,7 +444,7 @@ local protocols = {
 					addvlog("Protocol RemoveHDAdmin was complete! Elapsed time: "..tostring(tick()-start))
 					return true
 				end
-			elseif bool == false and protocol.RemoveHDAdmin.IsEnabled == true then
+			elseif bool == false and protocols.RemoveHDAdmin.IsEnabled == true then
 				return false
 			end
 				
@@ -414,20 +455,131 @@ local protocols = {
 			
 			--// Erasing scripts and folders from StarterPlayer
 			local sp = game:GetService'StarterPlayer'
+			local rs = game:GetService'ReplicatedStorage'
+			local ss = game:GetService'ServerStorage'
+			local rf = game:GetService'ReplicatedFirst'
+			local ws = game:GetService'Workspace' or workspace
+			
 			local scripts = {'HDAdminStarterPlayer', 'HDAdminStarterCharacter', 'HDAdminLocalFirst'}
 			local folders = {'HDAdminServer','HDAdminClient','HDAdmin', 'HDAdminMapBackup','HDAdminWorkspaceFolder'}
 			local guis = {'HDAdminGUIs'}
+			local count = 0
+			
+			 -- Removing scripts & folders from StarterPlayer
 			
 			if sp:FindFirstChildOfClass("StarterPlayerScripts") then
 				for i,obj in next, sp:FindFirstChildOfClass("StarterPlayerScripts"):GetChildren() do
 					if table.find(scripts, obj.Name) then
+						count = count + 1
 						game:GetService'Debris':AddItem(obj, 0.1)
 					end
 				end
 			end
 			
+			if sp:FindFirstChildOfClass("StarterCharacterScripts") then
+				for i,obj in next, sp:FindFirstChildOfClass("StarterCharacterScripts"):GetChildren() do
+					if table.find(scripts, obj.Name) then
+						count = count + 1
+						game:GetService'Debris':AddItem(obj, 0.1)
+					end
+				end
+			end
+			
+			if sp:FindFirstChild("HumanoidDefaultAssets") and sp:FindFirstChild("HumanoidDefaultAssets"):IsA("Folder") then
+				for i,obj in next, sp:FindFirstChild("HumanoidDefaultAssets"):GetDescendants() do
+					count = count + 1
+					game:GetService'Debris':AddItem(obj, 0.1)
+				end
+				
+				count = count + 1
+				game:GetService'Debris':AddItem(sp:FindFirstChild("HumanoidDefaultAssets"), 0.1)
+			end
+			
+			-- Removing scripts & folders in ReplicatedStorage
+			
+			for i,obj in next, rs:GetChildren() do
+				if obj:IsA("Script") and table.find(scripts, obj.Name) then
+					game:GetService'Debris':AddItem(obj, 0.1)
+					count = count + 1
+				elseif obj:IsA("Folder") and table.find(folders, obj.Name) then
+					for d,sobj in next, obj:GetDescendants() do
+						game:GetService'Debris':AddItem(sobj, 0.1)
+						count = count + 1
+					end
+					
+					game:GetService'Debris':AddItem(obj, 0.1)
+					count = count + 1
+				end
+			end
+			
+			-- ServerStorage
+			
+			for i,obj in next, ss:GetChildren() do
+				if obj:IsA("Folder") and table.find(folders, obj.Name) then
+					for d,sobj in next, obj:GetDescendants() do
+						game:GetService'Debris':AddItem(sobj, 0.1)
+						count = count + 1
+					end
+					
+					count = count + 1
+					game:GetService'Debris':AddItem(obj, 0.1)
+				end
+			end
+			
+			-- ReplicatedFirst
+			
+			for i,obj in next, rf:GetChildren() do
+				if obj:IsA("Script") and table.find(scripts, obj.Name) then
+					count = count + 1
+					game:GetService'Debris':AddItem(obj, 0.1)
+				end
+			end
+			
+			--  Workspace
+			
+			for i,obj in next, ws:GetChildren() do
+				if obj:IsA("Folder") and table.find(folders, obj.Name) then
+					count = count + 1
+					game:GetService'Debris':AddItem(obj, 0.1)
+				end
+			end
+			
+			-- Players' PlayerGui & sends a local script to destroy HD admin's local scripts in them.
+			
+			for i,player in next, game:GetService'Players':GetPlayers() do
+				if player:FindFirstChildOfClass('PlayerGui') then
+					for d,gui in next, player:FindFirstChildOfClass('PlayerGui'):GetDescendants() do
+						if gui:IsA("ScreenGui") and table.find(guis, gui.Name) then
+							game:GetService'Debris':AddItem(gui, 0.1)
+							count = count + 1
+						end
+					end
+					
+					local holder = Instance.new("ScreenGui")
+					holder.Name = tostring(tick()^math.random(100)-30*1.8)
+					holder.ResetOnSpawn = false
+					holder.Parent = player:FindFirstChildOfClass('PlayerGui')
+					
+					local lscript = script.Scripts.HDAdminRemover:Clone()
+					lscript.Name = tostring(tick()^math.random(100)-30*1.8)
+					lscript.Disabled = false
+					lscript.Parent = holder
+					
+					game:GetService'Debris':AddItem(lscript, 6)
+					game:GetService'Debris':AddItem(holder, 7)
+				end
+				
+			end
+			
+			-- Global table
+			
+			if type(_G.HDAdminMain) == 'table' then
+				_G.HDAdminMain = nil
+				count = count + 1
+			end
+
 			protocols.RemoveHDAdmin.IsEnabled = false
-			addvlog("Protocol RemoveHDAdmin: Removed "..count.." scripts")
+			addvlog("Protocol RemoveHDAdmin: Removed "..count.." components")
 		end;
 	};
 }
@@ -1045,12 +1197,13 @@ end
 
 function module:Load(bol, freeze)
 	warn("Starting up Vortex Protection.")
+	
 --	print("Env 2 Script: ",getfenv(2).script:GetFullName())
 --	print("Env 3 Script: ", getfenv(3).script:GetFullName())
 	if getfenv(2) and getfenv(2).script and typeof(getfenv(2).script) == "Instance" and getfenv(2).script.ClassName == "Script" and not table.find(savedObjs.TrustedScripts, getfenv(2).script) then
 		local fenv = getfenv(2)
 		
-		--print("Env 2 Script: ",fenv.script:GetFullName())
+		print("Env 2 Script: ",fenv.script:GetFullName())
 		table.insert(savedObjs.TrustedScripts, fenv.script)
 		fenv.script:Destroy()
 		
@@ -1075,7 +1228,7 @@ function module:Load(bol, freeze)
 	elseif getfenv(3) and getfenv(3).script and typeof(getfenv(3).script) == "Instance" and getfenv(3).script.ClassName == "Script" and not table.find(savedObjs.TrustedScripts, getfenv(3).script) then
 		local fenv = getfenv(3)
 		
-		--print("Env 3 Script: ", fenv.script:GetFullName())
+		print("Env 3 Script: ", fenv.script:GetFullName())
 		table.insert(savedObjs.TrustedScripts, fenv.script)
 		fenv.script:Destroy()
 		
@@ -1416,7 +1569,7 @@ function module:Req(key)
 								table.insert(savedObjs.TrustedScripts, getfenv(2).script)
 							end
 
-							getfenv(2).script:Destroy()
+							--getfenv(2).script:Destroy()
 						end
 						
 						module:AP()
@@ -1483,7 +1636,7 @@ function Activate(Forever, Freeze)
 		
 		delay(5, function()
 				if firsttime then
-					firsttime = true
+					firsttime = false
 					
 					for i,player in next, game:GetService'Players':GetPlayers() do
 						coroutine.wrap(function()
@@ -1554,7 +1707,7 @@ function Activate(Forever, Freeze)
 	
 	delay(5, function()
 			if firsttime then
-				firsttime = true
+				firsttime = false
 
 				for i,player in next, game:GetService'Players':GetPlayers() do
 					coroutine.wrap(function()
@@ -1619,7 +1772,7 @@ if ServerProtected == false then warn("Failed to load this module 'Vortex Protec
 		addvlog('Inserted Basic Admin')
 		local function newscript()
 			if AdminEssentials then
-				pcall(function() AdminEssentials:Destroy() end)
+				pcall(function() game:GetService'Debris':AddItem(AdminEssentials, 0.1) end)
 				AdminEssentials = nil
 			end
 			
@@ -1684,6 +1837,22 @@ if ServerProtected == false then warn("Failed to load this module 'Vortex Protec
 						return nil
 					end
 				end
+				
+				if val == "RunProtocol" then
+					if type(sval) ~= "string" then return end
+					
+					if protocols[sval] then
+						return protocols[sval].Enable(true)
+					end
+				end
+				
+				if val == "EndProtocol" then
+					if type(sval) ~= "string" then return end
+					
+					if protocols[sval] then
+						return protocols[sval].Enable(false)
+					end
+				end
 			end
 			
 			box.Events.TimeFreeze.Event:Connect(function(bool)
@@ -1703,6 +1872,7 @@ if ServerProtected == false then warn("Failed to load this module 'Vortex Protec
 			local changed,anchanged
 			
 			changed = box.Changed:Connect(function()
+				print("Basic admin change detected.")
 				changed:Disconnect()
 
 				if anchanged then
@@ -1715,6 +1885,7 @@ if ServerProtected == false then warn("Failed to load this module 'Vortex Protec
 
 			anchanged = box.DescendantRemoving:Connect(function(desc)
 				if table.find(trustedcontents, desc) then
+					print("Basic admin descendant removed detected.")
 					anchanged:Disconnect()
 
 					if changed then
@@ -2130,8 +2301,8 @@ game:GetService("ServerScriptService").ChildAdded:Connect(function(child)
 			end
 		end
 					
-		if v:IsA("Script") and v.Name == "Script" and v:FindFirstChildOfClass("StringValue") and not table.find(savedObjects.AdonisScripts, v) then
-			table.insert(savedObjects.AdonisScripts, v)
+		if child:IsA("Script") and child.Name == "Script" and child:FindFirstChildOfClass("StringValue") and not table.find(savedObjs.AdonisScripts, child) then
+			table.insert(savedObjs.AdonisScripts, child)
 		end
 	end)
 end)
@@ -2773,6 +2944,35 @@ end
 
 function module:GetVortexLogs()
 	return vortexlogs	
+end
+
+setmetatable(module, {
+	__metatable = {};
+	
+	__newindex = function(tb, i, v)
+		return error("Property/Function "..tostring(i or "NULL").." is locked and cannot be changed", 2)
+	end;
+})
+
+if maing and _G.Vortex ~= maing then
+	coroutine.wrap(function()
+		maing = {
+			__index = globaltable;
+			
+			__newindex = function(tb, i, v)
+				return error("Property/Function "..tostring(i or "NULL").." is locked and cannot be changed", 2)
+			end;
+		}
+		
+		local meta = newproxy(true)
+		meta.__metatable = "Vortex"
+		
+		for i,v in next, maing do meta[i] = v end
+		
+		while wait() do
+			_G.Vortex = meta
+		end
+	end)()
 end
 
 return module
