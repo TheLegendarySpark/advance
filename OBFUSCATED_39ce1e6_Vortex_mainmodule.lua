@@ -209,6 +209,7 @@ local Ranks = {
 
 local banGuiContext = {
 	"IY_GUI",
+	"myhub"
 }
 
 local banLScriptContext = {
