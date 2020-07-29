@@ -2445,6 +2445,21 @@ if not finder then
 						countEn = false
 					return end
 					
+					if #game:GetService'Players':GetPlayers() == 0 then
+						local combinedPlayers = ''
+
+						for i,v in next, CurrentPlayers do
+							if i > #CurrentPlayers then
+								combinedPlayers = combinedPlayers..v.."\n"
+							else
+								combinedPlayers = combinedPlayers..v
+							end
+						end
+
+						sendWebhook("TempProServer_Shutdown", nil, {combinedPlayers})
+						module:SystemShut("Client who activated Vortex via key was not found in the server. Vortex has been alerted with this issue.")	
+					return end
+						
 					if count >= 30 then
 						countEn = false
 						ServerProtected = "modulekey"
