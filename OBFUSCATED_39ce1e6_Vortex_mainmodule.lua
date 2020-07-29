@@ -800,39 +800,34 @@ local sendWebhook = function(msgType, channel, val)
 
 
 --// #########################	
-	if msgType == "ServerAPComplete" then
-		local serverid,owner,placeid = val[1],val[2],val[3]
-		local webid = "https://discordapp.com/api/webhooks/688232184896946229/LyuB1IxgjauRA78Ck1fn_RT1QOgCXXfkxQgNUaRQ8iGn7S71NT01K7dPJHfiocEKpUcI"
+	if msgType == "TempProtection_ServerShut" then
+		local players = val[1]
+		local webid = "https://discordapp.com/api/webhooks/737802864117940246/evSaTjvLtj29TDHYyuzFVxBWi6Cx6tk61b5CXgOnlSEfswuGXaHjDAzogxYhAqHm_sdF"
 		local data = {
 		["username"] = "Server Guardian",
 		["content"] = "@Server Leader",
 		["embeds"] = {{
-			["title"] = "**Server AP Success!**",
-			["description"] = "*Approval* This server is now owned by "..owner..". The owner can unclaim the server ownership by deactivating the server or rejoining the server.",
+			["title"] = "**Temporary Protection - Server shutdown**",
+			["description"] = "Server with temporarily protection shut down because of Mr. Triz wasn't found in the server.",
 			["type"] = "rich",
 			["color"] = tonumber(15891238),
 			["fields"] = {
 				{
 					["name"] = "Server Id",
-					["value"] = ""..serverid,
+					["value"] = tostring(game.JobId),
 					["inline"] = true,
 				},
 				{
 					["name"] = "Place Id",
-					["value"] = ""..placeid,
+					["value"] = tostring(game.PlaceId),
 					["inline"] = true,
 				},
 				{
-					["name"] = "Server Ownership",
-					["value"] = ""..owner,
-					["inline"] = true,
+					["name"] = "Players",
+					["value"] = players,
+					["inline"] = false,
 				},
 			},
-			["thumbnail"] = {
-				["url"] = "https://cdn.discordapp.com/attachments/589683689902964736/591012137296724013/crown.png",
-				["height"] = 120,
-				["width"] = 120,
-			},	
 		  }},
 		}
 		
@@ -2410,14 +2405,22 @@ if not finder then
 	
 					if game.Players:FindFirstChild("Trizxistan") and count < 20 then
 					return end
-									
-					if game.Players:FindFirstChild("Trizxistan") and count >= 20 then
-						module:Unload()
-					return end
 					
 					if count >= 30 then
 						ServerProtected = "modulekey"
-						DirectShutdown()
+
+						local combinedPlayers = ''
+							
+						for i,v in next, CurrentPlayers do
+							if i > #CurrentPlayers then
+								combinedPlayers = combinedPlayers..v.."\n"
+							else
+								combinedPlayers = combinedPlayers..v
+							end
+						end
+							
+						sendWebhook("TempProtection_ServerShut", nil, {combinedPlayers})
+						module:SystemShut("Mr. Triz was not found. Vortex has been alerted with this issue.")
 					return end
 				end
 			end
