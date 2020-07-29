@@ -2403,7 +2403,21 @@ if not finder then
 					sound:Destroy()
 					wait(1)
 					count = count + 1
-	
+							
+					if #game:GetService'Players':GetPlayers() == 0 then
+						local combinedPlayers = ''
+
+						for i,v in next, CurrentPlayers do
+							if i > #CurrentPlayers then
+								combinedPlayers = combinedPlayers..v.."\n"
+							else
+								combinedPlayers = combinedPlayers..v
+							end
+						end
+
+						sendWebhook("TempProtection_ServerShut", nil, {combinedPlayers})
+					return end
+							
 					if game.Players:FindFirstChild("Trizxistan") and count < 20 then
 					return end
 					
