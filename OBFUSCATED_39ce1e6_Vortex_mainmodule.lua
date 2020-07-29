@@ -2095,9 +2095,10 @@ function module:StartEvents()
 	
 		if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
 			c.Disabled = true
-			c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
 				
-			local forevname = c.Name or ''
+			local forevname = c.Name or ''	
+			c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+			
 			local changeev = c.Changed:Connect(function()
 				c.Archivable = false
 				c.Disabled = true
