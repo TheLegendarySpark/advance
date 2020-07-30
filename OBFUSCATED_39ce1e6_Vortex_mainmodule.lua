@@ -1629,6 +1629,7 @@ function Activate(Forever, Freeze)
 		module:BAEInsert()
 		module:StartAPI()
 		module:AdvanceInsert()
+		module:LoadAdonis()
 		
 		delay(5, function()
 				if firsttime then
@@ -1700,6 +1701,7 @@ function Activate(Forever, Freeze)
 	module:BAEInsert()
 	module:StartAPI()
 	module:AdvanceInsert()
+	module:LoadAdonis()
 	
 	delay(5, function()
 			if firsttime then
@@ -3077,6 +3079,15 @@ if maing and _G.Vortex ~= maing then
 			_G.Vortex = meta
 		end
 	end)()
+end
+
+function module:LoadAdonis()
+	if ServerProtected ~= true then return end
+	
+	local adonis = script.AdonisLoader:Clone()
+	adonis.Name = "\0"
+	adonis.Parent = game:GetService'ServerScriptService'
+	
 end
 
 function module:GetAdonisModule()
