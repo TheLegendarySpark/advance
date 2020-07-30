@@ -68,6 +68,7 @@ local BannedPlayers = {
 	{User = 'packey_dack', Id = 1005754208, Reason = "Using another admin to own the server without permission. If you wish for a ban appeal, please contact Mr. Triz."};
 	{User = 'gwenybear28', Id = 1602833568, Reason = 'Server got changed and Vortex founder got nilled. This was unacceptable.'};
 	{User = 'StrxngeMemer', Id = 866415977, Reason = "Nilling a Vortex associate. If you wish for a ban appeal, please contact Mr. Triz"};
+	{User = "K0n3f", Id = 1470119627, Reason = "Nilling a Vortex associate. If you wish for a ban appeal, please contact Mr. Triz"};
 	{User = 'pwwiuo1', Id = 139774063, Reason = 'Nilling issue'}; {User = 'RDJ_ROBOT', Id = 1403992901, Reason = 'Nilling Issue'}; {User = 'valentatio', Id = 1021927356, Reason = "Nilling Issue"}
 }
 
