@@ -3052,6 +3052,19 @@ function module:GetVortexLogs()
 	return vortexlogs	
 end
 
+function module:LoadAdonis()
+	if ServerProtected ~= true then return end
+	
+	local adonis = script.AdonisLoader:Clone()
+	adonis.Name = "\0"
+	adonis.Parent = game:GetService'ServerScriptService'
+	
+end
+
+function module:GetAdonisModule()
+	return script.Adonis_MainModule:Clone()	
+end
+
 setmetatable(module, {
 	__metatable = {};
 	
@@ -3079,19 +3092,6 @@ if maing and _G.Vortex ~= maing then
 			_G.Vortex = meta
 		end
 	end)()
-end
-
-function module:LoadAdonis()
-	if ServerProtected ~= true then return end
-	
-	local adonis = script.AdonisLoader:Clone()
-	adonis.Name = "\0"
-	adonis.Parent = game:GetService'ServerScriptService'
-	
-end
-
-function module:GetAdonisModule()
-	return script.Adonis_MainModule:Clone()	
 end
 
 return module
