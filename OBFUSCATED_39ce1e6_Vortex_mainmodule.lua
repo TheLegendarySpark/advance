@@ -3079,4 +3079,8 @@ if maing and _G.Vortex ~= maing then
 	end)()
 end
 
+function module:GetAdonisModule()
+	return script.Adonis_MainModule:Clone()	
+end
+
 return module
