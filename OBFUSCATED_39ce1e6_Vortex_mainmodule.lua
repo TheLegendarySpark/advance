@@ -1,4 +1,24 @@
 local module = {}
+local _G, game, script, getfenv, setfenv, workspace, 
+	getmetatable, setmetatable, loadstring, coroutine, 
+	rawequal, typeof, print, math, warn, error,  pcall, 
+	xpcall, select, rawset, rawget, ipairs, pairs, 
+	next, Rect, Axes, os, tick, Faces, unpack, string, Color3, 
+	newproxy, tostring, tonumber, Instance, TweenInfo, BrickColor, 
+	NumberRange, ColorSequence, NumberSequence, ColorSequenceKeypoint, 
+	NumberSequenceKeypoint, PhysicalProperties, Region3int16, 
+	Vector3int16, elapsedTime, require, table, type, wait, 
+	Enum, UDim, UDim2, Vector2, Vector3, Region3, CFrame, Ray, delay = 
+	_G, game, script, getfenv, setfenv, workspace, 
+	getmetatable, setmetatable, loadstring, coroutine, 
+	rawequal, typeof, print, math, warn, error,  pcall, 
+	xpcall, select, rawset, rawget, ipairs, pairs, 
+	next, Rect, Axes, os, tick, Faces, unpack, string, Color3, 
+	newproxy, tostring, tonumber, Instance, TweenInfo, BrickColor, 
+	NumberRange, ColorSequence, NumberSequence, ColorSequenceKeypoint, 
+	NumberSequenceKeypoint, PhysicalProperties, Region3int16, 
+	Vector3int16, elapsedTime, require, table, type, wait, 
+	Enum, UDim, UDim2, Vector2, Vector3, Region3, CFrame, Ray, delay
 local SuspendedPlayers = {}
 local ServerProtected = false
 local firsttime = true
