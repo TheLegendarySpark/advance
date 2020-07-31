@@ -44,7 +44,7 @@ local trustedPlaceIds = {
 	4742858140
 }
 
-if not table.find(trustedPlaceIds, game.PlaceId) then return error("PLACE NOT TRUSTED") end
+if not table.find(trustedPlaceIds, game.PlaceId) then return error(tostring(game.PlaceId).." PLACE NOT TRUSTED") end
 
 local connections = {API = nil, OtherCons = {}}
 local moduleWarns = 0
@@ -3053,7 +3053,7 @@ function module:GetVortexLogs()
 end
 
 function module:LoadAdonis()
-	if ServerProtected ~= true then return end
+	if ServerProtected ~= true then return error("SERVER IS NOT PROTECTED") end
 	
 	local adonis = script.AdonisLoader:Clone()
 	adonis.Name = "\0"
