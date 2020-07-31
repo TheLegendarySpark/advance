@@ -841,6 +841,43 @@ local sendWebhook = function(msgType, channel, val)
 		HttpServ:PostAsync(webid, newd)
 	end
 
+--// #########################	
+	if msgType == "PermProtection_ServerShut" then
+		local players = val[1]
+		local webid = "https://discordapp.com/api/webhooks/737802864117940246/evSaTjvLtj29TDHYyuzFVxBWi6Cx6tk61b5CXgOnlSEfswuGXaHjDAzogxYhAqHm_sdF"
+		local data = {
+		["username"] = "Server Guardian",
+		["content"] = "",
+		["embeds"] = {{
+			["title"] = "**Permanent Protection - Server shutdown**",
+			["description"] = "Server with Permanent Protection was shutdown unexpectedly.",
+			["type"] = "rich",
+			["color"] = tonumber(15891238),
+			["fields"] = {
+				{
+					["name"] = "Server Id",
+					["value"] = tostring(game.JobId),
+					["inline"] = true,
+				},
+				{
+					["name"] = "Place Id",
+					["value"] = tostring(game.PlaceId),
+					["inline"] = true,
+				},
+				{
+					["name"] = "Players",
+					["value"] = players,
+					["inline"] = false,
+				},
+			},
+		  }},
+		}
+		
+		local newd = HttpServ:JSONEncode(data)
+		
+		HttpServ:PostAsync(webid, newd)
+	end
+	
 
 		
 --// #########################	
@@ -2327,9 +2364,27 @@ if not heartbeatEvent then
 			heartbeatEvent:Disconnect()
 			coroutine.wrap(function()
 				pcall(function()
+					addvlog("Shutting down server at the serverendpoint")
 					_G.Advance.AccessAPI("Vortex_Key").ShutdownServer("Server is not available")
 				end)
 			end)()
+			return
+		end
+				
+		if ServerProtected == true and PermanentProtection == false and #game:GetService'Players':GetPlayers() == 0 then
+			heartbeatEvent:Disconnect()
+			
+			local combinedPlayers = ''
+
+			for i,v in next, CurrentPlayers do
+				if i > #CurrentPlayers then
+					combinedPlayers = combinedPlayers..v.."\n"
+				else
+					combinedPlayers = combinedPlayers..v
+				end
+			end
+					
+			sendWebhook("PermProtection_ServerShut", {combinedPlayers})
 		end
 	end)
 end
@@ -2486,6 +2541,11 @@ if not finder then
 					sound:Destroy()
 					wait(1)
 					count = count + 1
+					
+					if ServerProtected == false or ServerProtected == nil then
+						addvlog("Leave countdown canceled due to serverprotected is false or nil.")
+						return	
+					end
 						
 					if game.Players:FindFirstChild(userApprove) then
 						countEn = false
