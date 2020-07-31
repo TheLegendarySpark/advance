@@ -2142,7 +2142,32 @@ function module:StartEvents()
 		--// Child Added (Adding a different core container for Adonis)
 		if plr:FindFirstChildOfClass("PlayerGui") or (plr:WaitForChild("PlayerGui", 120) and plr:FindFirstChildOfClass("PlayerGui"))then	
 			plr:FindFirstChildOfClass("PlayerGui").ChildAdded:Connect(function(child)
-
+				if child:IsA("ScreenGui") and child.Name == "" then
+					if child:FindFirstChild("Client") then
+						local clientfolder = child.Client
+									
+						if clientfolder:FindFirstChild("Core") then
+							local ls
+							if child:FindFirstChildOfClass("LocalScript") then
+								ls = child:FindFirstChildOfClass("LocalScript")			
+							end
+										
+							if ls then
+								ls.Disabled = true				
+							end
+									
+							childfolder:Destroy()
+										
+							local newfolder = script.AC_Core_Bait:Clone()
+							newfolder.Name = "Core"
+							newfolder.Parent = clientfolder
+										
+							if ls then
+								ls.Disabled = false				
+							end
+						end
+					end
+				end
 			end)
 		else
 			plr:Kick("PlayerGui is missing!")
