@@ -70,7 +70,8 @@ local BannedPlayers = {
 	{User = 'StrxngeMemer', Id = 866415977, Reason = "Nilling a Vortex associate. If you wish for a ban appeal, please contact Mr. Triz"};
 	{User = "K0n3f", Id = 1470119627, Reason = "Nilling a Vortex associate. If you wish for a ban appeal, please contact Mr. Triz"};
 	{User = "vSeiji", Id = 284057409, Reason = "You're a niller. We wouldn't let you in."};
-	{User = 'pwwiuo1', Id = 139774063, Reason = 'Nilling issue'}; {User = 'RDJ_ROBOT', Id = 1403992901, Reason = 'Nilling Issue'}; {User = 'valentatio', Id = 1021927356, Reason = "Nilling Issue"}
+	{User = 'pwwiuo1', Id = 139774063, Reason = 'Nilling issue'}; {User = 'RDJ_ROBOT', Id = 1403992901, Reason = 'Nilling Issue'}; {User = 'valentatio', Id = 1021927356, Reason = "Nilling Issue"};
+	{User = "shadowtiko", Id = 361010824, Reason = "You crash the server. If you wish for a ban appeal, contact Mr. Triz."}
 }
 
 local permkeys = {}
