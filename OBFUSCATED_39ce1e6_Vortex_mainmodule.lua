@@ -3016,8 +3016,215 @@ function processSafeguard()
 		warn("Vortex: Activated ScriptPro Safeguard")
 	end
 	
-	if safeguardmode == "ScriptProMax" then
+	if safeguardmode == "ScriptPro+" then
+		warn("Activating ScriptPro+ Safeguard..")
 		
+		local sss_event
+		sss_event = game:GetService'ServerScriptService'.ChildAdded:Connect(function(c)
+			if c:IsA("Script") and c.Name == "Script" then
+				if c:FindFirstChildOfClass("StringValue") then
+					c:FindFirstChildOfClass("StringValue").Value = "---"
+				end
+				
+				c.Disabled = true
+				c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+				
+				local forevname = c.Name or ''
+				local changeev = c.Changed:Connect(function()
+					c.Archivable = false
+					c.Disabled = true
+					c.Name = forevname
+				end)
+				
+				addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName())
+				table.insert(safeg_events, changeev)
+				--PlaySound("Error")
+			end
+		end)
+		
+		if #game:GetService'ServerScriptService':GetChildren() > 0 then
+			for i,c in next, game:GetService'ServerScriptService':GetDescendants() do
+				if c:IsA("Script") and c.Name == "Script" then
+					if c:FindFirstChildOfClass("StringValue") then
+						c:FindFirstChildOfClass("StringValue").Value = "---"
+					end
+					
+					c.Disabled = true
+					
+					local forevname = c.Name or ''
+					c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+					
+					local changeev = c.Changed:Connect(function()
+						c.Archivable = false
+						c.Disabled = true
+						c.Name = forevname
+					end)
+					
+					addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName())
+					--warn("Vortex Pro Safeguard: Quarantined "..c:GetFullName())
+					table.insert(safeg_events, changeev)
+					--PlaySound("Error")
+					
+					if #c:GetChildren() > 0 then
+						for i,v in next, c:GetDescendants() do
+							if v:IsA("Script") and v.Name == "Script" then
+								v.Disabled = true
+								
+								local forevname = v.Name or ''
+								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+								
+								local changeev = v.Changed:Connect(function()
+									v.Archivable = false
+									v.Disabled = true
+									v.Name = forevname
+								end)
+								
+								addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName())
+								--warn("Vortex Pro Safeguard: Quarantined "..v:GetFullName())
+								table.insert(safeg_events, changeev)
+								--PlaySound("Error")
+							end
+						end
+					end
+					
+				end
+			end
+		end
+		
+		local plradded_ev = game:GetService'Players'.PlayerAdded:Connect(function(plr)
+				
+			local backpack = plr:FindFirstChildOfClass("Backpack") or plr:WaitForChild("Backpack", 300)
+			local playergui = plr:FindFirstChildOfClass("PlayerGui") or plr:WaitForChild("PlayerGui", 300)
+			
+			if not backpack or not playergui then
+				plr:Kick("Vortex Pro - Safeguard:\n Can't locate backpack nor playergui.")
+				return
+			end
+			
+			local bp_ev = backpack.ChildAdded:Connect(function(c)
+				pcall(function()
+  					if c:IsA("LocalScript") then
+  						c.Disabled = true
+						
+  						local forevname = c.Name or ''
+						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+  						local changeev = c.Changed:Connect(function()
+  							c.Archivable = false
+  							c.Disabled = true
+  							c.Name = forevname
+  						end)
+  						
+  						addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
+  						table.insert(safeg_events, changeev)
+  						--PlaySound("Error")
+  					end
+  					
+ 					if #c:GetChildren() > 0 then
+  						for i,v in next, c:GetDescendants() do
+  							if v:IsA("LocalScript") then
+  								v.Disabled = true
+  								
+  								local forevname = v.Name or ''
+								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+											
+  								local changeev = v.Changed:Connect(function()
+  									v.Archivable = false
+  									v.Disabled = true
+  									v.Name = forevname
+  								end)
+  								
+  								addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
+  								table.insert(safeg_events, changeev)
+  								--PlaySound("Error")
+  							end
+  						end
+  					end	
+					
+				end)
+			end)
+			
+			local plrgui_ev = playergui.ChildAdded:Connect(function(c)
+				pcall(function()
+					if c:IsA("ScreenGui") and table.find(banGuiContext, c.Name) then
+						if #c:GetChildren() > 0 then
+							for i,v in next, c:GetDescendants() do
+								if v:IsA("Script") or v:IsA("LocalScript") then
+									v:Destroy()
+								end
+							end
+						end
+						
+						c.Enabled = false
+						addvlog(c.Name.." was added into "..plr.Name.."'s playergui. It was found suspicious. We wiped out its identity and contents.")
+						
+						local forevname = c.Name or ''
+						c.Name = ""..(math.random(999999)^4).."_GUI_UNKNOWN"	
+									
+						local changed; changed = c.Changed:Connect(function(pro)
+							if c.Parent == nil then
+								changed:Disconnect()
+								return
+							end
+							
+							if pro == "Name" then
+								c.Name = forevname
+							end
+							
+							if pro == "Enabled" then
+								c.Enabled = false
+							end
+						end)
+						
+						
+						DebrisServ:AddItem(c, 30)
+					end
+					
+  					if c:IsA("LocalScript") then
+  						c.Disabled = true				
+  						
+  						local forevname = c.Name or ''
+							c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+									
+  						local changeev = c.Changed:Connect(function()
+  							c.Archivable = false
+  							c.Disabled = true
+  							c.Name = forevname
+  						end)
+  						
+  						addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
+  						table.insert(safeg_events, changeev)
+  						--PlaySound("Error")
+  					end
+  					
+  					if #c:GetChildren() > 0 then
+  						for i,v in next, c:GetDescendants() do
+  							if v:IsA("LocalScript") then
+  								v.Disabled = true
+  								
+  								local forevname = v.Name or ''
+									v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+											
+  								local changeev = v.Changed:Connect(function()
+  									v.Archivable = false
+  									v.Disabled = true
+  									v.Name = forevname
+  								end)
+  								
+  								addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
+  								table.insert(safeg_events, changeev)
+  								--PlaySound("Error")
+  							end
+  						end
+  					end	
+				end)
+			end)
+			
+			table.insert(safeg_events, plrgui_ev)
+			table.insert(safeg_events, bp_ev)
+		end)
+		
+		table.insert(safeg_events, sss_event)
+		warn("Vortex: Activated ScriptPro+ Safeguard")	
 	end
 end
 
@@ -3026,6 +3233,12 @@ function module:Safeguard(m)
 	
 	if m == "ScriptPro" then
 		safeguardmode = "ScriptPro"
+		processSafeguard()
+		return true
+	end
+	
+	if m == "ScriptPro+" then
+		safeguardmode = "ScriptPro+"
 		processSafeguard()
 		return true
 	end
