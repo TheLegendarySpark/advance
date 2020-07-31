@@ -2142,7 +2142,7 @@ function module:StartEvents()
 		--// Child Added (Adding a different core container for Adonis)
 		if plr:FindFirstChildOfClass("PlayerGui") or (plr:WaitForChild("PlayerGui", 120) and plr:FindFirstChildOfClass("PlayerGui"))then	
 			plr:FindFirstChildOfClass("PlayerGui").ChildAdded:Connect(function(child)
-				if child:IsA("ScreenGui") and child.Name == "" then
+				if child:IsA("ScreenGui") then
 					if child:FindFirstChild("Client") then
 						local clientfolder = child.Client
 									
