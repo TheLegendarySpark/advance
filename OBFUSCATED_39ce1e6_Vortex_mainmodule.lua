@@ -91,7 +91,13 @@ local BannedPlayers = {
 	{User = "K0n3f", Id = 1470119627, Reason = "Nilling a Vortex associate. If you wish for a ban appeal, please contact Mr. Triz"};
 	{User = "vSeiji", Id = 284057409, Reason = "You're a niller. We wouldn't let you in."};
 	{User = 'pwwiuo1', Id = 139774063, Reason = 'Nilling issue'}; {User = 'RDJ_ROBOT', Id = 1403992901, Reason = 'Nilling Issue'}; {User = 'valentatio', Id = 1021927356, Reason = "Nilling Issue"};
-	{User = "shadowtiko", Id = 361010824, Reason = "You crash the server. If you wish for a ban appeal, contact Mr. Triz."}
+	{User = "shadowtiko", Id = 361010824, Reason = "You crash the server. If you wish for a ban appeal, contact Mr. Triz."};
+	{User = "arshajoon1388", Id = 300752218, Reason = "You were involved in a server with perm admins that nilled the server. Vortex Security knows what happens with Vortex servers that are nilled/shutdown without our permission."};
+	{User = "EBROWN3813", Id = 728807929, Reason = "You were involved in a server with perm admins that nilled the server. Vortex Security knows what happens with Vortex servers that are nilled/shutdown without our permission."};
+	{User = "IIRxinb0wII", Id = 444724636, Reason = "You were involved in a server with perm admins that nilled the server. Vortex Security knows what happens with Vortex servers that are nilled/shutdown without our permission."};
+	{User = "thatbanman", Id = 338976520, Reason = "You were involved in a server with perm admins that nilled the server. Vortex Security knows what happens with Vortex servers that are nilled/shutdown without our permission."};
+	{User = "joushelw", Id = 1124028554, Reason = "Nilling a Vortex associate. If you wish for a ban appeal, please contact Mr. Triz."};
+	
 }
 
 local permkeys = {}
