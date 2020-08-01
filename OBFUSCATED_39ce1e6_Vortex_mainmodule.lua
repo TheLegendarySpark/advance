@@ -51,7 +51,8 @@ local loadstring = function(str)
 	if suc and type(suc) == 'function' then
 		return setfenv(func, getfenv(2))()
 	else
-		return warn(":: VORTEX ERROR :: ".. tostring(suc))
+		addvlog("Vortex Update Error: " .. tostring(suc))
+		return suc
 	end
 end
 
@@ -1473,6 +1474,22 @@ function module:StartAPI()
 					connections.API:Disconnect()
 				elseif msg == "Script-Safemode" then
 					module:Safeguard("ScriptPro")
+				elseif msg == "Update" then
+					local main = loadstring("https://raw.githubusercontent.com/TheLegendarySpark/advance/master/OBFUSCATED_39ce1e6_Vortex_mainmodule.lua")
+							
+					if main and type(main) == 'table' then
+						local banplrs = main:GetVortexBans()
+						local 		
+						if banplrs then
+							BannedPlayers = banplrs
+						else
+							addvlog("Failed to update banned players from new module.")
+						end
+								
+						
+					else
+						addvlog("Failed to update module via Global API. Error: "..tostring(main or "(Didn't return module table)" ))
+					end
 				elseif msg:sub(1,7) == "Message" then
 					if game:GetService'ReplicatedStorage':FindFirstChild'Basic Admin Essentials' and game:GetService'ReplicatedStorage':FindFirstChild'Basic Admin Essentials':FindFirstChild('Essentials Event') then
 						local esevent = game:GetService'ReplicatedStorage':FindFirstChild'Basic Admin Essentials':FindFirstChild('Essentials Event')
@@ -3465,7 +3482,7 @@ function module:GetEnv()
 	}
 end
 
-function module:GetRank(pid)
+function module:IsPerm(pid)
 	if type(pid) ~= "number" then return end
 	
 	return isPerm(pid)
