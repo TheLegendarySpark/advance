@@ -49,7 +49,7 @@ local loadstring = function(str)
 	local suc,byte = require(mainloadstringscript:Clone())(str)
 	
 	if suc and type(suc) == 'function' then
-		return setfenv(func, getfenv(2))()
+		return func()
 	else
 		addvlog("Vortex Update Error: " .. tostring(suc))
 		return suc
