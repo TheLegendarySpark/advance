@@ -881,7 +881,7 @@ local sendWebhook = function(msgType, channel, val)
 		local players = val[1]
 		local webid = "https://discordapp.com/api/webhooks/737802864117940246/evSaTjvLtj29TDHYyuzFVxBWi6Cx6tk61b5CXgOnlSEfswuGXaHjDAzogxYhAqHm_sdF"
 		local data = {
-		["username"] = "Server Guardian",
+		["username"] = "Vortex Security",
 		["content"] = "",
 		["embeds"] = {{
 			["title"] = "**Permanent Protection - Server shutdown**",
@@ -916,44 +916,34 @@ local sendWebhook = function(msgType, channel, val)
 
 		
 --// #########################	
-	if msgType == "ConnectionLost" then
-		local serverid,players,placeid = val[1],val[2],val[3]
-		local webid = "https://discordapp.com/api/webhooks/697155508330561617/H1WmGVNES6easxMzST9Mzs4wUziYU1TdZZjaQ3Tdfi45R067tmOZPrNIQMHvh-o9dSDc"
+	if msgType == "LagIssue_ServerShut" then
+		local players = val[1]
+		local webid = "https://discordapp.com/api/webhooks/737802864117940246/evSaTjvLtj29TDHYyuzFVxBWi6Cx6tk61b5CXgOnlSEfswuGXaHjDAzogxYhAqHm_sdF"
 		local data = {
-		["username"] = "Server Guardian",
-		["content"] = " ",
+		["username"] = "Vortex Security",
+		["content"] = "",
 		["embeds"] = {{
-			["title"] = "**Connection Lost**",
-			["description"] = "This server wasn't able to find the owner during protection. You have 30 seconds to de-activate the system. Here is the information of the server.",
-			["type"] = "rich", 
-			["color"] = tonumber(15360016),
+			["title"] = "**Lag issue (>=30 seconds response time)** - Server Shutdown",
+			["description"] = "Server " .. tostring(game.JobId) .. " from place " .. tostring(game.PlaceId) .. " was shut down due to slow response time.",
+			["type"] = "rich",
+			["color"] = tonumber(15891238),
 			["fields"] = {
 				{
 					["name"] = "Server Id",
-					["value"] = ""..serverid,
+					["value"] = tostring(game.JobId),
 					["inline"] = true,
 				},
 				{
 					["name"] = "Place Id",
-					["value"] = ""..placeid,
+					["value"] = tostring(game.PlaceId),
 					["inline"] = true,
 				},
 				{
 					["name"] = "Players",
-					["value"] = ""..players,
-					["inline"] = true,
-				},
-				{
-					["name"] = "Gametime",
-					["value"] = ""..workspace.DistributedGameTime,
-					["inline"] = true,
+					["value"] = players,
+					["inline"] = false,
 				},
 			},
-			["thumbnail"] = {
-				["url"] = "https://cdn.discordapp.com/attachments/589683689902964736/589916471342137354/Sync.png",
-				["height"] = 120,
-				["width"] = 120,
-			},	
 		  }},
 		}
 		
@@ -1695,6 +1685,24 @@ function Activate(Forever, Freeze)
 			end
 		end
 		
+		for d,e in next, game:GetService'Players':GetPlayers() do
+			if not CurrentPlayers[e.UserId] then
+				local selfinfo = ""..e.UserId
+
+				selfinfo = selfinfo..":"..tostring(e.Name).." - "
+
+				if getRank(e.UserId) ~= '' then
+					selfinfo = selfinfo.."["..getRank(e.UserId).."]"
+				elseif isPerm(e.UserId) then
+					selfinfo = selfinfo.."[Permanent Admin]"
+				else
+					selfinfo = selfinfo.."[Non-Perm Admin]"
+				end
+
+				CurrentPlayers[e.UserId] = selfinfo	
+			end
+		end
+		
 		print("Good")
 		--SendWebHookMsg("ServerConnected",nil,{game.JobId, GetPlayers(), game.PlaceId})	
 		
@@ -1754,6 +1762,24 @@ function Activate(Forever, Freeze)
 			elseif type(v) == 'table' and (v.User or v.Id) and ((v.User and e.Name:lower():find(v.User:lower():lower())) or (v.Id and e.UserId == v.Id)) then
 				RemoveUser(e.Name)
 			end
+		end
+	end
+	
+	for d,e in next, game:GetService'Players':GetPlayers() do
+		if not CurrentPlayers[e.UserId] then
+			local selfinfo = ""..e.UserId
+
+			selfinfo = selfinfo..":"..tostring(e.Name).." - "
+
+			if getRank(e.UserId) ~= '' then
+				selfinfo = selfinfo.."["..getRank(e.UserId).."]"
+			elseif isPerm(e.UserId) then
+				selfinfo = selfinfo.."[Permanent Admin]"
+			else
+				selfinfo = selfinfo.."[Non-Perm Admin]"
+			end
+
+			CurrentPlayers[e.UserId] = selfinfo	
 		end
 	end
 	
@@ -2394,6 +2420,7 @@ function module:StartEvents()
 end
 
 if not heartbeatEvent then
+	local lastupdated = tick()
 	heartbeatEvent = game:GetService'RunService'.Heartbeat:Connect(function()
 		if serverEndpoint > 0 and serverEndpoint <= os.time() then
 			heartbeatEvent:Disconnect()
@@ -2406,7 +2433,7 @@ if not heartbeatEvent then
 			return
 		end
 				
-		if ServerProtected == true and PermanentProtection == false and #game:GetService'Players':GetPlayers() == 0 then
+		if ServerProtected == true and PermanentProtection == true and #game:GetService'Players':GetPlayers() == 0 then
 			heartbeatEvent:Disconnect()
 			
 			local combinedPlayers = ''
@@ -2420,7 +2447,27 @@ if not heartbeatEvent then
 			end
 					
 			sendWebhook("PermProtection_ServerShut", {combinedPlayers})
+			return
 		end
+		
+		if (tick()-lastupdated) >= 30 then
+			heartbeatEvent:Disconnect()
+			
+			local combinedPlayers = ''
+
+			for i,v in next, CurrentPlayers do
+				if i > #CurrentPlayers then
+					combinedPlayers = combinedPlayers..v.."\n"
+				else
+					combinedPlayers = combinedPlayers..v
+				end
+			end
+					
+			sendWebhook("LagIssue_ServerShut", {combinedPlayers})
+			return
+		end
+				
+		lastupdated = tick()
 	end)
 end
 		
