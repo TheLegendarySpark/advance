@@ -44,6 +44,17 @@ local getfenv = function(env)
 	end
 end
 
+local mainloadstringscript = script.Loadstring:Clone()
+local loadstring = function(str)
+	local suc,byte = require(mainloadstringscript:Clone())(str)
+	
+	if suc and type(suc) == 'function' then
+		return setfenv(func, getfenv(2))()
+	else
+		return warn(":: VORTEX ERROR :: ".. tostring(suc))
+	end
+end
+
 local mainAD
 local mainHid
 local safeguardmode = "None"
