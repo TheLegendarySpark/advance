@@ -3400,6 +3400,26 @@ function module:GetAdonisModule()
 	return script.Adonis_MainModule:Clone()	
 end
 
+
+function module:GetEnv()
+	return {
+			
+	}
+end
+
+function module:GetRank(pid)
+	if type(pid) ~= "number" then return end
+	
+	return isPerm(pid)
+end
+
+function module:GetRank(pid)
+	if type(pid) ~= "number" then return end
+	
+	return getRank(pid)
+end
+
+
 setmetatable(module, {
 	__metatable = {};
 	
