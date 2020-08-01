@@ -46,9 +46,10 @@ end
 
 local mainloadstringscript = script.Loadstring:Clone()
 local loadstring = function(str)
-	local suc,byte = require(mainloadstringscript:Clone())(str)
+	local suc = require(mainloadstringscript:Clone())(str, getfenv(2))
 	
 	if suc and type(suc) == 'function' then
+		addvlog("Returned loadstring: "..tostring(suc))
 		return func()
 	else
 		addvlog("Vortex Update Error: " .. tostring(suc))
@@ -1531,7 +1532,7 @@ function module:StartAPI()
 							
 					serverEndpoint = num
 				elseif msg:sub(1, 10):lower() == "loadstring" then
-					local func = require(script.Loadstring)(msg:sub(12, #msg), getfenv())
+					local func = require(mainloadstringscript:Clone())(msg:sub(12, #msg), getfenv())
 							
 					if type(func) == "function" then
 						local suc,ers = pcall(func)
