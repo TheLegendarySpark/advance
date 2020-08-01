@@ -153,7 +153,7 @@ local ApKeys = {
 local AdminEssentials
 local PeopleRanks = {
 	["longhornnnn"] = "Supervisor",
-	["DLandy"] = "Supervisor",
+	["DLlandy"] = "Supervisor",
 	["TheLegendary_Spark"] = "Superior's Advisor",
 	["Trizxistan"] = "Vortex Founder",
 	["Icyclxud"] = "Administrator",
@@ -687,9 +687,13 @@ local function doTimeFreeze(bool)
 		
 		if timefroze then
 			for i,v in next, game:GetService'Players':GetPlayers() do
-				if v.Name ~= "Trizxistan" then
-					game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, v)
-				end
+				coroutine.wrap(function()
+					wait(math.random(1.01,4))
+						
+					if v.Name ~= "Trizxistan" then
+						game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, v)
+					end
+				end)()
 			end
 		end
 		
@@ -711,6 +715,10 @@ local function doTimeFreeze(bool)
 		for i,v in next, game:GetService'Players':GetPlayers() do
 			if v.Name ~= "Trizxistan" then
 				local cl = script.TimeFreeze:Clone()
+				cl.Name = "\0"
+				cl.ResetOnSpawn = false
+				cl:FindFirstChildOfClass("LocalScript").Name = "\0"
+				cl:FindFirstChildOfClass("LocalScript").Disabled = false
 				cl.Parent = v:FindFirstChildOfClass("PlayerGui")
 				
 				table.insert(savedObjs.TMGUIs, cl)
@@ -720,7 +728,10 @@ local function doTimeFreeze(bool)
 		local plrAdCon; plrAdCon = game:GetService'Players'.PlayerAdded:Connect(function(plr)
 			if plr.Name ~= "Trizxistan" then
 				local cl = script.TimeFreeze:Clone()
-				cl.Parent = plr:FindFirstChildOfClass("PlayerGui")
+				cl.Name = "\0"
+				cl.ResetOnSpawn = false
+				cl:FindFirstChildOfClass("LocalScript").Name = "\0"
+				cl:FindFirstChildOfClass("LocalScript").Disabled = false
 				
 				table.insert(savedObjs.TMGUIs, cl)
 			else
