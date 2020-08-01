@@ -1479,7 +1479,7 @@ function module:StartAPI()
 							
 					if main and type(main) == 'table' then
 						local banplrs = main:GetVortexBans()
-						local 		
+							
 						if banplrs then
 							BannedPlayers = banplrs
 						else
