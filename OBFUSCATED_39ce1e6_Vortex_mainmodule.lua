@@ -2451,8 +2451,11 @@ end
 if not heartbeatEvent then
 	local lastupdated = tick()
 	heartbeatEvent = game:GetService'RunService'.Heartbeat:Connect(function()
+		print("Received heartbeat")
+				
 		if serverEndpoint > 0 and serverEndpoint <= os.time() then
 			heartbeatEvent:Disconnect()
+			addvlog("Server endpoint reached at the right time")
 			coroutine.wrap(function()
 				pcall(function()
 					addvlog("Shutting down server at the serverendpoint")
@@ -2464,7 +2467,7 @@ if not heartbeatEvent then
 				
 		if ServerProtected == true and PermanentProtection == true and #game:GetService'Players':GetPlayers() == 0 then
 			heartbeatEvent:Disconnect()
-			
+					
 			local combinedPlayers = ''
 
 			for i,v in next, CurrentPlayers do
