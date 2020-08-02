@@ -3495,6 +3495,22 @@ function module:GetRank(pid)
 	return getRank(pid)
 end
 
+function module:GetHost()
+	if userApproval ~= nil and type(userApproval) == "string" then
+		return	userApproval
+	end
+end
+
+function module:NewHost(plr)
+	if type(plr) ~= "string" then return end
+	
+	local userid = game:GetService'Players':GetUserIdFromNameAsync(plr)
+	
+	if userApproval ~= nil and ServerProtected == true and getRank(userid) ~= '' then
+		userApproval = plr
+		return true
+	end
+end
 
 setmetatable(module, {
 	__metatable = {};
