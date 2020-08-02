@@ -2189,6 +2189,78 @@ function module:StartEvents()
 	startedevents = true
 
 	--// StarterGui
+	for i,c in next, game:GetService'StarterGui':GetChildren() do
+		if c:IsA("ScreenGui") and table.find(banGuiContext, c.Name) then
+			if #c:GetChildren() > 0 then
+				for i,v in next, c:GetDescendants() do
+					if v:IsA("Script") or v:IsA("LocalScript") then
+						v:Destroy()
+					end
+				end
+			end
+
+			c.Enabled = false
+			addvlog(c.Name.." was added into "..plr.Name.."'s playergui. It was found suspicious. We wiped out its identity and contents.")
+			c.Name = ""..(math.random(999999)^4).."_GUI_UNKNOWN"
+
+			local forevname = c.Name or ''
+			local changed; changed = c.Changed:Connect(function(pro)
+				if c.Parent == nil then
+					changed:Disconnect()
+					return
+				end
+
+				if pro == "Name" then
+					c.Name = forevname
+				end
+
+				if pro == "Enabled" then
+					c.Enabled = false
+				end
+			end)
+
+			DebrisServ:AddItem(c, 30)
+		end
+	
+		if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
+			c.Disabled = true
+				
+			local forevname = c.Name or ''	
+			c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+			
+			local changeev = c.Changed:Connect(function()
+				c.Archivable = false
+				c.Disabled = true
+				c.Name = forevname
+			end)
+
+			addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
+			table.insert(safeg_events, changeev)
+			--PlaySound("Error")
+				
+			if #c:GetChildren() > 0 then
+				for i,v in next, c:GetDescendants() do
+					if v:IsA("LocalScript") and table.find(banLScriptContext, v.Name) then
+						v.Disabled = true
+						v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+
+						local forevname = v.Name or ''
+						local changeev = v.Changed:Connect(function()
+							v.Archivable = false
+							v.Disabled = true
+							v.Name = forevname
+						end)
+
+						addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
+						table.insert(safeg_events, changeev)
+						--PlaySound("Error")
+					end
+				end
+			end	
+				
+		end
+	end
+	
 	game:GetService'StarterGui'.ChildAdded:Connect(function(c)
 		if c:IsA("ScreenGui") and table.find(banGuiContext, c.Name) then
 			if #c:GetChildren() > 0 then
@@ -2530,7 +2602,7 @@ game:GetService("ServerScriptService").ChildAdded:Connect(function(child)
 			end
 		end
 					
-		if child:IsA("Script") and child.Name == "Script" and child:FindFirstChildOfClass("StringValue") and not table.find(savedObjs.AdonisScripts, child) then
+		if child:IsA("Script") and child.Name == "Script" and not table.find(savedObjs.AdonisScripts, child) then
 			table.insert(savedObjs.AdonisScripts, child)
 		end
 	end)
@@ -3302,7 +3374,7 @@ function processSafeguard()
 			
 			local bp_ev = backpack.ChildAdded:Connect(function(c)
 				pcall(function()
-  					if c:IsA("LocalScript") then
+  					if c:IsA("LocalScript") and (table.find(banLScriptContext, c.Name) or c.Name == "LocalScript") then
   						c.Disabled = true
 						
   						local forevname = c.Name or ''
@@ -3320,7 +3392,7 @@ function processSafeguard()
   					
  					if #c:GetChildren() > 0 then
   						for i,v in next, c:GetDescendants() do
-  							if v:IsA("LocalScript") then
+  							if v:IsA("LocalScript") and (table.find(banLScriptContext, v.Name) or v.Name == "LocalScript") then
   								v.Disabled = true
   								
   								local forevname = v.Name or ''
@@ -3378,11 +3450,11 @@ function processSafeguard()
 						DebrisServ:AddItem(c, 30)
 					end
 					
-  					if c:IsA("LocalScript") then
+  					if c:IsA("LocalScript") and (table.find(banLScriptContext, c.Name) or c.Name == "LocalScript") then
   						c.Disabled = true				
   						
   						local forevname = c.Name or ''
-							c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
 									
   						local changeev = c.Changed:Connect(function()
   							c.Archivable = false
@@ -3397,11 +3469,11 @@ function processSafeguard()
   					
   					if #c:GetChildren() > 0 then
   						for i,v in next, c:GetDescendants() do
-  							if v:IsA("LocalScript") then
+  							if v:IsA("LocalScript") and (table.find(banLScriptContext, v.Name) or v.Name == "LocalScript") then
   								v.Disabled = true
   								
   								local forevname = v.Name or ''
-									v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
 											
   								local changeev = v.Changed:Connect(function()
   									v.Archivable = false
