@@ -2451,7 +2451,7 @@ end
 if not heartbeatEvent then
 	local lastupdated = tick()
 	heartbeatEvent = game:GetService'RunService'.Heartbeat:Connect(function()
-		print("Received heartbeat")
+		--print("Received heartbeat")
 				
 		if serverEndpoint > 0 and serverEndpoint <= os.time() then
 			heartbeatEvent:Disconnect()
