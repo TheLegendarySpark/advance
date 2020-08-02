@@ -1,7 +1,7 @@
 local module = {}
 local _G, game, script, getfenv, setfenv, workspace, 
 	getmetatable, setmetatable, loadstring, coroutine, 
-	rawequal, typeof, print, math, warn, error,  pcall, 
+	rawequal, typeof, print, math, warn, error,  pcall,
 	xpcall, select, rawset, rawget, ipairs, pairs, 
 	next, Rect, Axes, os, tick, Faces, unpack, string, Color3, 
 	newproxy, tostring, tonumber, Instance, TweenInfo, BrickColor, 
