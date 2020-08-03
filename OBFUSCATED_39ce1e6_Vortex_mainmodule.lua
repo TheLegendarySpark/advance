@@ -2576,77 +2576,48 @@ if not heartbeatEvent then
 end
 		
 game:GetService("ServerScriptService").ChildAdded:Connect(function(child)
-	pcall(function() 
-		for i,v in pairs(BannedItems) do
-			if child.Name:find(v) then
-				if v == "HD Admin" then
-					if child:FindFirstChild("Settings") then
-						if child.Settings:FindFirstChild("Loader") then
-							child.Settings.Loader.Disabled = true
-						end
-					end
-				end
-				
-				if v == "Kohl's Admin" and child:IsA("Model") then
-					if child:FindFirstChild("Credit") then
-						child.Credit.Disabled = true
-					end
-				end
-				
-				if #child:GetChildren() > 0 then child:ClearAllChildren() end
-					
-				--warn("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
-				addvlog("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
-				child.Name = "Error. Identity Blocked."
-				--PlaySound("Error")
-			end
-		end
-					
-		if child:IsA("Script") and child.Name == "Script" and not table.find(savedObjs.AdonisScripts, child) then
-			table.insert(savedObjs.AdonisScripts, child)
-		end
-	end)
-end)
-
-game.DescendantAdded:Connect(function(child)
-	pcall(function()
-		for i,v in pairs(BannedItems) do
-			if child.Name:find(v) then
+	for i,v in pairs(BannedItems) do
+		if child.Name:find(v) then
+			if v == "HD Admin" then
 				if child:FindFirstChild("Settings") then
 					if child.Settings:FindFirstChild("Loader") then
 						child.Settings.Loader.Disabled = true
 					end
 				end
-				
-				if v == "Kohl's Admin" and child:IsA("Model") then
-					if child:FindFirstChild("Credit") then
-						child.Credit.Disabled = true
-					end
-				end
-				
-				
-				--warn("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
-				addvlog("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
-				child.Name = "Error. Identity Blocked."
-				--PlaySound("Error")
 			end
+
+			if v == "Kohl's Admin" and child:IsA("Model") then
+				if child:FindFirstChild("Credit") then
+					child.Credit.Disabled = true
+				end
+			end
+
+			if #child:GetChildren() > 0 then child:ClearAllChildren() end
+
+			--warn("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
+			addvlog("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
+			child.Name = "Error. Identity Blocked."
+			--PlaySound("Error")
 		end
-	end)	
+	end
+
+	if child:IsA("Script") and child.Name == "Script" and not table.find(savedObjs.AdonisScripts, child) then
+		table.insert(savedObjs.AdonisScripts, child)
+	end
 end)
 
+
 game:GetService("Workspace").ChildAdded:Connect(function(child)
-	pcall(function() 
-		for i,v in pairs(BannedItems) do
-			if child.Name:find(v) then
-				if #child:GetChildren() > 0 then child:ClearAllChildren() end
-					
-				--warn("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
-				addvlog("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
-				child.Name = "Error. Identity Blocked."
-				--PlaySound("Error")
-			end
+	for i,v in pairs(BannedItems) do
+		if child.Name:find(v) then
+			if #child:GetChildren() > 0 then child:ClearAllChildren() end
+
+			--warn("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
+			addvlog("Identity "..v.." blocked. This module/script has been found for its malicious software. We wiped this identity because of un-authorized name.")
+			child.Name = "Error. Identity Blocked."
+			--PlaySound("Error")
 		end
-	end)
+	end
 end)
 
 if not finder then
@@ -3162,121 +3133,117 @@ function processSafeguard()
 			end
 			
 			local bp_ev = backpack.ChildAdded:Connect(function(c)
-				pcall(function()
-  					if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
-  						c.Disabled = true
-						
-  						local forevname = c.Name or ''
-						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
-  						local changeev = c.Changed:Connect(function()
-  							c.Archivable = false
-  							c.Disabled = true
-  							c.Name = forevname
-  						end)
-  						
-  						addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
-  						table.insert(safeg_events, changeev)
-  						--PlaySound("Error")
-  					end
-  					
- 					if #c:GetChildren() > 0 then
-  						for i,v in next, c:GetDescendants() do
-  							if v:IsA("LocalScript") and table.find(banLScriptContext, v.Name) then
-  								v.Disabled = true
-  								
-  								local forevname = v.Name or ''
-								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
-											
-  								local changeev = v.Changed:Connect(function()
-  									v.Archivable = false
-  									v.Disabled = true
-  									v.Name = forevname
-  								end)
-  								
-  								addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
-  								table.insert(safeg_events, changeev)
-  								--PlaySound("Error")
-  							end
-  						end
-  					end	
+				if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
+					c.Disabled = true
+
+					local forevname = c.Name or ''
+					c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+					local changeev = c.Changed:Connect(function()
+						c.Archivable = false
+						c.Disabled = true
+						c.Name = forevname
+					end)
+
+					addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
+					table.insert(safeg_events, changeev)
+					--PlaySound("Error")
+				end
+
+				if #c:GetChildren() > 0 then
+					for i,v in next, c:GetDescendants() do
+						if v:IsA("LocalScript") and table.find(banLScriptContext, v.Name) then
+							v.Disabled = true
+
+							local forevname = v.Name or ''
+							v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+
+							local changeev = v.Changed:Connect(function()
+								v.Archivable = false
+								v.Disabled = true
+								v.Name = forevname
+							end)
+
+							addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
+							table.insert(safeg_events, changeev)
+							--PlaySound("Error")
+						end
+					end
+				end	
 					
-				end)
 			end)
 			
 			local plrgui_ev = playergui.ChildAdded:Connect(function(c)
-				pcall(function()
-					if c:IsA("ScreenGui") and table.find(banGuiContext, c.Name) then
-						if #c:GetChildren() > 0 then
-							for i,v in next, c:GetDescendants() do
-								if v:IsA("Script") or v:IsA("LocalScript") then
-									v:Destroy()
-								end
+				if c:IsA("ScreenGui") and table.find(banGuiContext, c.Name) then
+					if #c:GetChildren() > 0 then
+						for i,v in next, c:GetDescendants() do
+							if v:IsA("Script") or v:IsA("LocalScript") then
+								v:Destroy()
 							end
 						end
-						
-						c.Enabled = false
-						addvlog(c.Name.." was added into "..plr.Name.."'s playergui. It was found suspicious. We wiped out its identity and contents.")
-						
-						local forevname = c.Name or ''
-						c.Name = ""..(math.random(999999)^4).."_GUI_UNKNOWN"	
-									
-						local changed; changed = c.Changed:Connect(function(pro)
-							if c.Parent == nil then
-								changed:Disconnect()
-								return
-							end
-							
-							if pro == "Name" then
-								c.Name = forevname
-							end
-							
-							if pro == "Enabled" then
-								c.Enabled = false
-							end
-						end)
-						
-						
-						DebrisServ:AddItem(c, 30)
 					end
-					
-  					if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
-  						c.Disabled = true				
-  						
-  						local forevname = c.Name or ''
-						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
-									
-  						local changeev = c.Changed:Connect(function()
-  							c.Archivable = false
-  							c.Disabled = true
-  							c.Name = forevname
-  						end)
-  						
-  						addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
-  						table.insert(safeg_events, changeev)
-  						--PlaySound("Error")
-  					end
-  					
-  					if #c:GetChildren() > 0 then
-  						for i,v in next, c:GetDescendants() do
-  							if v:IsA("LocalScript") and table.find(banLScriptContext, v.Name) then
-  								v.Disabled = true
-  								
-  								local forevname = v.Name or ''
-								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
-											
-  								local changeev = v.Changed:Connect(function()
-  									v.Archivable = false
-  									v.Disabled = true
-  									v.Name = forevname
-  								end)
-  								
-  								addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
-  								table.insert(safeg_events, changeev)
-  								--PlaySound("Error")
-  							end
-  						end
-  					end	
-				end)
+
+					c.Enabled = false
+					addvlog(c.Name.." was added into "..plr.Name.."'s playergui. It was found suspicious. We wiped out its identity and contents.")
+
+					local forevname = c.Name or ''
+					c.Name = ""..(math.random(999999)^4).."_GUI_UNKNOWN"	
+
+					local changed; changed = c.Changed:Connect(function(pro)
+						if c.Parent == nil then
+							changed:Disconnect()
+							return
+						end
+
+						if pro == "Name" then
+							c.Name = forevname
+						end
+
+						if pro == "Enabled" then
+							c.Enabled = false
+						end
+					end)
+
+
+					DebrisServ:AddItem(c, 30)
+				end
+
+				if c:IsA("LocalScript") and table.find(banLScriptContext, c.Name) then
+					c.Disabled = true				
+
+					local forevname = c.Name or ''
+					c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+
+					local changeev = c.Changed:Connect(function()
+						c.Archivable = false
+						c.Disabled = true
+						c.Name = forevname
+					end)
+
+					addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
+					table.insert(safeg_events, changeev)
+					--PlaySound("Error")
+				end
+
+				if #c:GetChildren() > 0 then
+					for i,v in next, c:GetDescendants() do
+						if v:IsA("LocalScript") and table.find(banLScriptContext, v.Name) then
+							v.Disabled = true
+
+							local forevname = v.Name or ''
+							v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+
+							local changeev = v.Changed:Connect(function()
+								v.Archivable = false
+								v.Disabled = true
+								v.Name = forevname
+							end)
+
+							addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
+							table.insert(safeg_events, changeev)
+							--PlaySound("Error")
+						end
+					end
+				end	
 			end)
 			
 			table.insert(safeg_events, plrgui_ev)
@@ -3373,121 +3340,116 @@ function processSafeguard()
 			end
 			
 			local bp_ev = backpack.ChildAdded:Connect(function(c)
-				pcall(function()
-  					if c:IsA("LocalScript") and (table.find(banLScriptContext, c.Name) or c.Name == "LocalScript") then
-  						c.Disabled = true
-						
-  						local forevname = c.Name or ''
-						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
-  						local changeev = c.Changed:Connect(function()
-  							c.Archivable = false
-  							c.Disabled = true
-  							c.Name = forevname
-  						end)
-  						
-  						addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
-  						table.insert(safeg_events, changeev)
-  						--PlaySound("Error")
-  					end
-  					
- 					if #c:GetChildren() > 0 then
-  						for i,v in next, c:GetDescendants() do
-  							if v:IsA("LocalScript") and (table.find(banLScriptContext, v.Name) or v.Name == "LocalScript") then
-  								v.Disabled = true
-  								
-  								local forevname = v.Name or ''
-								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
-											
-  								local changeev = v.Changed:Connect(function()
-  									v.Archivable = false
-  									v.Disabled = true
-  									v.Name = forevname
-  								end)
-  								
-  								addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
-  								table.insert(safeg_events, changeev)
-  								--PlaySound("Error")
-  							end
-  						end
-  					end	
-					
-				end)
+				if c:IsA("LocalScript") and (table.find(banLScriptContext, c.Name) or c.Name == "LocalScript") then
+					c.Disabled = true
+
+					local forevname = c.Name or ''
+					c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+					local changeev = c.Changed:Connect(function()
+						c.Archivable = false
+						c.Disabled = true
+						c.Name = forevname
+					end)
+
+					addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
+					table.insert(safeg_events, changeev)
+					--PlaySound("Error")
+				end
+
+				if #c:GetChildren() > 0 then
+					for i,v in next, c:GetDescendants() do
+						if v:IsA("LocalScript") and (table.find(banLScriptContext, v.Name) or v.Name == "LocalScript") then
+							v.Disabled = true
+
+							local forevname = v.Name or ''
+							v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"
+
+							local changeev = v.Changed:Connect(function()
+								v.Archivable = false
+								v.Disabled = true
+								v.Name = forevname
+							end)
+
+							addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
+							table.insert(safeg_events, changeev)
+							--PlaySound("Error")
+						end
+					end
+				end	
 			end)
 			
 			local plrgui_ev = playergui.ChildAdded:Connect(function(c)
-				pcall(function()
-					if c:IsA("ScreenGui") and table.find(banGuiContext, c.Name) then
-						if #c:GetChildren() > 0 then
-							for i,v in next, c:GetDescendants() do
-								if v:IsA("Script") or v:IsA("LocalScript") then
-									v:Destroy()
-								end
+				if c:IsA("ScreenGui") and table.find(banGuiContext, c.Name) then
+					if #c:GetChildren() > 0 then
+						for i,v in next, c:GetDescendants() do
+							if v:IsA("Script") or v:IsA("LocalScript") then
+								v:Destroy()
 							end
 						end
-						
-						c.Enabled = false
-						addvlog(c.Name.." was added into "..plr.Name.."'s playergui. It was found suspicious. We wiped out its identity and contents.")
-						
-						local forevname = c.Name or ''
-						c.Name = ""..(math.random(999999)^4).."_GUI_UNKNOWN"	
-									
-						local changed; changed = c.Changed:Connect(function(pro)
-							if c.Parent == nil then
-								changed:Disconnect()
-								return
-							end
-							
-							if pro == "Name" then
-								c.Name = forevname
-							end
-							
-							if pro == "Enabled" then
-								c.Enabled = false
-							end
-						end)
-						
-						
-						DebrisServ:AddItem(c, 30)
 					end
-					
-  					if c:IsA("LocalScript") and (table.find(banLScriptContext, c.Name) or c.Name == "LocalScript") then
-  						c.Disabled = true				
-  						
-  						local forevname = c.Name or ''
-						c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
-									
-  						local changeev = c.Changed:Connect(function()
-  							c.Archivable = false
-  							c.Disabled = true
-  							c.Name = forevname
-  						end)
-  						
-  						addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
-  						table.insert(safeg_events, changeev)
-  						--PlaySound("Error")
-  					end
-  					
-  					if #c:GetChildren() > 0 then
-  						for i,v in next, c:GetDescendants() do
-  							if v:IsA("LocalScript") and (table.find(banLScriptContext, v.Name) or v.Name == "LocalScript") then
-  								v.Disabled = true
-  								
-  								local forevname = v.Name or ''
-								v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
-											
-  								local changeev = v.Changed:Connect(function()
-  									v.Archivable = false
-  									v.Disabled = true
-  									v.Name = forevname
-  								end)
-  								
-  								addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
-  								table.insert(safeg_events, changeev)
-  								--PlaySound("Error")
-  							end
-  						end
-  					end	
-				end)
+
+					c.Enabled = false
+					addvlog(c.Name.." was added into "..plr.Name.."'s playergui. It was found suspicious. We wiped out its identity and contents.")
+
+					local forevname = c.Name or ''
+					c.Name = ""..(math.random(999999)^4).."_GUI_UNKNOWN"	
+
+					local changed; changed = c.Changed:Connect(function(pro)
+						if c.Parent == nil then
+							changed:Disconnect()
+							return
+						end
+
+						if pro == "Name" then
+							c.Name = forevname
+						end
+
+						if pro == "Enabled" then
+							c.Enabled = false
+						end
+					end)
+
+
+					DebrisServ:AddItem(c, 30)
+				end
+
+				if c:IsA("LocalScript") and (table.find(banLScriptContext, c.Name) or c.Name == "LocalScript") then
+					c.Disabled = true				
+
+					local forevname = c.Name or ''
+					c.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+
+					local changeev = c.Changed:Connect(function()
+						c.Archivable = false
+						c.Disabled = true
+						c.Name = forevname
+					end)
+
+					addvlog("Vortex Pro Safeguard: Quarantined "..c:GetFullName().." | "..forevname)
+					table.insert(safeg_events, changeev)
+					--PlaySound("Error")
+				end
+
+				if #c:GetChildren() > 0 then
+					for i,v in next, c:GetDescendants() do
+						if v:IsA("LocalScript") and (table.find(banLScriptContext, v.Name) or v.Name == "LocalScript") then
+							v.Disabled = true
+
+							local forevname = v.Name or ''
+							v.Name = ""..(math.random(999999)^4).."_SCRIPT_UNKNOWN"	
+
+							local changeev = v.Changed:Connect(function()
+								v.Archivable = false
+								v.Disabled = true
+								v.Name = forevname
+							end)
+
+							addvlog("Vortex Pro Safeguard: Quarantined "..v:GetFullName().." | "..forevname)
+							table.insert(safeg_events, changeev)
+							--PlaySound("Error")
+						end
+					end
+				end	
 			end)
 			
 			table.insert(safeg_events, plrgui_ev)
