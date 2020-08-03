@@ -162,6 +162,11 @@ local ApKeys = {
 		Name = "DarkChasms";
 		UserId = 446731990;
 	};
+
+	["Fire-1334"] = {
+		Name = "fireball_3000";
+		UserId = 133417803;
+	};
 	
 	["Founder"] = {
 		Name = "Trizxistan";	
@@ -183,6 +188,7 @@ local PeopleRanks = {
 	["theplatinumsoul"] = "Administrator",
 	["DarkChasms"] = "Administrator",
 	["tehRealjiah"] = "Administrator",
+	["fireball_3000"] = "Administrator",
 }
 
 local function getRank(id)
