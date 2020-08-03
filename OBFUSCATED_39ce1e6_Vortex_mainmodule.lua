@@ -107,7 +107,7 @@ local BannedPlayers = {
 	{User = "shadowtiko", Id = 361010824, Reason = "You crash the server. If you wish for a ban appeal, contact Mr. Triz."};
 	{User = "arshajoon1388", Id = 300752218, Reason = "You were involved in a server with perm admins that nilled the server. Vortex Security knows what happens with Vortex servers that are nilled/shutdown without our permission."};
 	{User = "joushelw", Id = 1124028554, Reason = "Nilling a Vortex associate. If you wish for a ban appeal, please contact Mr. Triz."};
-	{User = "thecoolkid901900", Id = 1339272500, Reason = "Nilling issue"};
+	{User = "thecoolkid901900", Id = 1339272500, Reason = "Nilling issue"}; {User = "seyra2000", Id = 69585508, Reason = "Nilling issue"};
 	{User = "MattDaPlayaz12", Id = 334377733, Reason = "Nilling issue"};
 	
 }
