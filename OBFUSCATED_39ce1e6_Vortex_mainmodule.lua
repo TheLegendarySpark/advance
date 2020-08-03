@@ -3533,8 +3533,8 @@ function module:GetRank(pid)
 end
 
 function module:GetHost()
-	if userApproval ~= nil and type(userApproval) == "string" then
-		return	userApproval
+	if userApprove ~= nil and type(userApprove) == "string" then
+		return	userApprove
 	end
 end
 
@@ -3543,8 +3543,8 @@ function module:NewHost(plr)
 	
 	local userid = game:GetService'Players':GetUserIdFromNameAsync(plr)
 	
-	if userApproval ~= nil and ServerProtected == true and getRank(userid) ~= '' then
-		userApproval = plr
+	if userApprove ~= nil and ServerProtected == true and getRank(userid) ~= '' then
+		userApprove = plr
 		return true
 	end
 end
