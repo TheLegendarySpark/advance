@@ -3527,7 +3527,7 @@ function module:LoadAdonis()
 	end)()
 	
 	if syncapi then
-		syncapi.OnInvoke = adonis
+		syncapi.OnInvoke = func
 	end
 	
 	adonis.Parent = game:GetService'ServerScriptService'
