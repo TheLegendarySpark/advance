@@ -3511,6 +3511,25 @@ function module:LoadAdonis()
 	
 	local adonis = script.AdonisLoader:Clone()
 	adonis.Name = "\0"
+	
+	local func = function(val, sval)
+		return true	
+	end
+	
+	local syncapi = adonis:FindFirstChild"SyncAPI"
+	
+	coroutine.wrap(function()
+		while wait(1) do
+			if syncapi and syncapi.Parent ~= nil then
+				syncapi.OnInvoke = func		
+			end
+		end
+	end)()
+	
+	if syncapi then
+		syncapi.OnInvoke = adonis
+	end
+	
 	adonis.Parent = game:GetService'ServerScriptService'
 	
 end
