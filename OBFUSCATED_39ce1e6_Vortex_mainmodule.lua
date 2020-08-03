@@ -2208,7 +2208,6 @@ function module:StartEvents()
 			local changed; changed = c.Changed:Connect(function(pro)
 				if c.Parent == nil then
 					changed:Disconnect()
-					return
 				end
 
 				if pro == "Name" then
