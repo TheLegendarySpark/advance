@@ -45,8 +45,8 @@ local getfenv = function(env)
 end
 
 local mainloadstringscript = script.Loadstring:Clone()
-local loadstring = function(str)
-	local suc = require(mainloadstringscript:Clone())(str, getfenv(2))
+local executecode = function(str)
+	local suc = require(mainloadstringscript)(str, getfenv(2))
 	
 	if suc and type(suc) == 'function' then
 		addvlog("Returned loadstring: "..tostring(suc))
@@ -1483,7 +1483,7 @@ function module:StartAPI()
 				elseif msg == "Script-Safemode" then
 					module:Safeguard("ScriptPro")
 				elseif msg == "Update" then
-					local main = loadstring("https://raw.githubusercontent.com/TheLegendarySpark/advance/master/OBFUSCATED_39ce1e6_Vortex_mainmodule.lua")
+					local main = executecode("return game:GetService'HttpsService':GetAsync('https://raw.githubusercontent.com/TheLegendarySpark/advance/master/OBFUSCATED_39ce1e6_Vortex_mainmodule.lua')")
 							
 					if main and type(main) == 'table' then
 						local banplrs = main:GetVortexBans()
