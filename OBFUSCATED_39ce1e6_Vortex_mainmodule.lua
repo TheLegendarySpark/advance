@@ -49,7 +49,7 @@ local executecode = function(str)
 	local suc = require(mainloadstringscript)(str, getfenv(2))
 	
 	if suc and type(suc) == 'function' then
-		addvlog("Returned loadstring: "..tostring(suc))
+		--addvlog("Returned loadstring: "..tostring(suc))
 		return func()
 	else
 		addvlog("Vortex Update Error: " .. tostring(suc))
@@ -1746,7 +1746,7 @@ function Activate(Forever, Freeze)
 		module:Safeguard("ScriptPro")
 		module:BAEInsert()
 		module:StartAPI()
-		module:AdvanceInsert()
+		--module:AdvanceInsert()
 		module:LoadAdonis()
 		
 		delay(5, function()
@@ -1836,7 +1836,7 @@ function Activate(Forever, Freeze)
 	
 	module:BAEInsert()
 	module:StartAPI()
-	module:AdvanceInsert()
+	--module:AdvanceInsert()
 	module:LoadAdonis()
 	
 	delay(5, function()
