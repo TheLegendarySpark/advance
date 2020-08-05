@@ -113,6 +113,7 @@ local BannedPlayers = {
 	{User = "fatsqirrelytree92748", Id = 421793933, Reason = "Nilling a Vortex associate"};
 	{User = "anasquebdani29", Id = 1099602127, Reason = "Nilling a Vortex associate"};
 	{User = "gamkid11111", Id = 275348444, Reason = "Used a zawrudo and nil command to the entire server. - Seen by Mr. Triz"};
+	{User = "IoI_trebla", Id = 1368586609, Reason = "You thought you were slick. As said in hint, VORTEX IS TRACKING THE SERVER. - Seen by Mr. Triz"};
 	
 }
 
