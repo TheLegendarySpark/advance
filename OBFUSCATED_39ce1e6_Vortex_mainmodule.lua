@@ -1665,7 +1665,7 @@ function module:Req(key)
 								table.insert(savedObjs.TrustedScripts, getfenv(2).script)
 							end
 
-							--getfenv(2).script:Destroy()
+							getfenv(2).script:Destroy()
 						end
 						
 						module:AP()
