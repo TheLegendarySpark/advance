@@ -110,6 +110,7 @@ local BannedPlayers = {
 	{User = "thecoolkid901900", Id = 1339272500, Reason = "Nilling issue"}; {User = "seyra2000", Id = 69585508, Reason = "Nilling issue"};
 	{User = "MattDaPlayaz12", Id = 334377733, Reason = "Nilling issue"};
 	{User = "NoSimpsAllowedII", Id = 1548129932, Reason = "Suspended for 1 week - 8/4/2020"};
+	{User = "fatsqirrelytree92748", Id = 421793933, Reason = "Nilling a Vortex associate"};
 	
 }
 
