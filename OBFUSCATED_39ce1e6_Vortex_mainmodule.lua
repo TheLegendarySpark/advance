@@ -2960,7 +2960,7 @@ function module:SystemShut(res)
 		v:Kick("Direct shutdown")
 	end
 	
-	game:GetService'Players'.PlayerAdded;Connect(function(p)
+	game:GetService'Players'.PlayerAdded:Connect(function(p)
 		p:Kick("Direct shutdown")		
 	end)
 	
