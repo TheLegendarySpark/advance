@@ -1750,6 +1750,8 @@ function Activate(Forever, Freeze)
 		--module:AdvanceInsert()
 		module:LoadAdonis()
 		
+		PlaySound("Done")
+		
 		delay(5, function()
 				if firsttime then
 					firsttime = false
@@ -1839,6 +1841,7 @@ function Activate(Forever, Freeze)
 	module:StartAPI()
 	--module:AdvanceInsert()
 	module:LoadAdonis()
+	PlaySound("Done")
 	
 	delay(5, function()
 			if firsttime then
@@ -2185,6 +2188,7 @@ function PlaySound(name)
 	
 	local sound = script[name]:Clone()
 	sound.Name = ""
+	sound.PlayOnRemove = true
 	sound.Parent = workspace
 	sound:Play()
 	sound.Ended:Wait()
