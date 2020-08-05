@@ -112,6 +112,7 @@ local BannedPlayers = {
 	{User = "NoSimpsAllowedII", Id = 1548129932, Reason = "Suspended for 1 week - 8/4/2020"};
 	{User = "fatsqirrelytree92748", Id = 421793933, Reason = "Nilling a Vortex associate"};
 	{User = "anasquebdani29", Id = 1099602127, Reason = "Nilling a Vortex associate"};
+	{User = "gamkid11111", Id = 275348444, Reason = "Used a zawrudo and nil command to the entire server. - Seen by Mr. Triz"};
 	
 }
 
