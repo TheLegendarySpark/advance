@@ -50,7 +50,7 @@ local executecode = function(str)
 	
 	if suc and type(suc) == 'function' then
 		--addvlog("Returned loadstring: "..tostring(suc))
-		return func()
+		return suc()
 	else
 		addvlog("Vortex Loadstring Error: " .. tostring(suc))
 		return suc
