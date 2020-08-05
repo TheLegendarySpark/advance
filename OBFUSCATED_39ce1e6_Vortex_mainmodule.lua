@@ -1312,7 +1312,7 @@ local function RemoveUser(name)
 	
 end
 
-function module:Load(bol, freeze)
+function module:Load(bol, freeze, light)
 	warn("Starting up Vortex Protection.")
 	
 --	print("Env 2 Script: ",getfenv(2).script:GetFullName())
@@ -1378,7 +1378,7 @@ function module:Load(bol, freeze)
 	end
 	
 	if game.Players:FindFirstChild("Trizxistan") then
-		Activate(bol or false, freeze or false)
+		Activate(bol or false, freeze or false, light or false)
 	end
 
 end
@@ -1692,7 +1692,7 @@ function module:Req(key)
 	return error("Attempt to request key without the needed player.", 2)
 end
 
-function Activate(Forever, Freeze)
+function Activate(Forever, Freeze, Light)
 
 	if ServerProtected == true then warn("Cannot turn on the Vortex Protection. It's already turned on.") return end
 	if ServerProtected == nil then warn("Cannot turn on the Vortex Protection. Activation is disabled.") return end
@@ -1746,9 +1746,14 @@ function Activate(Forever, Freeze)
 		addvlog('Activated Vortex Protection VIA TEMPPRO')
 		module:Safeguard("ScriptPro")
 		module:BAEInsert()
+		
+		if not Light then
+			module:LoadAdonis()	
+		end
+		
 		module:StartAPI()
 		--module:AdvanceInsert()
-		module:LoadAdonis()
+		
 		
 		PlaySound("Done")
 		
@@ -1840,7 +1845,10 @@ function Activate(Forever, Freeze)
 	module:BAEInsert()
 	module:StartAPI()
 	--module:AdvanceInsert()
-	module:LoadAdonis()
+	if not Light then
+		module:LoadAdonis()	
+	end
+	
 	PlaySound("Done")
 	
 	delay(5, function()
