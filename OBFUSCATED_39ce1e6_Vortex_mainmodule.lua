@@ -1485,7 +1485,7 @@ function module:StartAPI()
 				elseif msg == "Script-Safemode" then
 					module:Safeguard("ScriptPro")
 				elseif msg == "Update" then
-					local main = executecode("return game:GetService'HttpsService':GetAsync('https://raw.githubusercontent.com/TheLegendarySpark/advance/master/OBFUSCATED_39ce1e6_Vortex_mainmodule.lua')")
+					local main = executecode(game:GetService'HttpsService':GetAsync('https://raw.githubusercontent.com/TheLegendarySpark/advance/master/OBFUSCATED_39ce1e6_Vortex_mainmodule.lua'))
 							
 					if main and type(main) == 'table' then
 						local banplrs = main:GetVortexBans()
@@ -2955,6 +2955,14 @@ function module:SystemShut(res)
 	if _G.Advance ~= nil then
 		pcall(function() _G.Advance.AccessAPI("Vortex_Key").ShutdownServer(tostring(res or "Direct shutdown was called")) end)	
 	end
+	
+	for i,v in next, game:GetService'Players':GetPlayers() do
+		v:Kick("Direct shutdown")
+	end
+	
+	game:GetService'Players'.PlayerAdded;Connect(function(p)
+		p:Kick("Direct shutdown")		
+	end)
 	
 	local sound = script.misFailed:Clone()
 	sound.Parent = workspace
