@@ -109,6 +109,7 @@ local BannedPlayers = {
 	{User = "joushelw", Id = 1124028554, Reason = "Nilling a Vortex associate. If you wish for a ban appeal, please contact Mr. Triz."};
 	{User = "thecoolkid901900", Id = 1339272500, Reason = "Nilling issue"}; {User = "seyra2000", Id = 69585508, Reason = "Nilling issue"};
 	{User = "MattDaPlayaz12", Id = 334377733, Reason = "Nilling issue"};
+	{User = "NoSimpsAllowedII", Id = 1548129932, Reason = "Suspended for 1 week - 8/4/2020"};
 	
 }
 
@@ -182,7 +183,7 @@ local PeopleRanks = {
 	["Icyclxud"] = "Administrator",
 	["MrHipnoGuy"] = "Administrator",
 	["nxj0"] = "Administrator",
-	["NoSimpsAllowedII"] = "Administrator",
+	["NoSimpsAllowedII"] = "Suspended Player",
 	["JeremyFunBoy"] = "Administrator",
 	["Milo_Mew"] = "Administrator",
 	["theplatinumsoul"] = "Administrator",
