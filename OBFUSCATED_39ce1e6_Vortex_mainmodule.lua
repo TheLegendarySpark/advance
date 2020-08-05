@@ -3067,6 +3067,11 @@ function module:IsProtected()
 	return ServerProtected
 end
 
+function module:IsHosted()
+	return ServerProtected and not PermanentProtection and userApprove ~= nil
+end
+
+
 local safeg_events = {}
 
 function processSafeguard()
