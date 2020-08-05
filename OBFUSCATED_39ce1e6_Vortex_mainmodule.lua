@@ -52,7 +52,7 @@ local executecode = function(str)
 		--addvlog("Returned loadstring: "..tostring(suc))
 		return func()
 	else
-		addvlog("Vortex Update Error: " .. tostring(suc))
+		addvlog("Vortex Loadstring Error: " .. tostring(suc))
 		return suc
 	end
 end
