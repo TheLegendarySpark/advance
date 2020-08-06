@@ -73,7 +73,6 @@ local savedObjs = {
 local CurrentPlayers = {}
 
 local trustedPlaceIds = {
-	70934006; -- Rocket Cart Ride Into Minions
 	4742858140
 }
 
