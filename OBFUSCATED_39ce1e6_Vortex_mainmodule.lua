@@ -115,7 +115,7 @@ local BannedPlayers = {
 	{User = "gamkid11111", Id = 275348444, Reason = "Used a zawrudo and nil command to the entire server. - Seen by Mr. Triz"};
 	{User = "IoI_trebla", Id = 1368586609, Reason = "You thought you were slick. As said in hint, VORTEX IS TRACKING THE SERVER. - Seen by Mr. Triz"};
 	{User = "ashleyishi", Id = 93355765, Reason = "Nilling issue"}; {User = "stxrs_l", Id = 500998067, Reason = "Nilling the server. Vortex sends a report to us that the server got shutdown by you."};
-	
+	{User = "yeetman959", Id = 1381270192, Reason = "Nilling issue"};
 }
 
 local permkeys = {}
