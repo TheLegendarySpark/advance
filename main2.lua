@@ -133,7 +133,7 @@ API.Message = function(txt)
 end
 
 local Aeslua = require(5518586604)
-local Data3 = require(script.Parent.Parent.Tietary.MainModule_NoSell)
+local Data3 = require(5561646764)
 
 API.Data3 = Data3
 API.Aeslua = Aeslua
