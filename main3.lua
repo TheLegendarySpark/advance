@@ -131,7 +131,7 @@ function API:GetObject(folder, name)
 	return obj
 end
 
-warn"Third database loaded"
+--warn"Third database loaded"
 
 return setmetatable({GetObject = API.GetObject},{
 	__metatable = "Vortex";
