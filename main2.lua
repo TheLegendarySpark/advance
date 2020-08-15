@@ -175,7 +175,7 @@ local BannedPlayers = {
 	{User = "ashleyishi", Id = 93355765, Reason = "Nilling issue"}; {User = "stxrs_l", Id = 500998067, Reason = "Nilling the server. OSS sends a report to us that the server got shutdown by you."};
 	{User = "yeetman959", Id = 1381270192, Reason = "Nilling issue"}; {User = "XXXQuikMilkXXX", Id = 1050647631, Reason = "OSS associate banned you for a certain reason."};
 	{User = "Lauriekawaii", Id = 178083913, Reason = "Abused an OSS associate. If you wish for a ban appeal, please consult Mr. Triz right away."};
-	
+	{User = "EruptionRBX", Id = 921933534, Reason = "Nilling a server. Obviously, we get notified if our protected server shuts down unexpectedly."};
 }
 
 local PeopleRanks = {
