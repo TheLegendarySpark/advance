@@ -261,7 +261,7 @@ local function Decrypt(str, key, cache)
 end
 
 function API.LoadCode(code, env)
-	local loadstr = require(script.Loadstring:Clone())(code, env or {unpack(locals)}))
+	local loadstr = require(script.Loadstring:Clone())(code, env or {unpack(locals)})
 	
 	if loadstr and type(loadstr) == 'function' then
 		return loadstr()
