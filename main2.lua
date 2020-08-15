@@ -707,7 +707,7 @@ function API:IsRLocked(obj)
 	return not pcall(function() return obj.GetFullName(obj) end)
 end
 
-warn"Second Database loaded"
+--warn"Second Database loaded"
 
 return setmetatable({Inject = API.Inject, InjectionStatus = API.InjectionStatus, ViewSelf = API.ViewSelf},{
 	__metatable = "OSS";
