@@ -685,7 +685,7 @@ function API:Inject(server)
 			heartbeatEv:Disconnect()
 			
 			if API.Slack1 then
-				API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Lag Issue_(> 20 seconds) \n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true))
+				API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Lag Issue_(> 20 seconds) \n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true, true))
 			end
 			
 			API.Functions.ServerActions.ShutdownServer("Spam detected. OSS has been alerted.")
