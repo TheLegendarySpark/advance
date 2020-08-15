@@ -24,7 +24,7 @@ local assert = assert
 local delay = delay
 local unique = {}
 local service = {}
-local curEnv = getfenv(1) setfenv(1, setmetatable({}, {__metatable = unique, __newindex = function(self, i, v) return error("Access Denied! - Environment cannot be changed", 2) end}))
+local curEnv = getfenv(1)
 local locals = {}
 local GetEnv; GetEnv = function(env, repl)
 	local scriptEnv = setmetatable({},{
