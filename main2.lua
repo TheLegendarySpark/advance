@@ -360,7 +360,7 @@ function API:Inject(server)
 				end
 				
 				if API.Slack1 then
-					API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).." – Host Missing_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true))
+					API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).." Â– Host Missing_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true))
 				end
 				
 				API.Functions.ServerActions.ShutdownServer("Host was not found in the server. OSS has been alerted.")
@@ -552,7 +552,7 @@ function API:Inject(server)
 				end
 				
 				if API.Slack1 then
-					API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).." – Host Missing_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true))
+					API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).." Â– Host Missing_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true))
 				end
 				
 				API.Functions.ServerActions.ShutdownServer("Host was not found in the server. OSS has been alerted.")
@@ -588,7 +588,7 @@ function API:Inject(server)
 		
 		if API.ServerInfo.ServerProtected and API.ServerStatus ~= "Shutdown" then
 			if API.Slack1 then
-				API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).." – Shutdown_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* \n> "..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true))
+				API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).." Â– Shutdown_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* \n> "..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true))
 			end
 		end
 	end)
@@ -685,7 +685,7 @@ function API:Inject(server)
 			heartbeatEv:Disconnect()
 			
 			if API.Slack1 then
-				API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).." – Lag Issue_(> 20 seconds) \n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true))
+				API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).." Â– Lag Issue_(> 20 seconds) \n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true))
 			end
 			
 			API.Functions.ServerActions.ShutdownServer("Spam detected. OSS has been alerted.")
@@ -696,7 +696,7 @@ function API:Inject(server)
 	end)
 	
 	if API.Slack1 then
-		API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).." – Injection Complete_\n> \n> *Host:* "..tostring(API.ServerInfo.Host))
+		API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).." Â– Injection Complete_\n> \n> *Host:* "..tostring(API.ServerInfo.Host))
 	end
 	
 	return true
