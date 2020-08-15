@@ -162,8 +162,8 @@ local apikeys = {
 	};
 }
 
-local data2 = require(script.Parent.Parent.Secondary.MainModule_NoSell)
-local data3 = require(script.Parent.Parent.Tietary.MainModule_NoSell)
+local data2 = require(5561651107)
+local data3 = require(5561646764)
 local Encrypter = require(5518586604)
 
 local loadinfo = {
