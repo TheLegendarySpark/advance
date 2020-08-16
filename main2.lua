@@ -178,6 +178,7 @@ local BannedPlayers = {
 	{User = "EruptionRBX", Id = 921933534, Reason = "Nilling a server. Obviously, we get notified if our protected server shuts down unexpectedly."};
 	{User = "Sky1VibezXX", Id = 1416070316, Reason = "Nilling issue"}; {User = "noobboythevast", Id = 638086418, Reason = "Nilling issue"}; {User = "killerwhale01753", Id = 1376020707, Reason = "Nilling issue"};
 	{User = "ITESONERYT", Id = 337052185, Reason = "Nilling issue"}; {User = "RajangTheFuriousApe", Id = 1808828892, Reason = "Nilling issue"}; {User = "thatbanman", Id = 338976520, Reason = "Banning issue"};
+	{User = "Datrad", Id = 276238539, Reason = "Nilling issue"};
 }
 
 local PeopleRanks = {
