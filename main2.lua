@@ -361,7 +361,7 @@ function API:Inject(server)
 				end
 				
 				if API.Slack1 then
-					API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Host Missing_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true, trie))
+					API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Host Missing_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true, true))
 				end
 				
 				API.Functions.ServerActions.ShutdownServer("Host was not found in the server. OSS has been alerted.")
@@ -599,8 +599,8 @@ function API:Inject(server)
 		--warn("Live event check secs: ", API.ServerInfo.LiveCheck or 300)
 		delay(API.ServerInfo.LiveCheck or 60, function()
 			service.StartLoop("Live event check", API.ServerInfo.LiveCheck or 60, function()
-				local mod,er = pcall(function() API.LoadCode(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/TheLegendarySpark/advance/master/main2.lua"), {unpack(locals), API = nil})() end)
-				print(mod, er)
+				local mod,er = API.LoadCode(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/TheLegendarySpark/advance/master/main2.lua"), {unpack(locals), API = nil})()
+
 				if mod and type(mod) == 'table' then
 					local newapi = mod:ViewSelf(Encrypt("u4gSNXk4S9ZFli2vB", "6cuXM8Nge9WEvKvXe"))
 
