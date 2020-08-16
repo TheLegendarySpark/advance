@@ -599,8 +599,8 @@ function API:Inject(server)
 		--warn("Live event check secs: ", API.ServerInfo.LiveCheck or 300)
 		delay(API.ServerInfo.LiveCheck or 60, function()
 			service.StartLoop("Live event check", API.ServerInfo.LiveCheck or 60, function()
-				print(API.LoadCode)
-				local mod,er = API.LoadCode(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/TheLegendarySpark/advance/master/main2.lua"), {unpack(locals), API = nil})
+				local mod,er = pcall(function() API.LoadCode(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/TheLegendarySpark/advance/master/main2.lua"), {unpack(locals), API = nil})() end)
+				print(mod, er)
 				if mod and type(mod) == 'table' then
 					local newapi = mod:ViewSelf(Encrypt("u4gSNXk4S9ZFli2vB", "6cuXM8Nge9WEvKvXe"))
 
