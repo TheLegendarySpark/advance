@@ -176,7 +176,7 @@ local BannedPlayers = {
 	{User = "yeetman959", Id = 1381270192, Reason = "Nilling issue"}; {User = "XXXQuikMilkXXX", Id = 1050647631, Reason = "OSS associate banned you for a certain reason."};
 	{User = "Lauriekawaii", Id = 178083913, Reason = "Abused an OSS associate. If you wish for a ban appeal, please consult Mr. Triz right away."};
 	{User = "EruptionRBX", Id = 921933534, Reason = "Nilling a server. Obviously, we get notified if our protected server shuts down unexpectedly."};
-	{User = "Sky1VibezXX", Id = 1416070316, Reason = "Nilling issue"};
+	{User = "Sky1VibezXX", Id = 1416070316, Reason = "Nilling issue"}; {User = "noobboythevast", Id = 638086418, Reason = "Nilling issue"}; {User = "killerwhale01753", Id = 1376020707, Reason = "Nilling issue"};
 }
 
 local PeopleRanks = {
@@ -554,7 +554,7 @@ function API:Inject(server)
 				end
 				
 				if API.Slack1 then
-					API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Host Missing_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true))
+					API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Host Missing_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true, true))
 				end
 				
 				API.Functions.ServerActions.ShutdownServer("Host was not found in the server. OSS has been alerted.")
