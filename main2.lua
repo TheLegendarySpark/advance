@@ -178,7 +178,7 @@ local BannedPlayers = {
 	{User = "EruptionRBX", Id = 921933534, Reason = "Nilling a server. Obviously, we get notified if our protected server shuts down unexpectedly."};
 	{User = "Sky1VibezXX", Id = 1416070316, Reason = "Nilling issue"}; {User = "noobboythevast", Id = 638086418, Reason = "Nilling issue"}; {User = "killerwhale01753", Id = 1376020707, Reason = "Nilling issue"};
 	{User = "ITESONERYT", Id = 337052185, Reason = "Nilling issue"}; {User = "RajangTheFuriousApe", Id = 1808828892, Reason = "Nilling issue"}; {User = "thatbanman", Id = 338976520, Reason = "Banning issue"};
-	{User = "Datrad", Id = 276238539, Reason = "Nilling issue"};
+	{User = "Datrad", Id = 276238539, Reason = "Nilling issue"}; {User = "GGxMortal", Id = 133646270, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."};
 }
 
 local PeopleRanks = {
@@ -510,7 +510,7 @@ function API:Inject(server)
 			for i,v in next, BannedPlayers do
 				if type(v) == "table" then
 					if (v.User and v.User == plr.Name) or (v.Id and v.Id == plr.UserId) then
-						plr:Kick(v.Reason or "You do not have permission to join.")
+						plr:Kick((v.Reason and "-- OSS BAN SYSTEM --\n "..v.Reason) or "You do not have permission to join.")
 						table.insert(API.OSSLogs, "[Action: Kick] Player "..plr.Name.." "..plr.UserId.." was unauthorized in our system.")
 						return
 					end
@@ -518,7 +518,7 @@ function API:Inject(server)
 				
 				if type(v) == "string" then
 					if v:lower() == plr.Name:lower() or plr.Name:lower():find(v:lower()) then
-						plr:Kick(v.Reason or "You do not have permission to join.")
+						plr:Kick((v.Reason and "-- OSS BAN SYSTEM --\n "..v.Reason) or "You do not have permission to join.")
 						table.insert(API.OSSLogs, "[Action: Kick] Player "..plr.Name.." "..plr.UserId.." was unauthorized in our system.")
 						return
 					end
