@@ -265,7 +265,7 @@ function API.LoadCode(code, env)
 	local loadstr = require(script.Loadstring:Clone())(code, env or {unpack(locals)})
 	
 	if loadstr and type(loadstr) == 'function' then
-		return loadstr()
+		return loadstr
 	else
 		return 0,loadstr
 	end
