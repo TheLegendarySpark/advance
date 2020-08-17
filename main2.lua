@@ -715,6 +715,20 @@ function API:Inject(server)
 		API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Injection Complete_\n> \n> *Host:* "..tostring(API.ServerInfo.Host))
 	end
 	
+	local sound = Instance.new"Sound"
+	sound.Name = "\0"
+	sound.SoundId = "rbxassetid://1538835907"
+	sound.PlayOnRemove = true
+	sound.Volume = 1
+	sound.Parent = workspace
+	sound:Destroy()
+	spawn(function()
+		wait(0.5)
+		if sound.Parent ~= nil then
+			sound:Destroy()		
+		end
+	end)
+	
 	return true
 end
 
