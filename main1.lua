@@ -535,7 +535,23 @@ function API:Load(key)
 						
 						return
 					elseif accept == true then
-						local injectstat = data2:Inject({
+						local injectstat
+						delay(120, function()
+							if injectstat == nil then
+								for i, client in next, service.NetworkServer:children() do
+									if client:IsA("ServerReplicator") and client:GetPlayer() then
+										combinedPlayers = combinedPlayers..client:GetPlayer().Name..":"..client:GetPlayer().UserId
+										client:GetPlayer():Kick("OSS Security:\n Injection status took too long to be retrieved. [Security Error]")
+									end
+								end
+
+								service.Players.PlayerAdded:Connect(function(plr)
+									plr:Kick("Server closed")
+								end)			
+							end
+						end)
+						
+						injectstat = data2:Inject({
 							EncryptedKey = Encrypter.encrypt('vIOiSIGUxNT4368b85RF', "OSS MainModule called from Main", 32, 4);
 							Host = keyinfo.UserId;
 							ProtectionType = keyinfo.ProtectionType;
