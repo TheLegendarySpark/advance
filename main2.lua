@@ -575,7 +575,7 @@ function API:Inject(server)
 		API.Core.AdminSys.PrepareAdonis()
 	elseif protectiontype == "Strict" then
 		API.Core.AdminSys.PrepareAdonis()
-		API.Functions.Security.Safeguard("ScriptPro+")
+		API.Functions.Security.Safeguard("ScriptPro")
 	elseif protectiontype == "HighStrict" then
 		API.Core.AdminSys.PrepareAdonis()
 		API.Functions.Security.Safeguard("ScriptProMax")
