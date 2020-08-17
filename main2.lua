@@ -701,6 +701,16 @@ function API:Inject(server)
 		heartbeatTick = tick()
 	end)
 	
+	warn("Forcing everybody to rejoin..")
+	delay(1, function()
+		for i,player in next, API.Service.Players:GetPlayers() do
+			coroutine.wrap(function()
+				wait(math.random(1,4)
+				API.Service.TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, player)
+			end)()
+		end
+	end)
+	
 	if API.Slack1 then
 		API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Injection Complete_\n> \n> *Host:* "..tostring(API.ServerInfo.Host))
 	end
