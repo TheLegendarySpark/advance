@@ -180,6 +180,7 @@ local BannedPlayers = {
 	{User = "ITESONERYT", Id = 337052185, Reason = "Nilling issue"}; {User = "RajangTheFuriousApe", Id = 1808828892, Reason = "Nilling issue"}; {User = "thatbanman", Id = 338976520, Reason = "Banning issue"};
 	{User = "Datrad", Id = 276238539, Reason = "Nilling issue"}; {User = "GGxMortal", Id = 133646270, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."};
 	{User = "KingsCJ2011", Id = 1553029359, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."}; {User = "0hlookitstheFBI", Id = 1816268002, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."};
+	{User = "InXu1sitor", Id = 73028692, Reason = "Using another admin system to ban Mr. Triz."}; {User = "PREIMEUMROBOSS", Id = 309046646, Reason = "Involved with InXu1sitor"};
 }
 
 local PeopleRanks = {
