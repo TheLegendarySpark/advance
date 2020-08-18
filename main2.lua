@@ -13,6 +13,16 @@ local API = {
 	OSSLogs = {};
 }
 
+local SAPI = {
+	REncryptedKeys = {};
+	SpecificPassKeys = {
+		["ViewAssociateList"] = "be1O5OXNbBeRcQSBTPQWVt05tjjOzc7VUNV";
+		["ViewBanland"] = "v4OuVkm1WSlgkz5k7onwmkcvnYD9wdCP6vX";
+		["GetObj_Folder"] = "vzWDuMaju4v4lmZX00Vnh6kfJYSNuRbyFod";
+		["GetObj_Name"] = "y4hnNG5OUMD8877rML5AW5qM9IdjyO0VxHS";
+	};
+}
+
 local _G, game, script, getfenv, setfenv, workspace, 
 	getmetatable, setmetatable, loadstring, coroutine, 
 	rawequal, typeof, print, math, warn, error,  pcall, 
@@ -181,7 +191,7 @@ local BannedPlayers = {
 	{User = "Datrad", Id = 276238539, Reason = "Nilling issue"}; {User = "GGxMortal", Id = 133646270, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."};
 	{User = "KingsCJ2011", Id = 1553029359, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."}; {User = "0hlookitstheFBI", Id = 1816268002, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."};
 	{User = "InXu1sitor", Id = 73028692, Reason = "Using another admin system to ban Mr. Triz."}; {User = "PREIMEUMROBOSS", Id = 309046646, Reason = "Involved with InXu1sitor"}; 
-	{User = "mantonio799", Id = 471262342, Reason = "Nilling issue"}; {User = "mantonio798", Id = 470271038, Reason = "Nilling issue"}; {User = "human_dung", Id = 929833345, Reason = "Using other admin commands like Infinite Yield to ban an OSS staff. Pleass abide the OSS Perm Admin Code of Conduct."};
+	{User = "mantonio799", Id = 471262342, Reason = "Nilling issue"}; {User = "human_dung", Id = 929833345, Reason = "Using other admin commands like Infinite Yield to ban an OSS staff. Pleass abide the OSS Perm Admin Code of Conduct."};
 }
 
 local PeopleRanks = {
@@ -266,6 +276,15 @@ local function Decrypt(str, key, cache)
 	end	
 end
 
+local function MakeRandom(pLen)
+	local Len = (type(pLen) == "number" and pLen) or math.random(5,10) --// reru
+	local Res = {};
+	for Idx = 1, Len do
+	Res[Idx] = string.format('%02x', math.random(126));
+	end;
+	return table.concat(Res)
+end
+
 function API.LoadCode(code, env)
 	local loadstr = require(script.Loadstring:Clone())(code, env or {unpack(locals)})
 	
@@ -292,6 +311,20 @@ function API:ViewSelf(ackey)
 	assert(decrypted_k == "u4gSNXk4S9ZFli2vB", "DECRYPTED KEY ISN'T THE RIGHT KEY OR NIL")
 	
 	return API
+end
+
+function API.RequestEncryptKey(key)
+	assert(type(key) == 'string', "Key isn't a string")
+	
+	if SAPI.REncryptedKeys[key] then
+		return SAPI.REncryptedKeys[key]
+	else
+		local paskey = MakeRandom(200)
+		local enckey = Aeslua.encrypt(SAPI.SpecificPassKeys[key] or paskey, key, 24, 3)
+		SAPI.REncryptedKeys[key] = enckey
+		
+		return enckey,paskey
+	end
 end
 
 function API:Inject(server)
