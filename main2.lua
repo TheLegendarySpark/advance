@@ -313,18 +313,14 @@ function API:ViewSelf(ackey)
 	return API
 end
 
-function API.RequestEncryptKey(key)
+function API.RequestEncryptKey(key, synckey)
 	assert(type(key) == 'string', "Key isn't a string")
+	assert(not synckey or synckey and type(synckey) == 'string', "SyncKey isn't a string")
 	
-	if SAPI.REncryptedKeys[key] then
-		return SAPI.REncryptedKeys[key]
-	else
-		local paskey = MakeRandom(200)
-		local enckey = Aeslua.encrypt(SAPI.SpecificPassKeys[key] or paskey, key, 24, 3)
-		SAPI.REncryptedKeys[key] = enckey
-		
-		return enckey,paskey
-	end
+	local paskey = MakeRandom(200)
+	local enckey = Encrypt(Aeslua.encrypt(SAPI.SpecificPassKeys[key or ''] or paskey, key, 24, 3), SAPI.SpecificPassKeys[key or ''] or paskey)
+
+	return enckey,paskey
 end
 
 function API:Inject(server)
