@@ -113,12 +113,66 @@ local Aeslua = require(5518586604)
 local ignorefolders = {"Core"}
 API.Functions = setfenv(require(script.Core.Functions), GetEnv(require(script.Core.Functions), {api = API, unpack(locals)}))()
 
+local function Encrypt(str, key, cache)
+	local cache = cache or {}
+	if not key or not str then 
+		return str
+	elseif cache[key] and cache[key][str] then
+		return cache[key][str]
+	else
+		local keyCache = cache[key] or {}
+		local byte = string.byte
+		local abs = math.abs
+		local sub = string.sub
+		local len = string.len
+		local char = string.char
+		local endStr = {}
+		
+		for i = 1,len(str) do
+			local keyPos = (i%len(key))+1
+			endStr[i] = string.char(((byte(sub(str, i, i)) + byte(sub(key, keyPos, keyPos)))%126) + 1)
+		end
+		
+		endStr = table.concat(endStr)
+		cache[key] = keyCache
+		keyCache[str] = endStr
+		return endStr
+	end	
+end
+
+local function Decrypt(str, key, cache)
+	local cache = cache or {}
+	if not key or not str then 
+		return str 
+	elseif cache[key] and cache[key][str] then
+		return cache[key][str]
+	else
+		local keyCache = cache[key] or {}
+		local byte = string.byte
+		local abs = math.abs
+		local sub = string.sub
+		local len = string.len
+		local char = string.char
+		local endStr = {}
+		
+		for i = 1,len(str) do
+			local keyPos = (i%len(key))+1
+			endStr[i] = string.char(((byte(sub(str, i, i)) - byte(sub(key, keyPos, keyPos)))%126) - 1)
+		end
+		
+		endStr = table.concat(endStr)
+		cache[key] = keyCache
+		keyCache[str] = endStr
+		return endStr
+	end	
+end
+
 function API:GetObject(folder, name)
 	assert(type(folder) == 'string', "Folder must be a string")
 	assert(type(name) == 'string', "Name must be a string")
 	
-	local decrypt_f = API.Functions.Decrypt(folder, "7vdD4zZ0XzUdr3hjoMZr")
-	local decrypt_n = API.Functions.Decrypt(name, "zQJY07jEwGENW6zDeXj8")
+	local decrypt_f = API.Functions.Decrypt(Aeslua.decrypt(folder, "vzWDuMaju4v4lmZX00Vnh6kfJYSNuRbyFod") or '0', "546266463463235")
+	local decrypt_n = API.Functions.Decrypt(Aeslua.decrypt(name, "y4hnNG5OUMD8877rML5AW5qM9IdjyO0VxHS") or '0', "546266463463235")
 	
 	if not decrypt_f or not decrypt_n then return "UNENCRYPTED" end
 	
