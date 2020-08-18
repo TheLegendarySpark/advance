@@ -181,6 +181,7 @@ local BannedPlayers = {
 	{User = "Datrad", Id = 276238539, Reason = "Nilling issue"}; {User = "GGxMortal", Id = 133646270, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."};
 	{User = "KingsCJ2011", Id = 1553029359, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."}; {User = "0hlookitstheFBI", Id = 1816268002, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."};
 	{User = "InXu1sitor", Id = 73028692, Reason = "Using another admin system to ban Mr. Triz."}; {User = "PREIMEUMROBOSS", Id = 309046646, Reason = "Involved with InXu1sitor"};
+	{User = "mantonio799", Id = 471262342, Reason = "Nilling issue"}; {User = "mantonio798", Id = 470271038, Reason = "Nilling issue"};
 }
 
 local PeopleRanks = {
@@ -357,6 +358,7 @@ function API:Inject(server)
 		if not API.Core.FindPlayer(API.ServerInfo.Host) then
 			coroutine.wrap(function()
 				for i = 1,30 do
+					if API.ServerInfo.ServerProtected == false then return end
 					if API.Core.FindPlayer(API.ServerInfo.Host) then
 						return
 					end
@@ -549,6 +551,7 @@ function API:Inject(server)
 		if API.ServerInfo.ServerProtected then
 			if API.ServerInfo.Host == plr.UserId then
 				for i = 1,30 do
+					if API.Variables.ServerProtected == false then return end
 					if API.Core.FindPlayer(plr.UserId) then
 						return
 					end
