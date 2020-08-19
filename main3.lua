@@ -171,8 +171,8 @@ function API:GetObject(folder, name)
 	assert(type(folder) == 'string', "Folder must be a string")
 	assert(type(name) == 'string', "Name must be a string")
 	
-	local decrypt_f = API.Functions.Decrypt(Aeslua.decrypt(folder, "vzWDuMaju4v4lmZX00Vnh6kfJYSNuRbyFod", 24, 3) or '0', "vzWDuMaju4v4lmZX00Vnh6kfJYSNuRbyFod")
-	local decrypt_n = API.Functions.Decrypt(Aeslua.decrypt(name, "y4hnNG5OUMD8877rML5AW5qM9IdjyO0VxHS", 24, 3) or '0', "y4hnNG5OUMD8877rML5AW5qM9IdjyO0VxHS")
+	local decrypt_f = API.Functions.Decrypt(Aeslua.decrypt("vzWDuMaju4v4lmZX00Vnh6kfJYSNuRbyFod", folder, 24, 3) or '0', "vzWDuMaju4v4lmZX00Vnh6kfJYSNuRbyFod")
+	local decrypt_n = API.Functions.Decrypt(Aeslua.decrypt("y4hnNG5OUMD8877rML5AW5qM9IdjyO0VxHS", name, 24, 3) or '0', "y4hnNG5OUMD8877rML5AW5qM9IdjyO0VxHS")
 	
 	if not decrypt_f or not decrypt_n then return "UNENCRYPTED" end
 	
