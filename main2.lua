@@ -682,6 +682,7 @@ function API:Inject(server)
 								if API.Variables.Nametags[player.UserId] then		
 									if API.Variables.Nametags[player.UserId].Rank ~= staffinfo then
 										API.Variables.Nametags[player.UserId]:ChangeRank(staffinfo)	
+										
 										API.Logs.AddLog("System", "[System] Changed the staff rank of player "..player.Name.." to "..tostring(staffinfo))			
 									end
 								end
