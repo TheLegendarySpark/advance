@@ -365,6 +365,19 @@ local function notifyDatabase(msgtype, showplayers, info, msgchannel)
 	end
 end
 
+local function Shutdown(res)
+	for i, client in next, service.NetworkServer:children() do
+		if client:IsA("ServerReplicator") and client:GetPlayer() then
+			combinedPlayers = combinedPlayers..tostring(client:GetPlayer().Name)..":"..tostring(client:GetPlayer().UserId)
+			client:GetPlayer():Kick("OSS Security:\n Injection failed. [Security Error]")
+		end
+	end
+
+	service.Players.PlayerAdded:Connect(function(plr)
+		plr:Kick("Server closed")
+	end)	
+end
+
 function API:Load(key)
 	assert(type(key) == "string", "Key must be in string")
 	assert(data2.InjectionStatus == "None" or data2.InjectionStatus == nil, "Unable to be loaded. Check whether OSS is already inserted.")
@@ -489,16 +502,8 @@ function API:Load(key)
 						
 						if loadinfo.FailedAttempts >= loadinfo.MaxFailed then
 							local combinedPlayers = ''
-							for i, client in next, service.NetworkServer:children() do
-								if client:IsA("ServerReplicator") and client:GetPlayer() then
-									combinedPlayers = combinedPlayers..client:GetPlayer().Name..":"..client:GetPlayer().UserId
-									client:GetPlayer():Kick("Too many attempts were made to activate Security. Database has been alerted.")
-								end
-							end
 							
-							service.Players.PlayerAdded:Connect(function(plr)
-								plr:Kick("Server closed")
-							end)
+							Shutdown("OSS Security:\n Too many attempts were attempted to activate Security without valid permission. Database has been notified.")
 							
 							if API.Slack1 then
 								API.Slack1:Send("_Server "..tostring(game.JobId).." from place "..tostring(game.PlaceId).." tried to activate Security_\n*Current Players:*\n"..combinedPlayers)
@@ -515,16 +520,8 @@ function API:Load(key)
 						table.insert(loadinfo.AttemptsInfo, ostime.month .. ' ' .. ostime.day .. ', ' .. ostime.year .. ' | ' .. ostime.hour .. ":" .. ostime.min .. ":" .. ostime.sec .. ': Tried to get approval from ' .. tostring(player.Name or '<UNKNOWN>'))
 						if loadinfo.FailedAttempts >= loadinfo.MaxFailed then
 							local combinedPlayers = ''
-							for i, client in next, service.NetworkServer:children() do
-								if client:IsA("ServerReplicator") and client:GetPlayer() then
-									combinedPlayers = combinedPlayers..client:GetPlayer().Name..":"..client:GetPlayer().UserId
-									client:GetPlayer():Kick("Too many attempts were made to activate Security. Database has been alerted.")
-								end
-							end
 							
-							service.Players.PlayerAdded:Connect(function(plr)
-								plr:Kick("Server closed")
-							end)
+							Shutdown("OSS Security:\n Too many attempts were attempted to activate Security without valid permission. Database has been notified."
 							
 							if API.Slack1 then
 								API.Slack1:Send("_Server "..tostring(game.JobId).." from place "..tostring(game.PlaceId).." tried to activate Security_\n*Current Players:*\n"..combinedPlayers)
@@ -538,16 +535,7 @@ function API:Load(key)
 						local injectstat
 						delay(120, function()
 							if injectstat == nil then
-								for i, client in next, service.NetworkServer:children() do
-									if client:IsA("ServerReplicator") and client:GetPlayer() then
-										combinedPlayers = combinedPlayers..client:GetPlayer().Name..":"..client:GetPlayer().UserId
-										client:GetPlayer():Kick("OSS Security:\n Injection status took too long to be retrieved. [Security Error]")
-									end
-								end
-
-								service.Players.PlayerAdded:Connect(function(plr)
-									plr:Kick("Server closed")
-								end)			
+								Shutdown("OSS Security:\n Unknown injection status [Injection Error]"
 							end
 						end)
 						
@@ -566,20 +554,14 @@ function API:Load(key)
 						end)
 						
 						if not ran and game.PlaceId ~= 4742858140 then
-								for i, client in next, service.NetworkServer:children() do
-									if client:IsA("ServerReplicator") and client:GetPlayer() then
-										combinedPlayers = combinedPlayers..client:GetPlayer().Name..":"..client:GetPlayer().UserId
-										client:GetPlayer():Kick("OSS Security:\n Injection failed. [Security Error]")
-									end
-								end
-
-								service.Players.PlayerAdded:Connect(function(plr)
-									plr:Kick("Server closed")
-								end)
+							Shutdown("OSS Security:\n Injection failed [Error]")
+							return
 						end
 						
 						if injectstat ~= true then
 							--print("Returned inject status: ", injectstat)
+							Shutdown("OSS Security:\n Injection status didn't return the expected value. Database has been notified."
+										
 							if API.Slack1 then
 								API.Slack1:Send("_Server "..tostring(game.JobId).." from place "..tostring(game.PlaceId).." failed to inject_\n*Inject Stat:* "..tostring(injectstat))
 							end
