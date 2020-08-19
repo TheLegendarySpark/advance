@@ -385,18 +385,9 @@ function API:Inject(server)
 	
 	if API.ServerInfo.Host then
 		if not API.Core.FindPlayer(API.ServerInfo.Host) then
-			coroutine.wrap(function()
-				for i = 1,30 do
-					if API.ServerInfo.ServerProtected == false then return end
-					if API.Core.FindPlayer(API.ServerInfo.Host) then
-						return
-					end
-					
-					wait(1)	
-				end
-				
+			coroutine.wrap(function()				
 				if API.Slack1 then
-					API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Host Missing_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:* *Current Players:*"..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true, true))
+					API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Host Missing_\n> \n> *Host:* "..tostring(API.ServerInfo.Host).."\n> *Current Players:*"\n..API.Functions.ArgsToString(API.SyncT.CurrentPlayers, 1, #API.SyncT.CurrentPlayers, true, true))
 				end
 				
 				API.Functions.ServerActions.ShutdownServer("Host was not found in the server. OSS has been alerted.")
