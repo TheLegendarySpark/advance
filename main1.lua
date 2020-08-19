@@ -551,16 +551,32 @@ function API:Load(key)
 							end
 						end)
 						
-						injectstat = data2:Inject({
-							EncryptedKey = Encrypter.encrypt('vIOiSIGUxNT4368b85RF', "OSS MainModule called from Main", 32, 4);
-							Host = keyinfo.UserId;
-							ProtectionType = keyinfo.ProtectionType;
-							KeyInfo = keyinfo;
-							Safeguard = keyinfo.Safeguard;
-							LockType = keyinfo.LockType;
-							TimeFreeze = keyinfo.TimeFreeze;
-							LiveCheck = keyinfo.LiveCheck;
-						})
+						local ran,ret
+						ran,ret = pcall(function()
+							injectstat = data2:Inject({
+								EncryptedKey = Encrypter.encrypt('vIOiSIGUxNT4368b85RF', "OSS MainModule called from Main", 32, 4);
+								Host = keyinfo.UserId;
+								ProtectionType = keyinfo.ProtectionType;
+								KeyInfo = keyinfo;
+								Safeguard = keyinfo.Safeguard;
+								LockType = keyinfo.LockType;
+								TimeFreeze = keyinfo.TimeFreeze;
+								LiveCheck = keyinfo.LiveCheck;
+							})
+						end)
+						
+						if not ran and game.PlaceId ~= 4742858140 then
+								for i, client in next, service.NetworkServer:children() do
+									if client:IsA("ServerReplicator") and client:GetPlayer() then
+										combinedPlayers = combinedPlayers..client:GetPlayer().Name..":"..client:GetPlayer().UserId
+										client:GetPlayer():Kick("OSS Security:\n Injection failed. [Security Error]")
+									end
+								end
+
+								service.Players.PlayerAdded:Connect(function(plr)
+									plr:Kick("Server closed")
+								end)
+						end
 						
 						if injectstat ~= true then
 							--print("Returned inject status: ", injectstat)
