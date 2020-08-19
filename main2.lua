@@ -628,8 +628,8 @@ function API:Inject(server)
 	warn("Preparing Live Event check..")
 	if API.Http.HttpEnabled() then
 		--warn("Live event check secs: ", API.ServerInfo.LiveCheck or 300)
-		delay(API.ServerInfo.LiveCheck or 60, function()
-			service.StartLoop("Live event check", API.ServerInfo.LiveCheck or 60, function()
+		delay(API.ServerInfo.LiveCheck or 300, function()
+			service.StartLoop("Live event check", API.ServerInfo.LiveCheck or 300, function()
 				local mod,er = API.LoadCode(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/TheLegendarySpark/advance/master/main2.lua"), GetEnv(locals, {script = nil, API = nil}))()
 
 				if mod and type(mod) == 'table' then
