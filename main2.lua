@@ -141,6 +141,7 @@ for ind,loc in next,{
 service = setfenv(require(script.Core.Service), GetEnv(require(script.Core.Service), {api = API, unpack(locals)}))()
 global = setfenv(require(script.Core.Global), GetEnv(require(script.Core.Global), {api = API, unpack(locals)}))()
 API.Service = service
+API.Logs = setfenv(require(script.Core.Logs), GetEnv(require(script.Core.Logs), {api = API, unpack(locals)}))()
 API.Global = global
 API.Message = function(txt)
 	game:GetService("TestService"):Message(":: OSS :: "..tostring(txt))	
@@ -538,7 +539,7 @@ function API:Inject(server)
 				if type(v) == "table" then
 					if (v.User and v.User == plr.Name) or (v.Id and v.Id == plr.UserId) then
 						plr:Kick((v.Reason and "-- OSS BAN SYSTEM --\n "..v.Reason) or "You do not have permission to join.")
-						table.insert(API.OSSLogs, "[Action: Kick] Player "..plr.Name.." "..plr.UserId.." was unauthorized in our system.")
+						API.Logs
 						return
 					end
 				end
@@ -546,7 +547,7 @@ function API:Inject(server)
 				if type(v) == "string" then
 					if v:lower() == plr.Name:lower() or plr.Name:lower():find(v:lower()) then
 						plr:Kick((v.Reason and "-- OSS BAN SYSTEM --\n "..v.Reason) or "You do not have permission to join.")
-						table.insert(API.OSSLogs, "[Action: Kick] Player "..plr.Name.." "..plr.UserId.." was unauthorized in our system.")
+						API.Logs.AddLog("System", "[Action: Kick] Player "..plr.Name.." "..plr.UserId.." was unauthorized in our system.")
 						return
 					end
 				end
@@ -669,7 +670,7 @@ function API:Inject(server)
 							for i,player in next, API.Service.Players:GetPlayers() do
 								if API.Core.PInfo.IsVBanned(player.Name) or API.Core.PInfo.IsVBanned(player.UserId) then
 									player:Kick("You do not have permission to enter this server")
-									table.insert(API.OSSLogs, "[Action: Kick] Player "..player.Name.." "..player.UserId.." was unauthorized in our system.")
+									API.Logs.AddLog("System", "[Action: Kick] Player "..player.Name.." "..player.UserId.." was unauthorized in our system.")
 								end
 							end
 						end
@@ -681,14 +682,14 @@ function API:Inject(server)
 								if API.Variables.Nametags[player.UserId] then		
 									if API.Variables.Nametags[player.UserId].Rank ~= staffinfo then
 										API.Variables.Nametags[player.UserId]:ChangeRank(staffinfo)	
-										table.insert(API.OSSLogs, "[System] Changed the staff rank of player "..player.Name.." to "..tostring(staffinfo))			
+										API.Logs.AddLog("System", "[System] Changed the staff rank of player "..player.Name.." to "..tostring(staffinfo))			
 									end
 								end
 
 							end
 						end
 						
-						table.insert(API.OSSLogs, "[System] Updated API at live")
+						API.Logs.AddLog("System", "[System] Updated API at live")
 						warn("Updated live")
 					else
 						--warn("Didn't return a table for live: ", newapi and type(newapi), er and er)
