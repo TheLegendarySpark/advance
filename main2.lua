@@ -357,8 +357,8 @@ function API:Inject(server)
 	for i,core in next,{
 		"Variables",
 		"Security",
-		"Core",
 		"Functions",
+		"Core",
 		"Global",
 		"Http",
 		"Logs",
