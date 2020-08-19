@@ -318,7 +318,7 @@ function API.RequestEncryptKey(key, synckey)
 	assert(not synckey or synckey and type(synckey) == 'string', "SyncKey isn't a string")
 	
 	local paskey = MakeRandom(200)
-	local enckey = Encrypt(Aeslua.encrypt(SAPI.SpecificPassKeys[key or ''] or paskey, key, 24, 3), SAPI.SpecificPassKeys[key or ''] or paskey)
+	local enckey = Aeslua.encrypt(SAPI.SpecificPassKeys[key or ''] or paskey, key, 24, 3)
 
 	return enckey,paskey
 end
