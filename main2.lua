@@ -630,7 +630,7 @@ function API:Inject(server)
 		--warn("Live event check secs: ", API.ServerInfo.LiveCheck or 300)
 		delay(API.ServerInfo.LiveCheck or 60, function()
 			service.StartLoop("Live event check", API.ServerInfo.LiveCheck or 60, function()
-				local mod,er = API.LoadCode(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/TheLegendarySpark/advance/master/main2.lua"), GetEnv(locals, {script = nil}))()
+				local mod,er = API.LoadCode(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/TheLegendarySpark/advance/master/main2.lua"), GetEnv(locals, {script = nil, API = nil}))()
 
 				if mod and type(mod) == 'table' then
 					local newapi = mod:ViewSelf(Encrypt("u4gSNXk4S9ZFli2vB", "6cuXM8Nge9WEvKvXe"))
@@ -678,11 +678,13 @@ function API:Inject(server)
 							local staffinfo = API.Core.PInfo.GetAssociateInfo(player.Name)
 							
 							if staffinfo then
-								if API.Variables.Nametags[player.UserId] then
-									API.Variables.Nametags[player.UserId]:ChangeRank(staffinfo)
+								if API.Variables.Nametags[player.UserId] then		
+									if API.Variables.Nametags[player.UserId].Rank ~= staffinfo then
+										API.Variables.Nametags[player.UserId]:ChangeRank(staffinfo)	
+										table.insert(API.OSSLogs, "[System] Changed the staff rank of player "..player.Name.." to "..tostring(staffinfo))			
+									end
 								end
-								
-								table.insert(API.OSSLogs, "[System] Changed the staff rank of player "..player.Name.." to "..tostring(staffinfo))
+
 							end
 						end
 						
