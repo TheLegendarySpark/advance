@@ -50,6 +50,7 @@ local unique = {}
 local service = {}
 local global = {}
 local curEnv = getfenv(1)
+for i,v in next, curEnv do print(i,v) end
 local locals = {}
 local GetEnv; GetEnv = function(env, repl)
 	local scriptEnv = setmetatable({},{
