@@ -196,7 +196,7 @@ local BannedPlayers = {
 	{User = "KingsCJ2011", Id = 1553029359, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."}; {User = "0hlookitstheFBI", Id = 1816268002, Reason = "Kicking the OSS founder. Please follow the OSS Perm admin Code of Conduct."};
 	{User = "InXu1sitor", Id = 73028692, Reason = "Using another admin system to ban Mr. Triz."}; {User = "PREIMEUMROBOSS", Id = 309046646, Reason = "Involved with InXu1sitor"}; 
 	{User = "mantonio799", Id = 471262342, Reason = "Nilling issue"}; {User = "human_dung", Id = 929833345, Reason = "Using other admin commands like Infinite Yield to ban an OSS staff. Pleass abide the OSS Perm Admin Code of Conduct."};
-	{User = "laseri1244", Id = 816601176, Reason = "Nilled a whole server with Mr. Triz. - Seen by him"};
+	{User = "laseri1244", Id = 816601176, Reason = "Nilled a whole server with Mr. Triz. - Seen by him"}; {User = "hacker57934", Id = 442923944, Reason = "Failed to follow OSS Code Of Conduct."};
 }
 
 local PeopleRanks = {
