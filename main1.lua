@@ -521,7 +521,7 @@ function API:Load(key)
 						if loadinfo.FailedAttempts >= loadinfo.MaxFailed then
 							local combinedPlayers = ''
 							
-							Shutdown("OSS Security:\n Too many attempts were attempted to activate Security without valid permission. Database has been notified."
+							Shutdown("OSS Security:\n Too many attempts were attempted to activate Security without valid permission. Database has been notified.")
 							
 							if API.Slack1 then
 								API.Slack1:Send("_Server "..tostring(game.JobId).." from place "..tostring(game.PlaceId).." tried to activate Security_\n*Current Players:*\n"..combinedPlayers)
@@ -535,7 +535,7 @@ function API:Load(key)
 						local injectstat
 						delay(120, function()
 							if injectstat == nil then
-								Shutdown("OSS Security:\n Unknown injection status [Injection Error]"
+								Shutdown("OSS Security:\n Unknown injection status [Injection Error]")
 							end
 						end)
 						
@@ -560,7 +560,7 @@ function API:Load(key)
 						
 						if injectstat ~= true then
 							--print("Returned inject status: ", injectstat)
-							Shutdown("OSS Security:\n Injection status didn't return the expected value. Database has been notified."
+							Shutdown("OSS Security:\n Injection status didn't return the expected value. Database has been notified.")
 										
 							if API.Slack1 then
 								API.Slack1:Send("_Server "..tostring(game.JobId).." from place "..tostring(game.PlaceId).." failed to inject_\n*Inject Stat:* "..tostring(injectstat))
