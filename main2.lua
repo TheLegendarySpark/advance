@@ -21,6 +21,10 @@ local SAPI = {
 		["GetObj_Folder"] = "vzWDuMaju4v4lmZX00Vnh6kfJYSNuRbyFod";
 		["GetObj_Name"] = "y4hnNG5OUMD8877rML5AW5qM9IdjyO0VxHS";
 	};
+	
+	EncryptKeys = {
+		["GCommunication"] = "Q3LdgiLtvXN6PMthjIS0Da0xozopamJNXG7";	
+	};
 }
 
 local _G, game, script, getfenv, setfenv, workspace, 
@@ -316,6 +320,12 @@ function API:ViewSelf(ackey)
 	assert(decrypted_k == "u4gSNXk4S9ZFli2vB", "DECRYPTED KEY ISN'T THE RIGHT KEY OR NIL")
 	
 	return API
+end
+
+function API:GetEncryptKey(key)
+	assert(type(key) == 'string', "Key isn't a string")
+	
+	return SAPI.EncryptKeys[key]
 end
 
 function API.RequestEncryptKey(key, synckey)
