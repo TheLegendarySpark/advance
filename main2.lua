@@ -539,7 +539,7 @@ function API:Inject(server)
 				if type(v) == "table" then
 					if (v.User and v.User == plr.Name) or (v.Id and v.Id == plr.UserId) then
 						plr:Kick((v.Reason and "-- OSS BAN SYSTEM --\n "..v.Reason) or "You do not have permission to join.")
-						API.Logs
+						API.Logs.AddLog("System", "[Action: Kick] Player "..plr.Name.." "..plr.UserId.." was unauthorized in our system.")
 						return
 					end
 				end
