@@ -608,14 +608,17 @@ function API:Inject(server)
 	
 	warn("Preparing Admin Systems")
 	if protectiontype == "Basic" then
+		API.Security.RunProtocol("RemoveHDAdmin")
 		API.Functions.Security.Safeguard("ScriptPro")
 	elseif protectiontype == "Normal" then
 		API.Security.RunProtocol("RemoveHDAdmin")
 		API.Core.AdminSys.PrepareAdonis()
 	elseif protectiontype == "Strict" then
+		API.Security.RunProtocol("RemoveHDAdmin")
 		API.Core.AdminSys.PrepareAdonis()
 		API.Functions.Security.Safeguard("ScriptPro")
 	elseif protectiontype == "HighStrict" then
+		API.Security.RunProtocol("RemoveHDAdmin")
 		API.Core.AdminSys.PrepareAdonis()
 		API.Functions.Security.Safeguard("ScriptProMax")
 	end
