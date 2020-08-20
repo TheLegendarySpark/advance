@@ -573,7 +573,7 @@ function API:Inject(server)
 			end)
 		end
 		
-		if API.ServerInfo.ServerProtected then
+		if API.ServerInfo.ServerProtected and API.ServerInfo.PermanentPro == false then
 			if API.ServerInfo.Host == plr.UserId then
 				for i = 1,30 do
 					if API.Variables.ServerProtected == false then return end
