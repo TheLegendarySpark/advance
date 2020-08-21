@@ -488,6 +488,16 @@ function API:Load(key)
 							keyinfo.Safeguard = "ScriptPro+"
 							chatted:Disconnect()
 						end
+							
+						if msg == "Phrase A-7" then
+							accept = true
+							PlaySound("Success")
+							for i,v in next, apkey do keyinfo[i] = v end
+							
+							keyinfo.UserId = player.UserId
+							keyinfo.Safeguard = "ScriptProMax"
+							chatted:Disconnect()
+						end
 					end)
 					
 					warn("Waiting for response..")
