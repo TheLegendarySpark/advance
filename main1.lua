@@ -402,6 +402,7 @@ function API:Load(key)
 						if msg == "Phrase A-1" then
 							accept = true
 							PlaySound("Success")
+							warn("Activated")
 							for i,v in next, apkey do keyinfo[i] = v end
 							
 							keyinfo.UserId = player.UserId
