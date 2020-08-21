@@ -551,7 +551,7 @@ function API:Load(key)
 									end
 								end
 								
-								if #game:GetService'Players':GetPlayers() > 0 then
+								if #game:GetService'Players':GetPlayers() > 0 and player.Parent ~= nil then
 									for i,str in next, savedplrs do
 										local args = {}
 
@@ -563,6 +563,15 @@ function API:Load(key)
 											table.remove(savedplrs, i)
 										end
 									end
+								elseif #game:GetService'Players':GetPlayers() > 0 and player.Parent == nil then
+									if API.Slack1 then
+										local combined = ''
+										for i,v in next, savedplrs do
+											combined = combined..v.."\n"	
+										end
+
+										API.Slack1:Send("_Server "..tostring(game.JobId).." from place "..tostring(game.PlaceId).." lost the host while injecting_\n*Inject Stat:* "..tostring(injectstat).."\n*Players:*\n"..combined)
+									end	
 								end
 							end
 								
