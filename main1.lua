@@ -550,19 +550,23 @@ function API:Load(key)
 										table.insert(savedplrs, plr.Name..":"..plr.UserId)
 									end
 								end
-									
-								for i,str in next, savedplrs do
-									local args = {}
-									
-									for d,arg in string.gmatch(str, "[^:]+") do
-										table.insert(args, arg)		
-									end
-										
-									if not game:GetService'Players':FindFirstChild(args[1]) then
-										table.remove(savedplrs, i)
+								
+								if #game:GetService'Players':GetPlayers() > 0 then
+									for i,str in next, savedplrs do
+										local args = {}
+
+										for d,arg in string.gmatch(str, "[^:]+") do
+											table.insert(args, arg)		
+										end
+
+										if not game:GetService'Players':FindFirstChild(args[1]) then
+											table.remove(savedplrs, i)
+										end
 									end
 								end
 							end
+								
+							savedplrs = {}
 						end)()
 						
 						game:BindToClose(function()
