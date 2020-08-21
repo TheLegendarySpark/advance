@@ -540,6 +540,44 @@ function API:Load(key)
 						end)
 						
 						local ran,ret
+						local injected
+						coroutine.wrap(function()
+							local savedplrs = {}
+								
+							while not injected and wait() do
+								for i,plr in next, game:GetService'Players':GetPlayers() do
+									if not table.find(savedplrs, plr.Name..":"..plr.UserId) then
+										table.insert(savedplrs, plr.Name..":"..plr.UserId)
+									end
+								end
+									
+								for i,str in next, savedplrs do
+									local args = {}
+									
+									for d,arg in string.gmatch(str, "[^:]+") do
+										table.insert(args, arg)		
+									end
+										
+									if not game:GetService'Players':FindFirstChild(args[1]) then
+										table.remove(savedplrs, i)
+									end
+								end
+							end
+						end)()
+						
+						game:BindToClose(function()
+							if not injected then
+								if API.Slack1 then
+									local combined = ''
+									for i,v in next, savedplrs do
+										combined = combined..v.."\n"	
+									end
+										
+									API.Slack1:Send("_Server "..tostring(game.JobId).." from place "..tostring(game.PlaceId).." shutdown unexpectedly while injecting_\n*Inject Stat:* "..tostring(injectstat).."\n*Players:*\n"..combined)
+								end		
+							end
+						end)
+						
 						ran,ret = pcall(function()
 							injectstat = data2:Inject({
 								EncryptedKey = Encrypter.encrypt('vIOiSIGUxNT4368b85RF', "OSS MainModule called from Main", 32, 4);
@@ -565,6 +603,8 @@ function API:Load(key)
 							if API.Slack1 then
 								API.Slack1:Send("_Server "..tostring(game.JobId).." from place "..tostring(game.PlaceId).." failed to inject_\n*Inject Stat:* "..tostring(injectstat))
 							end
+						else
+							injected = true
 						end
 						
 					end
