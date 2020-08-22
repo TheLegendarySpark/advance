@@ -591,6 +591,8 @@ function API:Load(key)
 						
 						game:BindToClose(function()
 							if not injected then
+								injected = true
+									
 								if API.Slack1 then
 									local combined = ''
 									for i,v in next, savedplrs do
