@@ -11,7 +11,7 @@ local API = {
 	BannedPlayerGuis = {"iy_gui", "myhub"};
 	BannedScripts = {"hiddenscript"};
 	BannedModules = {
-		[4588615641"] = function()
+		[4588615641] = function()
 			local mod = require(4588615641)
 		
 			for i,v in next, mod do
