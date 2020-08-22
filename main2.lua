@@ -10,6 +10,28 @@ local API = {
 	BannedModels = {"hd admin", "kohl's admin", "kohl's admin infinite"};
 	BannedPlayerGuis = {"iy_gui", "myhub"};
 	BannedScripts = {"hiddenscript"};
+	BannedModules = {
+		[4588615641"] = function()
+			local mod = require(4588615641)
+		
+			for i,v in next, mod do
+				if type(v) == 'function' then
+					mod[i] = function()
+						return error("Blocked by OSS Security", 2)
+					end
+				end
+			end
+		
+			setmetatable(mod, {
+				__metatable = "OSS";
+				
+				__newindex = function(self, i, v)
+					return error("Blocked by OSS Security", 2)	
+				end;
+			})
+		end;
+	};
+	
 	OSSLogs = {};
 }
 
