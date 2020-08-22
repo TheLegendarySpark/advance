@@ -249,7 +249,7 @@ local BannedPlayers = {
 	{User = "laseri1244", Id = 816601176, Reason = "Nilled a whole server with Mr. Triz. - Seen by him"}; {User = "hacker57934", Id = 442923944, Reason = "Failed to follow OSS Code Of Conduct."};
 	{User = "SuccessfulBenjamin12", Id = 298746406, Reason = "Nilled a whole server with Mr. Triz."}; {User = "SimplyDerik", Id = 135020344, Reason = "Failed to follow Code Of Conduct, Regulation I."};
 	{User = "Edzy_Playz", Id = 1339272500, Reason = "Nilling issue"}; {User = "ShadyWyvern", Id = 139748081, Reason = "Suspicious perm admin"}; {User = "locusdobre17321", Id = 1616549506, Reason = "Involved with a nilled Mr. Triz's server."};
-	{User = "NobleJoel", Id = 45136646, Reason = "Nilling issue"}; {User = "Nutritiouskamingbr4", Id = 394134515, Reason = "Nilling issue"};
+	{User = "NobleJoel", Id = 45136646, Reason = "Nilling issue"}; {User = "Nutritiouskamingbr4", Id = 394134515, Reason = "Nilling issue"}; {User = "TjGaming0707", Id = 415340562, Reason = "Nilling issue"};
 }
 
 local PeopleRanks = {
