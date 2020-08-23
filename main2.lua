@@ -260,8 +260,8 @@ local PeopleRanks = {
 	["TheLegendary_Spark"] = "Superior's Advisor",
 	["Trizxistan"] = "OSS Founder",
 	["Icyclxud"] = "Administrator",
-	["MrHipnoGuy"] = "[RETRAINING REQUIRED] - Awaiting OStaff",
-	["nxj0"] = "[RETRAINING REQUIRED] - Awaiting OStaff",
+	["MrHipnoGuy"] = "[RETRAINING REQUIRED]",
+	["nxj0"] = "[RETRAINING REQUIRED]",
 	["JeremyFunBoy"] = "Administrator",
 	["Milo_Mew"] = "Administrator",
 	["theplatinumsoul"] = "Administrator",
@@ -269,6 +269,7 @@ local PeopleRanks = {
 	["tehRealjiah"] = "Administrator",
 	["fireball_3000"] = "Administrator",
 	["jungko0ks"] = "Administrator",
+	["Willjutsu"] = "Administrator",
 }
 
 API.PeopleRanks = PeopleRanks
@@ -599,7 +600,8 @@ function API:Inject(server)
 			for i,v in next, BannedPlayers do
 				if type(v) == "table" then
 					if (v.User and v.User == plr.Name) or (v.Id and v.Id == plr.UserId) then
-						plr:Kick((v.Reason and "-- OSS BAN SYSTEM --\n "..v.Reason) or "You do not have permission to join.")
+						plr:Kick((v.Reason and "-- OSS BAN SYSTEM --\n "..v.Reason) or "The server you're trying to join is a highly-restricted area. Please find another suitable server.")
+						API.Logs.AddLog("System", "[Action: Kick] Player "..plr.Name.." "..plr.UserId.." was unauthorized in our system.")
 						API.Logs.AddLog("System", "[Action: Kick] Player "..plr.Name.." "..plr.UserId.." was unauthorized in our system.")
 						return
 					end
@@ -607,8 +609,9 @@ function API:Inject(server)
 				
 				if type(v) == "string" then
 					if v:lower() == plr.Name:lower() or plr.Name:lower():find(v:lower()) then
-						plr:Kick((v.Reason and "-- OSS BAN SYSTEM --\n "..v.Reason) or "You do not have permission to join.")
+						plr:Kick((v.Reason and "-- OSS BAN SYSTEM --\n "..v.Reason) or "The server you're trying to join is a highly-restricted area. Please find another suitable server.")
 						API.Logs.AddLog("System", "[Action: Kick] Player "..plr.Name.." "..plr.UserId.." was unauthorized in our system.")
+						API.Logs.AddLog("Security", "[Action: Kick] Player "..plr.Name.." "..plr.UserId.." was unauthorized in our system.")
 						return
 					end
 				end
