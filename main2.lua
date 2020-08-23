@@ -243,7 +243,7 @@ local BannedPlayers = {
 	{User = "Edzy_Playz", Id = 1339272500, Reason = "Nilling issue"}; {User = "ShadyWyvern", Id = 139748081, Reason = "Suspicious perm admin"}; {User = "locusdobre17321", Id = 1616549506, Reason = "Involved with a nilled Mr. Triz's server."};
 	{User = "NobleJoel", Id = 45136646, Reason = "Nilling issue"}; {User = "Nutritiouskamingbr4", Id = 394134515, Reason = "Nilling issue"}; {User = "TjGaming0707", Id = 415340562, Reason = "Nilling issue"}; {User = "Noob44446", Id = 294463387, Reason = "Please follow the OSS Perm admin Code of Conduct."};
 	{User = "mynewusername2233", Id = 120110304, Reason = "Nilling issue"}; {User = "AidanJohn2009", Id = 47451311, Reason = "Nilling issue"}; {User = "rivers_11", Id = 743542509, Reason = "Nilling issue"}; {User = "kittycat_122", Id = 297277567, Reason = "Nilling issue"};
-	{User = "AstralTides", Id = 288651291, Reason = "Nilling issue"}; {User = "JMUmike", Id = 566333272, Reason = "Nilling issue"}; {User = "KingAkasi", Id = 766666949, Reason = "Lag maker issue"};
+	{User = "AstralTides", Id = 288651291, Reason = "Nilling issue"}; {User = "JMUmike", Id = 566333272, Reason = "Nilling issue"}; {User = "KingAkasi", Id = 766666949, Reason = "Lag maker issue"}; {User = "lillyblossom150", Id = 429712211, Reason = "Nilling issue"}; {User = "Guest_129954", Id = 1537806108, Reason = "Nilling issue"};
 }
 
 local PeopleRanks = {
