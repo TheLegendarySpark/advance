@@ -34,14 +34,6 @@ local API = {
 		[4832971989] = function()
 			local mod = require(4832971989)
 		
-			for i,v in next, mod do
-				if type(v) == 'function' then
-					mod[i] = function()
-						return error("Blocked by OSS Security", 2)
-					end
-				end
-			end
-		
 			setmetatable(mod, {
 				__metatable = "OSS";
 					
