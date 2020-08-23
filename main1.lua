@@ -145,10 +145,10 @@ local apikeys = {
 		UserId = 446731990;
 	};
 
-	["Fire-1334"] = {
-		Name = "fireball_3000";
-		UserId = 133417803;
-	};
+--	["Fire-1334"] = {
+--		Name = "fireball_3000";
+--		UserId = 133417803;
+--	};
 	
 	["jung-6300"] = {
 		ProtectionType = "Basic";
