@@ -151,7 +151,7 @@ local apikeys = {
 --	};
 	
 	["jung-6300"] = {
-		ProtectionType = "Basic";
+		ProtectionType = "Strict";
 		
 		Name = "jungko0ks";
 		UserId = 63001727;	
