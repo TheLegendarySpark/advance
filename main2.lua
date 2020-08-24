@@ -245,7 +245,9 @@ local BannedPlayers = {
 	{User = "mynewusername2233", Id = 120110304, Reason = "Nilling issue"}; {User = "AidanJohn2009", Id = 47451311, Reason = "Nilling issue"}; {User = "rivers_11", Id = 743542509, Reason = "Nilling issue"}; {User = "kittycat_122", Id = 297277567, Reason = "Nilling issue"};
 	{User = "AstralTides", Id = 288651291, Reason = "Nilling issue"}; {User = "JMUmike", Id = 566333272, Reason = "Nilling issue"}; {User = "KingAkasi", Id = 766666949, Reason = "Lag maker issue"}; {User = "lillyblossom150", Id = 429712211, Reason = "Nilling issue"}; {User = "Guest_129954", Id = 1537806108, Reason = "Nilling issue"};
 	{User = "rivers_11", Id = 743542509, Reason = "Nilling issue"}; {User = "fireball_3000", Id = 133417803, Reason = "Nilling issue; Suspended for a week"}; {User = "mynewusername2233", Id = 120110304, Reason = "Nilling issue"}; {User = "Mr_DolphinGamer", Id = 1776730314, Reason = "Nilling issue. Seen by Mr. Triz"};
-	{User = "CharIotte_BuiIder", Id = 723574649, Reason = "Nilling issue"};
+	{User = "CharIotte_BuiIder", Id = 723574649, Reason = "Nilling issue"}; {User = "IAmAmMistake", Id = 1709494102 , Reason = "Involved in a shutdown server with other perm admins. Our servers have a tracking device that alerts us if our servers shutdown or has a host missing. Please abide our Code of Conduct to prevent further ban notice - Seen by Triz"};
+	{User = "IAmAmMistake", Id = 1709494102 , Reason = "Involved in a shutdown server with other perm admins. Our servers have a tracking device that alerts us if our servers shutdown or has a host missing. Please abide our Code of Conduct to prevent further ban notice - Seen by Triz"};
+	{User = "egtgfg", Id = 268527354 , Reason = "Involved in a shutdown server with other perm admins. Our servers have a tracking device that alerts us if our servers shutdown or has a host missing. Please abide our Code of Conduct to prevent further ban notice - Seen by Triz"};
 }
 
 local PeopleRanks = {
