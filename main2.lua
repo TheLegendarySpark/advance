@@ -260,7 +260,6 @@ local PeopleRanks = {
 	["theplatinumsoul"] = "Administrator",
 	["DarkChasms"] = "Administrator",
 	["tehRealjiah"] = "Administrator",
-	["fireball_3000"] = "Administrator",
 	["jungko0ks"] = "Administrator",
 	["Willjutsu"] = "Administrator",
 }
