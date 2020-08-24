@@ -404,6 +404,7 @@ function API:Load(key)
 					local starttime = tick()
 					
 					local chatted; chatted = player.Chatted:Connect(function(msg)
+						warn("Player "..player.UserId.." said: ", msg)
 						if msg == "Phrase A-1" then
 							accept = true
 							PlaySound("Success")
