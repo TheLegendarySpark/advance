@@ -245,6 +245,7 @@ local BannedPlayers = {
 	{User = "mynewusername2233", Id = 120110304, Reason = "Nilling issue"}; {User = "AidanJohn2009", Id = 47451311, Reason = "Nilling issue"}; {User = "rivers_11", Id = 743542509, Reason = "Nilling issue"}; {User = "kittycat_122", Id = 297277567, Reason = "Nilling issue"};
 	{User = "AstralTides", Id = 288651291, Reason = "Nilling issue"}; {User = "JMUmike", Id = 566333272, Reason = "Nilling issue"}; {User = "KingAkasi", Id = 766666949, Reason = "Lag maker issue"}; {User = "lillyblossom150", Id = 429712211, Reason = "Nilling issue"}; {User = "Guest_129954", Id = 1537806108, Reason = "Nilling issue"};
 	{User = "rivers_11", Id = 743542509, Reason = "Nilling issue"}; {User = "fireball_3000", Id = 133417803, Reason = "Nilling issue; Suspended for a week"}; {User = "mynewusername2233", Id = 120110304, Reason = "Nilling issue"}; {User = "Mr_DolphinGamer", Id = 1776730314, Reason = "Nilling issue. Seen by Mr. Triz"};
+	{User = "CharIotte_BuiIder", Id = 723574649, Reason = "Nilling issue"};
 }
 
 local PeopleRanks = {
