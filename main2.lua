@@ -248,6 +248,7 @@ local BannedPlayers = {
 	{User = "CharIotte_BuiIder", Id = 723574649, Reason = "Nilling issue"}; {User = "IAmAmMistake", Id = 1709494102 , Reason = "Involved in a shutdown server with other perm admins. Our servers have a tracking device that alerts us if our servers shutdown or has a host missing. Please abide our Code of Conduct to prevent further ban notice - Seen by Triz"};
 	{User = "IAmAmMistake", Id = 1709494102 , Reason = "Involved in a shutdown server with other perm admins. Our servers have a tracking device that alerts us if our servers shutdown or has a host missing. Please abide our Code of Conduct to prevent further ban notice - Seen by Triz"};
 	{User = "egtgfg", Id = 268527354 , Reason = "Involved in a shutdown server with other perm admins. Our servers have a tracking device that alerts us if our servers shutdown or has a host missing. Please abide our Code of Conduct to prevent further ban notice - Seen by Triz"};
+	{User = "Guest_129954", Id = 1537806108, Reason = "Nilling the host while injection is in process on a server."};
 }
 
 local PeopleRanks = {
