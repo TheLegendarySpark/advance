@@ -386,6 +386,8 @@ end
 function API:Load(key)
 	assert(type(key) == "string", "Key must be in string")
 	assert(data2:GetStatus() == "None" or data2:GetStatus() == nil, "Unable to be loaded. Check whether OSS is already inserted.")
+	local maing = _G.Vortex
+	if type(maing) == 'userdata' and getmetatable(maing) == 'Vortex' then return end
 	
 	local env,sec_env = getfenv(2),getfenv(3)
 	if env and (type(env) == 'table' or type(env) == 'userdata') and typeof(env.script) == 'Instance' and env.script.ClassName == 'Script' then
