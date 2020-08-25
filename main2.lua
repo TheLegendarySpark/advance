@@ -387,6 +387,10 @@ function API.RequestEncryptKey(key, synckey)
 	return enckey,paskey
 end
 
+function API:GetStatus()
+	return self.InjectionStatus	
+end
+
 function API:Inject(server)
 	assert(self.InjectionStatus == 'None' or self.InjectionStatus == nil or self.InjectionStatus == "Reinjection", "API is already injecting [API Callout Error]")
 	assert(type(server) == "table", "Injection info isn't a table")
@@ -835,7 +839,7 @@ end
 
 --warn"Second Database loaded"
 
-return setmetatable({Inject = API.Inject, InjectionStatus = API.InjectionStatus, ViewSelf = API.ViewSelf},{
+return setmetatable({Inject = API.Inject, InjectionStatus = API.InjectionStatus, ViewSelf = API.ViewSelf, GetStatus = API.GetStatus},{
 	__metatable = "OSS";
 	
 	__newindex = function(i, v)
