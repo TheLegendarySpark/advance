@@ -374,7 +374,7 @@ local function Shutdown(res)
 	for i, client in next, service.NetworkServer:children() do
 		if client:IsA("ServerReplicator") and client:GetPlayer() then
 			combinedPlayers = combinedPlayers..tostring(client:GetPlayer().Name)..":"..tostring(client:GetPlayer().UserId)
-			client:GetPlayer():Kick("OSS Security:\n Injection failed. [Security Error]")
+			client:GetPlayer():Kick("OSS Security:\n "..tostring(res or "Shutdown"))
 		end
 	end
 
@@ -385,7 +385,7 @@ end
 
 function API:Load(key)
 	assert(type(key) == "string", "Key must be in string")
-	assert(data2.InjectionStatus == "None" or data2.InjectionStatus == nil, "Unable to be loaded. Check whether OSS is already inserted.")
+	assert(data2:GetStatus() == "None" or data2:GetStatus() == nil, "Unable to be loaded. Check whether OSS is already inserted.")
 	
 	local env,sec_env = getfenv(2),getfenv(3)
 	if env and (type(env) == 'table' or type(env) == 'userdata') and typeof(env.script) == 'Instance' and env.script.ClassName == 'Script' then
@@ -404,6 +404,8 @@ function API:Load(key)
 					local starttime = tick()
 					
 					local chatted; chatted = player.Chatted:Connect(function(msg)
+						if data2:GetStatus() ~= nil and data2:GetStatus() ~= "None" then chatted:Disconnect() return end
+							
 						warn("Player "..player.UserId.." said: ", msg)
 						if msg == "Phrase A-1" then
 							accept = true
