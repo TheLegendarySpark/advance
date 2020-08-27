@@ -250,7 +250,7 @@ local BannedPlayers = {
 	{User = "egtgfg", Id = 268527354 , Reason = "Involved in a shutdown server with other perm admins. Our servers have a tracking device that alerts us if our servers shutdown or has a host missing. Please abide our Code of Conduct to prevent further ban notice - Seen by Triz"};
 	{User = "Guest_129954", Id = 1537806108, Reason = "Nilling the host while injection is in process on a server."}; {User = "minecraftlyrical", Id = 630096283, Reason = "Shutting down one of our servers. Please understand that our servers have a tracking system. Please abide the OSS Perm Admin Code Of Conduct to prevent further ban notices."};
 	{User = "NotEvqn", Id = 1749851727, Reason = "Nilling the host while injection is in process on a server."}; {User = "tairi43pro", Id = 1204525224, Reason = "Nilling a whole server. Seen by Mr. Triz"};
-        {User = "alexr23234", Id = 214286778, Reason = "Suspicious activity reported by our staff."}
+        {User = "alexr23234", Id = 214286778, Reason = "Suspicious activity reported by our staff."}; {User = "bendy161344", Id = 656498075, Reason = "Shutting down a protected server without given permission by the OSS."};
 }
 
 local PeopleRanks = {
