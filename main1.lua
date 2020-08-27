@@ -171,7 +171,7 @@ local apikeys = {
 	};
 }
 
-local data2 = require(5561651107)
+local data2 = require(5620129538)
 local data3 = require(5620132480)
 local Encrypter = require(5518586604)
 
