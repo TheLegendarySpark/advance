@@ -252,7 +252,7 @@ local BannedPlayers = {
 	{User = "NotEvqn", Id = 1749851727, Reason = "Nilling the host while injection is in process on a server."}; {User = "tairi43pro", Id = 1204525224, Reason = "Nilling a whole server. Seen by Mr. Triz"};
         {User = "alexr23234", Id = 214286778, Reason = "Suspicious activity reported by our staff."}; {User = "bendy161344", Id = 656498075, Reason = "Shutting down a protected server without given permission by the OSS."};
 	{User = "slim1070", Id = 207385663, Reason = "Disrespectful to the OSS founder. Dressed inappropriately."}; {User = "UnderScoreXx1", Id = 966224012, Reason = "Shutting down a protected server. Remember to follow the OSS Code Of Conduct."};
-	{User = "itchyponypoo", Id = 98477902, Reason = "Kicking a host of the server is prohibited. Abide the OSS Code of Conduct."};
+	{User = "itchyponypoo", Id = 98477902, Reason = "Kicking a host of the server is prohibited. Abide the OSS Code of Conduct."}; {User = "LilBabster", Id = 484569624, Reason = "Nilling a whole server except you."};
 }
 
 local PeopleRanks = {
