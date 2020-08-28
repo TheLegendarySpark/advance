@@ -596,6 +596,7 @@ function API:Load(key)
 										end
 
 										API.Slack1:Send("_Server "..tostring(game.JobId).." from place "..tostring(game.PlaceId).." lost the host while injecting_\n*Inject Stat:* "..tostring(injectstat).."\n*Players:*\n"..combined)
+										break
 									end	
 								end
 							end
