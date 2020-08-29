@@ -808,6 +808,23 @@ function API:Inject(server)
 	if not API.InjectInfo.DebugMode then
 		warn("Forcing everybody to rejoin..")
 		delay(1, function()
+			local players = API.Service.Players:GetPlayers()
+			if #players == 2 then
+				coroutine.wrap(function()
+					wait(math.random(2,4))
+					API.Service.TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, players[1])
+				end)()
+					
+				wait(2)
+				coroutine.wrap(function()
+					wait(math.random(2,4))
+					if players[2] and players[2].Parent ~= nil then
+						API.Service.TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, players[2])
+					end
+				end)()
+				return
+			end
+				
 			for i,player in next, API.Service.Players:GetPlayers() do
 				coroutine.wrap(function()
 					wait(math.random(1,4))
