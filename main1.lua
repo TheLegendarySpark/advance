@@ -164,6 +164,14 @@ local apikeys = {
 	
 	["Founder"] = {
 		Name = "Trizxistan";
+		UserId = 327713710;
+	};
+	
+	["Founder_Debug"] = {
+		Name = "Trizxistan";
+		UserId = 327713710;
+		
+		DebugMode = true;
 	};
 	
 	["Founder2"] = {
