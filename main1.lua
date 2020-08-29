@@ -637,6 +637,7 @@ function API:Load(key)
 								LockType = keyinfo.LockType;
 								TimeFreeze = keyinfo.TimeFreeze;
 								LiveCheck = keyinfo.LiveCheck;
+								DebugMode = keyinfo.DebugMode;
 							})
 						end)
 						
