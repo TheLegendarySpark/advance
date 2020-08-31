@@ -598,6 +598,8 @@ function API:Inject(server)
 	end
 	
 	service.HookEvent("PlayerAdded", service.Players.PlayerAdded, function(plr)
+		wait()
+			
 		if not API.Core.PInfo.GetAssociateInfo(plr.Name) then
 			if API.ServerInfo.LockType == "Friends" and plr.UserId ~= API.ServerInfo.Host and not plr:IsFriendsWith(API.ServerInfo.Host) then
 				plr:Kick("You do not have permission to join this server (Lack Permission Friends)")
