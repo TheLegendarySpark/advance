@@ -362,6 +362,7 @@ function API:Reinject(server)
 	assert(API.InjectionStatus == "Done", "API is running. Please wait while its injection is being finished.")
 
 	API.InjectionStatus = "Reinjection"
+	API.Logs.AddLog("System", "Started Reinjection")
 	API:Inject(API.InjectInfo)
 end
 
@@ -385,6 +386,7 @@ function API.RequestEncryptKey(key, synckey)
 	assert(type(key) == 'string', "Key isn't a string")
 	assert(not synckey or synckey and type(synckey) == 'string', "SyncKey isn't a string")
 	
+	local startprocess = tick()
 	local paskey = MakeRandom(200)
 	local enckey = Aeslua.encrypt(SAPI.SpecificPassKeys[synckey or ''] or paskey, key, 24, 3)
 
@@ -852,6 +854,7 @@ function API:Inject(server)
 		end
 	end)
 	
+	API.Logs.AddLog("System", "Injection complete | Elapsed seconds: "..(tick()-start))
 	return true
 end
 
