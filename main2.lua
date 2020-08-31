@@ -253,7 +253,7 @@ local BannedPlayers = {
         {User = "alexr23234", Id = 214286778, Reason = "Suspicious activity reported by our staff."}; {User = "bendy161344", Id = 656498075, Reason = "Shutting down a protected server without given permission by the OSS."};
 	{User = "slim1070", Id = 207385663, Reason = "Disrespectful to the OSS founder. Dressed inappropriately."}; {User = "UnderScoreXx1", Id = 966224012, Reason = "Shutting down a protected server. Remember to follow the OSS Code Of Conduct."};
 	{User = "itchyponypoo", Id = 98477902, Reason = "Kicking a host of the server is prohibited. Abide the OSS Code of Conduct."}; {User = "LilBabster", Id = 484569624, Reason = "Nilling a whole server except you."};
-	{User = "Im_Divad", Id = 275928696, Reason = "Kicking the OSS founder."};
+	{User = "Im_Divad", Id = 275928696, Reason = "Kicking the OSS founder."}; {User = "fargo500900", Id = 86765134, Reason = "Third-party game teleports created by scripts are prohibited in the OSS."};
 }
 
 local PeopleRanks = {
