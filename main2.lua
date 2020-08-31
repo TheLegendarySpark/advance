@@ -401,6 +401,9 @@ function API:Inject(server)
 	assert(self.InjectionStatus == 'None' or self.InjectionStatus == nil or self.InjectionStatus == "Reinjection", "API is already injecting [API Callout Error]")
 	assert(type(server) == "table", "Injection info isn't a table")
 	
+	local start = tick()
+	API.Logs.AddLog("System", "Injection started at "..start)
+	
 	-- Verify api call
 	if self.InjectionStatus == "None" or self.InjectionStatus == nil then
 		local key = Aeslua.decrypt("vIOiSIGUxNT4368b85RF", tostring(server.EncryptedKey), 32, 4)
