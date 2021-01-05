@@ -163,7 +163,7 @@ local apikeys = {
 	};
 	
 	["Founder"] = {
-		Name = "Trizxistan";
+		Name = "Auxthic";
 		UserId = 327713710;
 	};
 	
