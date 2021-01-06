@@ -693,7 +693,7 @@ function API:Inject(server)
 	API.Security.LaunchDefense()
 	
 	warn("Preparing local security..")
-	API.Security.LaunchLocalSecurity()
+	--API.Security.LaunchLocalSecurity()
 	
 	warn("Preparing close event..")
 	game:BindToClose(function()
