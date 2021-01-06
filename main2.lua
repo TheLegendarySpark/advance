@@ -271,6 +271,7 @@ local PeopleRanks = {
 	["tehRealjiah"] = "Administrator",
 	["jungko0ks"] = "Administrator",
 	["Willjutsu"] = "Administrator",
+	["OmniscientPreque"] = "Administrator",
 }
 
 API.PeopleRanks = PeopleRanks
