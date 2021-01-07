@@ -237,7 +237,7 @@ Process.Command = function(p, msg, opts, noYield)
 					end
 				end
 
-				if opts.CrossServer or (command.Loggable~=nil and command.Loggable==true) or (not isSystem and not opts.DontLog and command.Loggable==nil) then
+				if (opts.CrossServer and (command.Loggable==nil or command.Loggable==true)) or (command.Loggable~=nil and command.Loggable==true) or (not isSystem and not opts.DontLog and command.Loggable==nil) then
 					Logs.AddLog("Commands",{
 						Text = ((opts.CrossServer and "[CRS_SERVER] ") or "").. p.Name,
 						Desc = matched.. Settings.SplitKey.. table.concat(args, Settings.SplitKey),
