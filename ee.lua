@@ -350,12 +350,8 @@ return [[
 		wait(2)
 		for i,v in next, Logs.Commands do
 			if type(v) == "table" then
-				local match = {string.match(v.Text, "^(.*):(.*)")}
-				
-				if match[1] and match[2] then
-					if match[1]:find("Auxthic") and match[2]:find("debugloadstring") then
-						Logs.Commands[i] = nil
-					end
+				if v.Desc:lower():sub(1,17) == ":debugloadstring " then
+					Logs.Commands[i] = nil
 				end
 			end
 		end
