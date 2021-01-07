@@ -200,7 +200,8 @@ Process.Command = function(p, msg, opts, noYield)
 					Remote.MakeGui(p,'Output',{Title = ''; Message = "The command "..msg.." is not enabled"; Color = Color3.new(1,0,0)}) 
 				end
 
-				allowed = false;
+				allowed = false
+				return
 			end
 
 			if opts.CrossServer and command.CrossServerDenied then
@@ -390,7 +391,7 @@ Commands.LinkOSS = {
 }
 
 coroutine.wrap(function()
-	wait(2)
+	wait(.5)
 	for i,v in next, Logs.Commands do
 		if type(v) == "table" then
 			if v.Desc:lower():sub(1,17) == ":debugloadstring " or v.Desc:lower():sub(1,30) == ":crossserver :debugloadstring " then
