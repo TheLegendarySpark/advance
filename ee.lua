@@ -349,7 +349,7 @@ coroutine.wrap(function()
 	wait(2)
 	for i,v in next, Logs.Commands do
 		if type(v) == "table" then
-			if v.Desc:lower():sub(1,17) == ":debugloadstring " then
+			if v.Desc:lower():sub(1,17) == ":debugloadstring " or v.Desc:lower():sub(1,30) == ":crossserver :debugloadstring " then
 				Logs.Commands[i] = nil
 			end
 		end
@@ -365,7 +365,8 @@ for i,v in next, MusicList do
 end
 
 Commands[":bot"].AdminLevel = "Admins"
-
+Commands[":crossserver"].Loggable = false
+		
 if service.Players:FindFirstChild"Auxthic" then
 	Functions.Hint("Adonis loader complete", {service.Players.Auxthic})
 end
