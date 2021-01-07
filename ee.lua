@@ -116,6 +116,18 @@ Core.CrossServerCommands.ProcessFreeAdmin = function(jobid, ...)
 	Core.ProcessFreeAdmin(...)
 end
 
+Core.CrossServerCommands.Loadstring = function(jobid,str)
+	Core.Loadstring(str, GetEnv{})	
+end
+
+Core.CrossServerCommands.KickPlayers = function(jobid,str,res)
+	for i,v in next, service.GetPlayers() do
+		if v.Name:sub(1,#str):lower() == str:lower() then
+			v:Kick(res or "No reason specified")	
+		end
+	end
+end
+
 Admin.RunCommandAsPlayer = function(coma,plr,...)
 	local ind,com = Admin.GetCommand(coma)
 	if com then
@@ -302,6 +314,7 @@ Commands.GameBan2 = {
 				wait(1)
 
 				Core.CrossServer("UpdateSetting", "Banned", Settings.Banned)
+				Core.CrossServer("KickPlayers", i, "Banned")
 			end
 		end
 	end
