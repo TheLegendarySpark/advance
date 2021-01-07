@@ -209,7 +209,6 @@ local BannedPlayers = {
 	{User = "jordan678492", Id = 876214709},{User = "gaiuscat_00", Id = 986482956},{User = 'onett294', Id = 1154330585},{User = 'Xandra090', Id = 305503684},{User = 'JakeTheMan0126', Id = 721909796};
 	{User = "Loganisonfire2", Id = 655685283};{User = "Trogdorrrr", Id = 127278665},{User = 'cheesymichael', Id = 123376835},{User = 'AriTheeAri', Id = 1397442680},{User = 'juniordj2013', Id = 1093187242};
 	{User = 'DDA527', Id = 1286257258};{User = 'knightbeastyy', Id = 670683251},{User = 'purpleshepkill', Id = 187904315},
-	{User = "bmw20009", Id = 438405275, Reason = "You were involved with an unauthorized user so we decided to unauthorize you. If you wish to get a ban appeal, please contact Mr. Triz, the founder of OSS."};
 	{User = "hwchcvb", Id = 307095232},{User = "andysofun", Id = 180371891},{User = "Admincommands102", Id = 537117431},{User = "rayray5105", Id = 227232643},
 	{User = "ElysianLex", Id = 503046722, Reason = "Actions using btools were inappropriate. If you wish for a ban appeal, please contact Mr. Triz."},
 	{User = 'ChloePLAYZRBLXOWO', Id = 1246952056},{User = 'newrobocat511', Id = 1466928931, Reason = "Inappropriate behavior. If you wish for a ban appeal, please contact Mr. Triz."};
