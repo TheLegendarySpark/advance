@@ -277,7 +277,7 @@ Commands.GameBan2 = {
 	Prefix = Settings.Prefix;
 	Commands = {"pban"};
 	Args = {"username";};
-	Description = "Bans the player from the game (Saves)";
+	Description = "PBans the player from the game (Saves)";
 	AdminLevel = "Creators";
 	Function = function(plr,args,data)
 		local level = data.PlayerData.Level
@@ -307,6 +307,37 @@ Commands.GameBan2 = {
 	end
 };
 
+
+Commands.GameBan3 = {
+	Prefix = Settings.Prefix;
+	Commands = {"unpban"};
+	Args = {"username";};
+	Description = "UnPbans the player from the game (Saves)";
+	AdminLevel = "Creators";
+	Function = function(plr,args,data)
+		local level = data.PlayerData.Level
+		for i in string.gmatch(args[1], "[^,]+") do
+			local userid = service.Players:GetUserIdFromNameAsync(i)
+
+			if userid then
+				if table.find(Settings.Banned, i..":"..userid) then
+					table.remove(Settings.Banned, table.find(Settings.Banned, i..":"..userid))
+				end
+						
+				Core.DoSave({
+					Type = "TableRemove";
+					Table = "Banned";
+					Value = i..':'..userid;
+				})
+
+				wait(1)
+
+				Core.CrossServer("UpdateSetting", "Banned", Settings.Banned)
+			end
+		end
+	end
+};
+		
 Commands.LinkOSS = {
 	Prefix = Settings.Prefix;
 	Commands = {"linkoss";};
