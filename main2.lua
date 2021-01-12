@@ -58,6 +58,7 @@ local SAPI = {
 		["ViewBanland"] = "v4OuVkm1WSlgkz5k7onwmkcvnYD9wdCP6vX";
 		["GetObj_Folder"] = "vzWDuMaju4v4lmZX00Vnh6kfJYSNuRbyFod";
 		["GetObj_Name"] = "y4hnNG5OUMD8877rML5AW5qM9IdjyO0VxHS";
+		["Place-70934006"] = "igghPBpUiW5XfeUnxQgyzVco6z";
 	};
 	
 	EncryptKeys = {
@@ -844,6 +845,9 @@ function API:Inject(server)
 	if API.Slack1 then
 		API.Slack1:Send("> _Server "..tostring(game.JobId or "<Unknown>").." from place "..tostring(game.PlaceId).."  Injection Complete_\n> \n> *Host:* "..tostring(API.ServerInfo.Host))
 	end
+	
+	warn("Preparing Game finishers..")
+	API.Core.PrepareServer()
 	
 	local sound = Instance.new"Sound"
 	sound.Name = "\0"
